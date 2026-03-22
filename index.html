@@ -73,25 +73,6 @@
     .add-to-cart-btn:hover {
       background: #e63946;
     }
-    .feature {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px; /* مسافة أقل */
-      font-size: 1.05rem;
-      margin-bottom: 8px;
-      color: #ddd;
-    }
-    .feature i {
-      color: #d4af37;
-      font-size: 1.1rem; /* حجم الأيقونة أصغر */
-    }
-    .sales-counter {
-      font-size: 0.9rem;
-      color: #aaa;
-      margin-top: 8px;
-      text-align: center;
-    }
     .whatsapp-float, .cart-float {
       position: fixed;
       bottom: 24px;
@@ -301,42 +282,40 @@
             <span class="text-sm md:text-lg text-gray-400">Jannat Al-Fawah – Luxury</span>
           </h3>
           <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <p class="sales-counter">تم بيع +{{Math.floor(Math.random() * 251) + 50}} خلال الشهر الماضي</p>
           <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – الفخامة', 15)" class="add-to-cart-btn">
             أضف إلى السلة • Add to Cart
           </button>
         </div>
       </div>
 
-      <!-- 3. ناعم -->
+      <!-- 3. زهور بيضاء -->
       <div class="card" onclick="openLightbox('https://i.ibb.co/V0nJW4CY/IMG-7280.jpg')">
         <div class="relative">
-          <img src="https://i.ibb.co/V0nJW4CY/IMG-7280.jpg" class="product-img" alt="عطر جنات الفواح ناعم">
+          <img src="https://i.ibb.co/V0nJW4CY/IMG-7280.jpg" class="product-img" alt="عطر جنات الفواحزهور بيضاء">
           <span class="badge absolute top-3 right-3">الأكثر مبيعًا</span>
         </div>
         <div class="p-4 md:p-6 text-center">
           <h3 class="text-lg md:text-2xl font-bold mb-2 truncate-2">
-            عطر جنات الفواح – ناعم<br>
+            عطر جنات الفواح – زهور بيضاء<br>
             <span class="text-sm md:text-lg text-gray-400">Jannat Al-Fawah – Soft</span>
           </h3>
           <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <p class="sales-counter">تم بيع +{{Math.floor(Math.random() * 251) + 50}} خلال الشهر الماضي</p>
-          <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – ناعم', 15)" class="add-to-cart-btn">
+          <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – زهور بيضاء', 15)" class="add-to-cart-btn">
             أضف إلى السلة • Add to Cart
           </button>
         </div>
       </div>
 
-      <!-- 4. قوي -->
+      <!-- 4. فواكه -->
       <div class="card" onclick="openLightbox('https://i.ibb.co/Y7B86C54/IMG-7279.jpg')">
-        <img src="https://i.ibb.co/Y7B86C54/IMG-7279.jpg" class="product-img" alt="عطر جنات الفواح قوي">
+        <img src="https://i.ibb.co/Y7B86C54/IMG-7279.jpg" class="product-img" alt="عطر جنات الفواح فواكه إستوائية ">
         <div class="p-4 md:p-6 text-center">
           <h3 class="text-lg md:text-2xl font-bold mb-2 truncate-2">
-            عطر جنات الفواح – قوي<br>
+            عطر جنات الفواح – فواكه<br>
             <span class="text-sm md:text-lg text-gray-400">Jannat Al-Fawah – Strong</span>
           </h3>
           <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – قوي', 15)" class="add-to-cart-btn">
+          <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – فواكه', 15)" class="add-to-cart-btn">
             أضف إلى السلة • Add to Cart
           </button>
         </div>
@@ -369,7 +348,6 @@
             <span class="text-sm md:text-lg text-gray-400">Burnt Oil & Grease Remover</span>
           </h3>
           <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <p class="sales-counter">
           <button onclick="event.stopPropagation(); addToCart('مزيل الزيوت والشحوم المحروقة', 15)" class="add-to-cart-btn">
             أضف إلى السلة • Add to Cart
           </button>
@@ -394,15 +372,15 @@
     <div class="text-2xl mb-8 space-y-4 flex flex-col items-center">
       <div class="phone-container">
         <i class="fas fa-phone-alt mr-3"></i>
-        <span class="ltr-text">050 885 1549</span>
+        <span class="ltr">050 885 1549</span>
       </div>
       <div class="phone-container">
         <i class="fas fa-phone-alt mr-3"></i>
-        <span class="ltr-text">050 559 0203</span>
+        <span class="ltr">050 559 0203</span>
       </div>
       <div class="phone-container">
         <i class="fas fa-envelope mr-3"></i>
-        <span class="ltr-text">info@rapidbhpro.com</span>
+        <span class="ltr">info@rapidbhpro.com</span>
       </div>
     </div>
 
