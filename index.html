@@ -59,6 +59,11 @@
       border-radius: 999px;
       font-size: 1.1rem;
     }
+    .sold-tag {
+      font-size: 0.85rem;
+      color: #d4af37;
+      font-weight: 600;
+    }
     .add-to-cart-btn {
       background: #222;
       color: white;
@@ -105,7 +110,7 @@
       align-items: center;
       justify-content: center;
     }
-    .cart-modal {
+    .cart-modal, .lightbox {
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.8);
@@ -124,73 +129,34 @@
       overflow-y: auto;
       padding: 24px;
     }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #222;
+    .nav-link {
+      transition: all 0.3s;
     }
-    .cart-total {
-      font-size: 1.3rem;
-      font-weight: bold;
-      margin-top: 20px;
-      text-align: left;
+    .nav-link:hover {
+      color: #e63946;
     }
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)),
-                  url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&auto=format&fit=crop&q=80');
-      background-size: cover;
-      background-position: center;
-      min-height: 80vh;
-    }
-    .ltr { direction: ltr; unicode-bidi: embed; display: inline-block; }
-    .phone-container {
-      direction: ltr;
-      unicode-bidi: isolate;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-    }
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.95);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10001;
-      cursor: pointer;
-    }
-    .lightbox-content {
-      position: relative;
-      max-width: 95vw;
-      max-height: 95vh;
-    }
-    .lightbox-img {
-      max-width: 100%;
-      max-height: 90vh;
+    .review-card {
+      background: #1a1a1a;
+      border: 1px solid #333;
       border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(230, 57, 70, 0.3);
-    }
-    .lightbox-hint {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #aaa;
-      font-size: 0.9rem;
-      background: rgba(0,0,0,0.6);
-      padding: 6px 16px;
-      border-radius: 30px;
-      white-space: nowrap;
-      pointer-events: none;
     }
   </style>
 </head>
 <body>
+
+<!-- Navbar -->
+<nav class="bg-black border-b border-gray-800 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+    <div class="text-2xl font-bold">
+      RAPID <span class="accent-red">BH PRO</span>
+    </div>
+    <div class="flex gap-8 text-lg font-medium">
+      <a href="#" onclick="showPage('home')" class="nav-link text-white">الرئيسية</a>
+      <a href="#" onclick="showPage('about')" class="nav-link text-white">من نحن</a>
+      <a href="#products" onclick="showPage('home')" class="nav-link text-white">المنتجات</a>
+    </div>
+  </div>
+</nav>
 
 <!-- زر واتساب عائم -->
 <a href="https://wa.me/971508851549?text=مرحبا%20%7C%20أود%20الاستفسار%20عن%20منتجات%20RAPID%20BH%20PRO" target="_blank" class="whatsapp-float">
@@ -207,156 +173,251 @@
 <div id="cart-modal" class="cart-modal">
   <div class="cart-content text-white">
     <div class="flex justify-between items-center mb-6">
-      <h2 class="text-2xl font-bold">سلة التسوق • Shopping Cart</h2>
+      <h2 class="text-2xl font-bold">سلة التسوق</h2>
       <button onclick="closeCart()" class="text-3xl">×</button>
     </div>
-    
     <div id="cart-items" class="mb-6"></div>
-    
     <div class="cart-total" id="cart-total">الإجمالي: 0 درهم • Total: 0 AED</div>
-    
     <button onclick="sendCartToWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold text-lg mt-6 transition">
-      اطلب الآن عبر واتساب • Order Now via WhatsApp
+      اطلب الآن عبر واتساب
     </button>
   </div>
 </div>
 
-<!-- Lightbox للصورة الكاملة -->
+<!-- Lightbox -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
   <div class="lightbox-content">
     <img id="lightbox-img" class="lightbox-img" src="" alt="صورة المنتج">
-    <div class="lightbox-hint">اضغط على الصورة مرة أخرى للخروج</div>
+    <div class="lightbox-hint text-center mt-4">اضغط خارج الصورة للخروج</div>
   </div>
 </div>
 
-<!-- Hero -->
-<header class="hero flex items-center justify-center text-center text-white">
-  <div class="max-w-5xl px-6">
-    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-      <span class="accent-red">النظافة</span> الفاخرة<br>
-      <span class="text-4xl md:text-5xl">Luxurious Cleanliness</span>
-    </h1>
-    <p class="text-xl md:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
-      منتجات إماراتية مركزة • رائحة تدوم أيام • تنظيف احترافي بسهولة<br>
-      Emirati concentrated products • Long-lasting fragrance • Professional cleaning made easy
-    </p>
-    <a href="#products" class="bg-accent-red hover:bg-red-700 px-12 py-5 rounded-full text-xl font-bold inline-block transition transform hover:scale-105">
-      استكشف المنتجات • Explore Products
-    </a>
-  </div>
-</header>
+<!-- ==================== صفحة الرئيسية ==================== -->
+<div id="home-page">
 
-<!-- المنتجات -->
-<section id="products" class="py-16 bg-gradient-to-b from-black to-[#111]">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6">
-    <h2 class="text-5xl md:text-6xl font-bold text-center mb-12 accent-gold">
-      منتجاتنا • Our Products
-    </h2>
-    
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
+  <!-- Hero -->
+  <header class="hero flex items-center justify-center text-center text-white min-h-screen">
+    <div class="max-w-5xl px-6">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <span class="accent-red">النظافة</span> الفاخرة<br>
+        <span class="text-4xl md:text-5xl">Luxurious Cleanliness</span>
+      </h1>
+      <p class="text-xl md:text-2xl mb-10 opacity-90">
+        منتجات إماراتية مركزة • رائحة تدوم أيام • تنظيف احترافي بسهولة
+      </p>
+      <a href="#products" class="bg-accent-red hover:bg-red-700 px-12 py-5 rounded-full text-xl font-bold inline-block transition transform hover:scale-105">
+        استكشف المنتجات
+      </a>
+    </div>
+  </header>
 
-      <!-- 1. عود ملكي -->
-      <div class="card" onclick="openLightbox('https://i.ibb.co/9mSytFrM/IMG-7278.jpg')">
-        <img src="https://i.ibb.co/9mSytFrM/IMG-7278.jpg" class="product-img" alt="عطر جنات الفواح عود ملكي">
-        <div class="p-4 md:p-6 text-center">
-          <h3 class="text-lg md:text-2xl font-bold mb-2 truncate-2">
-            عطر جنات الفواح – عود ملكي<br>
-            <span class="text-sm md:text-lg text-gray-400">Jannat Al-Fawah – Royal Oud</span>
-          </h3>
-          <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – عود ملكي', 15)" class="add-to-cart-btn">
-            أضف إلى السلة • Add to Cart
-          </button>
+  <!-- المنتجات -->
+  <section id="products" class="py-16 bg-gradient-to-b from-black to-[#111]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h2 class="text-5xl md:text-6xl font-bold text-center mb-12 accent-gold">
+        منتجاتنا
+      </h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- 1 -->
+        <div class="card" onclick="openLightbox('https://i.ibb.co/9mSytFrM/IMG-7278.jpg')">
+          <img src="https://i.ibb.co/9mSytFrM/IMG-7278.jpg" class="product-img" alt="عطر جنات الفواح عود ملكي">
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-1">عطر جنات الفواح – عود ملكي</h3>
+            <p class="text-gray-400 mb-3">Jannat Al-Fawah – Royal Oud</p>
+            <p class="sold-tag mb-3">تم بيع 187 وحدة</p>
+            <p class="text-xl font-bold price-tag inline-block">15 درهم</p>
+            <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – عود ملكي', 15)" class="add-to-cart-btn">
+              أضف إلى السلة
+            </button>
+          </div>
         </div>
+
+        <!-- 2 -->
+        <div class="card" onclick="openLightbox('https://i.ibb.co/YF8sD3p2/IMG-7285.jpg')">
+          <div class="relative">
+            <img src="https://i.ibb.co/YF8sD3p2/IMG-7285.jpg" class="product-img" alt="عطر جنات الفواح الفخامة">
+            <span class="badge">الأكثر مبيعًا</span>
+          </div>
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-1">عطر جنات الفواح – الفخامة</h3>
+            <p class="text-gray-400 mb-3">Jannat Al-Fawah – Luxury</p>
+            <p class="sold-tag mb-3">تم بيع 243 وحدة</p>
+            <p class="text-xl font-bold price-tag inline-block">15 درهم</p>
+            <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – الفخامة', 15)" class="add-to-cart-btn">
+              أضف إلى السلة
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="card" onclick="openLightbox('https://i.ibb.co/V0nJW4CY/IMG-7280.jpg')">
+          <div class="relative">
+            <img src="https://i.ibb.co/V0nJW4CY/IMG-7280.jpg" class="product-img" alt="عطر جنات الفواح زهور بيضاء">
+            <span class="badge">الأكثر مبيعًا</span>
+          </div>
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-1">عطر جنات الفواح – زهور بيضاء</h3>
+            <p class="text-gray-400 mb-3">Jannat Al-Fawah – Soft</p>
+            <p class="sold-tag mb-3">تم بيع 92 وحدة</p>
+            <p class="text-xl font-bold price-tag inline-block">15 درهم</p>
+            <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – زهور بيضاء', 15)" class="add-to-cart-btn">
+              أضف إلى السلة
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="card" onclick="openLightbox('https://i.ibb.co/Y7B86C54/IMG-7279.jpg')">
+          <img src="https://i.ibb.co/Y7B86C54/IMG-7279.jpg" class="product-img" alt="عطر جنات الفواح فواكه">
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-1">عطر جنات الفواح – فواكه</h3>
+            <p class="text-gray-400 mb-3">Jannat Al-Fawah – Strong</p>
+            <p class="sold-tag mb-3">تم بيع 156 وحدة</p>
+            <p class="text-xl font-bold price-tag inline-block">15 درهم</p>
+            <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – فواكه', 15)" class="add-to-cart-btn">
+              أضف إلى السلة
+            </button>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="card" onclick="openLightbox('https://i.ibb.co/3mcb1trt/IMG-7284.jpg')">
+          <img src="https://i.ibb.co/3mcb1trt/IMG-7284.jpg" class="product-img" alt="مزيل البقع الصعبة">
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-1">مزيل البقع الصعبة BH.PRO99</h3>
+            <p class="text-gray-400 mb-3">Hard Spots Remover</p>
+            <p class="sold-tag mb-3">تم بيع 68 وحدة</p>
+            <p class="text-xl font-bold price-tag inline-block">15 درهم</p>
+            <button onclick="event.stopPropagation(); addToCart('مزيل البقع الصعبة BH.PRO99', 15)" class="add-to-cart-btn">
+              أضف إلى السلة
+            </button>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="card" onclick="openLightbox('https://i.ibb.co/KzxfrNkC/IMG-7281.jpg')">
+          <div class="relative">
+            <img src="https://i.ibb.co/KzxfrNkC/IMG-7281.jpg" class="product-img" alt="مزيل الشحوم">
+            <span class="badge">الأكثر مبيعًا</span>
+          </div>
+          <div class="p-6 text-center">
+            <h3 class="text-2xl font-bold mb-1">مزيل الزيوت والشحوم المحروقة</h3>
+            <p class="text-gray-400 mb-3">Burnt Oil & Grease Remover</p>
+            <p class="sold-tag mb-3">تم بيع 214 وحدة</p>
+            <p class="text-xl font-bold price-tag inline-block">15 درهم</p>
+            <button onclick="event.stopPropagation(); addToCart('مزيل الزيوت والشحوم المحروقة', 15)" class="add-to-cart-btn">
+              أضف إلى السلة
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== صفحة من نحن ==================== -->
+<div id="about-page" class="hidden py-16 bg-gradient-to-b from-black to-[#111]">
+
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h1 class="text-5xl font-bold mb-4 accent-gold">من نحن</h1>
+      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+        RAPID BH PRO هي علامة إماراتية متخصصة في منتجات التنظيف والعطور المركزة الفاخرة. 
+        نركز على جودة عالية ورائحة تدوم طويلاً بأسعار مناسبة.
+      </p>
+    </div>
+
+    <!-- وصف المنتجات -->
+    <h2 class="text-4xl font-bold text-center mb-10 accent-red">وصف المنتجات</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+      <div class="bg-[#111] p-8 rounded-2xl border border-gray-700">
+        <h3 class="text-2xl font-bold mb-3">عطر جنات الفواح – عود ملكي</h3>
+        <p class="text-gray-300">رائحة عود فاخرة ملكية تدوم أيام على الأقمشة والمفروشات.</p>
+      </div>
+      <div class="bg-[#111] p-8 rounded-2xl border border-gray-700">
+        <h3 class="text-2xl font-bold mb-3">عطر جنات الفواح – الفخامة</h3>
+        <p class="text-gray-300">مزيج فاخر يعطي شعور بالرفاهية والأناقة.</p>
+      </div>
+      <div class="bg-[#111] p-8 rounded-2xl border border-gray-700">
+        <h3 class="text-2xl font-bold mb-3">عطر جنات الفواح – زهور بيضاء</h3>
+        <p class="text-gray-300">رائحة زهور ناعمة ومنعشة تناسب كل الأجواء.</p>
+      </div>
+      <div class="bg-[#111] p-8 rounded-2xl border border-gray-700">
+        <h3 class="text-2xl font-bold mb-3">عطر جنات الفواح – فواكه</h3>
+        <p class="text-gray-300">رائحة فواكه استوائية قوية ومنعشة.</p>
+      </div>
+      <div class="bg-[#111] p-8 rounded-2xl border border-gray-700">
+        <h3 class="text-2xl font-bold mb-3">مزيل البقع الصعبة BH.PRO99</h3>
+        <p class="text-gray-300">يزيل البقع الصعبة بسرعة وبدون تعب.</p>
+      </div>
+      <div class="bg-[#111] p-8 rounded-2xl border border-gray-700">
+        <h3 class="text-2xl font-bold mb-3">مزيل الزيوت والشحوم المحروقة</h3>
+        <p class="text-gray-300">أقوى مزيل للشحوم المحروقة في المطابخ.</p>
+      </div>
+    </div>
+
+    <!-- آراء العملاء -->
+    <h2 class="text-4xl font-bold text-center mb-10 accent-red">آراء العملاء</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="review-card p-6">
+        <p class="text-lg italic mb-4">"الريحة تجنن تدوم أيام"</p>
+        <p class="font-semibold">أحمد الشمري</p>
+        <p class="text-sm text-gray-500">منذ أسبوع</p>
       </div>
 
-      <!-- 2. الفخامة -->
-      <div class="card" onclick="openLightbox('https://i.ibb.co/YF8sD3p2/IMG-7285.jpg')">
-        <div class="relative">
-          <img src="https://i.ibb.co/YF8sD3p2/IMG-7285.jpg" class="product-img" alt="عطر جنات الفواح الفخامة">
-          <span class="badge absolute top-3 right-3">الأكثر مبيعًا</span>
-        </div>
-        <div class="p-4 md:p-6 text-center">
-          <h3 class="text-lg md:text-2xl font-bold mb-2 truncate-2">
-            عطر جنات الفواح – الفخامة<br>
-            <span class="text-sm md:text-lg text-gray-400">Jannat Al-Fawah – Luxury</span>
-          </h3>
-          <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – الفخامة', 15)" class="add-to-cart-btn">
-            أضف إلى السلة • Add to Cart
-          </button>
-        </div>
+      <div class="review-card p-6">
+        <p class="text-lg italic mb-4">"تنظيف سريع وما يتعب"</p>
+        <p class="font-semibold">فاطمة الزهراء</p>
+        <p class="text-sm text-gray-500">منذ يومين</p>
       </div>
 
-      <!-- 3. زهور بيضاء -->
-      <div class="card" onclick="openLightbox('https://i.ibb.co/V0nJW4CY/IMG-7280.jpg')">
-        <div class="relative">
-          <img src="https://i.ibb.co/V0nJW4CY/IMG-7280.jpg" class="product-img" alt="عطر جنات الفواحزهور بيضاء">
-          <span class="badge absolute top-3 right-3">الأكثر مبيعًا</span>
-        </div>
-        <div class="p-4 md:p-6 text-center">
-          <h3 class="text-lg md:text-2xl font-bold mb-2 truncate-2">
-            عطر جنات الفواح – زهور بيضاء<br>
-            <span class="text-sm md:text-lg text-gray-400">Jannat Al-Fawah – Soft</span>
-          </h3>
-          <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – زهور بيضاء', 15)" class="add-to-cart-btn">
-            أضف إلى السلة • Add to Cart
-          </button>
-        </div>
+      <div class="review-card p-6">
+        <p class="text-lg italic mb-4">"مزيل الشحوم هذا خرافي"</p>
+        <p class="font-semibold">محمد العتيبي</p>
+        <p class="text-sm text-gray-500">منذ 3 أيام</p>
       </div>
 
-      <!-- 4. فواكه -->
-      <div class="card" onclick="openLightbox('https://i.ibb.co/Y7B86C54/IMG-7279.jpg')">
-        <img src="https://i.ibb.co/Y7B86C54/IMG-7279.jpg" class="product-img" alt="عطر جنات الفواح فواكه إستوائية ">
-        <div class="p-4 md:p-6 text-center">
-          <h3 class="text-lg md:text-2xl font-bold mb-2 truncate-2">
-            عطر جنات الفواح – فواكه<br>
-            <span class="text-sm md:text-lg text-gray-400">Jannat Al-Fawah – Strong</span>
-          </h3>
-          <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <button onclick="event.stopPropagation(); addToCart('عطر جنات الفواح – فواكه', 15)" class="add-to-cart-btn">
-            أضف إلى السلة • Add to Cart
-          </button>
-        </div>
+      <div class="review-card p-6">
+        <p class="text-lg italic mb-4">"رخيص وفاخر مرة"</p>
+        <p class="font-semibold">سارة المهيري</p>
+        <p class="text-sm text-gray-500">منذ أسبوع</p>
       </div>
 
-      <!-- 5. BH.PRO99 -->
-      <div class="card" onclick="openLightbox('https://i.ibb.co/3mcb1trt/IMG-7284.jpg')">
-        <img src="https://i.ibb.co/3mcb1trt/IMG-7284.jpg" class="product-img" alt="مزيل البقع الصعبة">
-        <div class="p-4 md:p-6 text-center">
-          <h3 class="text-lg md:text-2xl font-bold mb-2 truncate-2">
-            مزيل البقع الصعبة<br>
-            <span class="text-sm md:text-lg text-gray-400">Hard Spots Remover</span>
-          </h3>
-          <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <button onclick="event.stopPropagation(); addToCart('مزيل البقع الصعبة BH.PRO99', 15)" class="add-to-cart-btn">
-            أضف إلى السلة • Add to Cart
-          </button>
-        </div>
+      <div class="review-card p-6">
+        <p class="text-lg italic mb-4">"Smell stays for days, wow!"</p>
+        <p class="font-semibold">Fatima Al Mansoori</p>
+        <p class="text-sm text-gray-500">2 weeks ago</p>
       </div>
 
-      <!-- 6. مزيل الشحوم -->
-      <div class="card" onclick="openLightbox('https://i.ibb.co/KzxfrNkC/IMG-7281.jpg')">
-        <div class="relative">
-          <img src="https://i.ibb.co/KzxfrNkC/IMG-7281.jpg" class="product-img" alt="مزيل الزيوت والشحوم المحروقة">
-          <span class="badge absolute top-3 right-3">الأكثر مبيعًا</span>
-        </div>
-        <div class="p-4 md:p-6 text-center">
-          <h3 class="text-lg md:text-2xl font-bold mb-2 truncate-2">
-            مزيل الزيوت والشحوم المحروقة<br>
-            <span class="text-sm md:text-lg text-gray-400">Burnt Oil & Grease Remover</span>
-          </h3>
-          <p class="text-base md:text-lg mb-3 font-semibold price-tag">15 درهم • 15 AED</p>
-          <button onclick="event.stopPropagation(); addToCart('مزيل الزيوت والشحوم المحروقة', 15)" class="add-to-cart-btn">
-            أضف إلى السلة • Add to Cart
-          </button>
-        </div>
+      <div class="review-card p-6">
+        <p class="text-lg italic mb-4">"Best grease remover ever!"</p>
+        <p class="font-semibold">Khalid Al Hashmi</p>
+        <p class="text-sm text-gray-500">1 week ago</p>
       </div>
 
     </div>
+
+    <!-- أماكن التوفر -->
+    <div class="mt-20 bg-[#111] border border-[#d4af37] rounded-3xl p-12 text-center">
+      <h2 class="text-3xl font-bold mb-6 accent-gold">أين تجد منتجاتنا؟</h2>
+      <p class="text-2xl leading-relaxed">
+        متوفرة في <span class="text-white font-bold">٩٠٪</span> من أسواق الهداية داخل الإمارات
+      </p>
+      <p class="mt-4 text-gray-400">يمكنك أيضاً الطلب مباشرة عبر الواتساب</p>
+    </div>
+
+    <div class="text-center mt-12">
+      <button onclick="showPage('home')" class="bg-accent-red hover:bg-red-700 px-10 py-4 rounded-full text-xl font-bold transition">
+        العودة للصفحة الرئيسية
+      </button>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- Footer -->
 <footer class="bg-black border-t border-gray-800 py-12 text-center">
@@ -365,33 +426,30 @@
       RAPID <span class="accent-red">BH PRO</span>
     </p>
     <p class="text-xl mb-8 text-gray-300">
-      منتجات إماراتية عالية الجودة • رائحة فاخرة • تنظيف احترافي<br>
-      High-quality Emirati products • Luxurious long-lasting fragrance • Professional cleaning
+      منتجات إماراتية عالية الجودة • رائحة فاخرة • تنظيف احترافي
     </p>
 
     <div class="text-2xl mb-8 space-y-4 flex flex-col items-center">
-      <div class="phone-container">
-        <i class="fas fa-phone-alt mr-3"></i>
-        <span class="ltr">050 885 1549</span>
+      <div class="phone-container flex items-center gap-3">
+        <i class="fas fa-phone-alt"></i>
+        <span>050 885 1549</span>
       </div>
-      <div class="phone-container">
-        <i class="fas fa-phone-alt mr-3"></i>
-        <span class="ltr">050 559 0203</span>
+      <div class="phone-container flex items-center gap-3">
+        <i class="fas fa-phone-alt"></i>
+        <span>050 559 0203</span>
       </div>
-      <div class="phone-container">
-        <i class="fas fa-envelope mr-3"></i>
-        <span class="ltr">info@rapidbhpro.com</span>
+      <div class="phone-container flex items-center gap-3">
+        <i class="fas fa-envelope"></i>
+        <span>info@rapidbhpro.com</span>
       </div>
     </div>
 
     <p class="text-base text-gray-500">
-      جميع الحقوق محفوظة © RAPID BH PRO 2025–2026<br>
-      All rights reserved © RAPID BH PRO 2025–2026
+      جميع الحقوق محفوظة © RAPID BH PRO 2025–2026
     </p>
   </div>
 </footer>
 
-<!-- JavaScript للسلة + Lightbox -->
 <script>
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -418,20 +476,20 @@
     itemsDiv.innerHTML = '';
 
     if (cart.length === 0) {
-      itemsDiv.innerHTML = '<p class="text-center text-gray-400">السلة فارغة • Cart is empty</p>';
+      itemsDiv.innerHTML = '<p class="text-center text-gray-400 py-8">السلة فارغة</p>';
     } else {
       cart.forEach((item, index) => {
         const div = document.createElement('div');
-        div.className = 'cart-item flex justify-between items-center py-3 border-b border-gray-700';
+        div.className = 'cart-item flex justify-between items-center py-4 border-b border-gray-700';
         div.innerHTML = `
-          <div class="flex-1">
+          <div>
             <p class="font-bold">${item.name}</p>
             <p class="text-sm text-gray-400">${item.price} درهم</p>
           </div>
-          <div class="quantity-controls flex items-center gap-4">
-            <button class="quantity-btn text-xl" onclick="changeQuantity(${index}, -1)">−</button>
-            <span class="text-lg font-bold">${item.quantity}</span>
-            <button class="quantity-btn text-xl" onclick="changeQuantity(${index}, 1)">+</button>
+          <div class="flex items-center gap-4">
+            <button onclick="changeQuantity(${index}, -1)" class="text-2xl font-bold w-8 h-8 hover:bg-gray-700 rounded">-</button>
+            <span class="text-lg font-bold w-6 text-center">${item.quantity}</span>
+            <button onclick="changeQuantity(${index}, 1)" class="text-2xl font-bold w-8 h-8 hover:bg-gray-700 rounded">+</button>
           </div>
         `;
         itemsDiv.appendChild(div);
@@ -447,9 +505,7 @@
   function changeQuantity(index, change) {
     if (cart[index]) {
       cart[index].quantity += change;
-      if (cart[index].quantity <= 0) {
-        cart.splice(index, 1);
-      }
+      if (cart[index].quantity <= 0) cart.splice(index, 1);
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
       openCart();
@@ -462,7 +518,7 @@
 
   function sendCartToWhatsApp() {
     if (cart.length === 0) return alert('السلة فارغة');
-
+    
     let message = 'مرحبا، أود طلب المنتجات التالية:\n\n';
     let total = 0;
 
@@ -472,28 +528,38 @@
     });
 
     message += `\nالإجمالي: ${total} درهم\nشكراً!`;
-
     const whatsappUrl = `https://wa.me/971508851549?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     closeCart();
   }
 
-  // Lightbox functions
   function openLightbox(src) {
     const lightbox = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    img.src = src;
+    document.getElementById('lightbox-img').src = src;
     lightbox.style.display = 'flex';
   }
 
   function closeLightbox(event) {
-    const lightbox = document.getElementById('lightbox');
-    if (event.target === lightbox || event.target.id === 'lightbox-img') {
-      lightbox.style.display = 'none';
+    if (event.target.id === 'lightbox' || event.target.id === 'lightbox-img') {
+      document.getElementById('lightbox').style.display = 'none';
     }
   }
 
+  // تبديل الصفحات
+  function showPage(page) {
+    document.getElementById('home-page').classList.add('hidden');
+    document.getElementById('about-page').classList.add('hidden');
+    
+    if (page === 'home') {
+      document.getElementById('home-page').classList.remove('hidden');
+    } else if (page === 'about') {
+      document.getElementById('about-page').classList.remove('hidden');
+    }
+  }
+
+  // تهيئة
   updateCartCount();
+  showPage('home'); // افتراضياً يبدأ بالصفحة الرئيسية
 </script>
 
 </body>
