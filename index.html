@@ -7,11 +7,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <style>
     body {
         font-family: 'Tajawal', 'Inter', sans-serif;
-        /* السطر التالي هو التعديل الصحيح: طبقة سوداء شفافة بنسبة 10% فوق الصورة */
-        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('https://i.ibb.co/LL4vf7w/IMG-7517.jpg');
+        /* طبقة سوداء شفافة بنسبة 10% فوق الصورة (التعديل الصحيح) */
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), 
+                         url('https://i.ibb.co/9kCQjSsy/IMG-7517.jpg');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -26,9 +28,8 @@
     .bg-accent-red { background-color: #e63946; }
     
     .card {
-      /* جعلنا خلفية البطاقات شفافة قليلاً لتتماشى مع الخلفية الجديدة */
-      background: rgba(17, 17, 17, 0.1);
-      backdrop-filter: blur(8px);
+      background: rgba(17, 17, 17, 0.85);
+      backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.4s ease;
       border-radius: 16px;
@@ -54,6 +55,109 @@
     }
     
     .badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #d4af37;
+      color: #000;
+      font-weight: bold;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .price-tag {
+      background: #e63946;
+      color: white;
+      font-weight: bold;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .sold-tag {
+      background: #000;
+      color: #fff;
+      font-weight: bold;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-content {
+      z-index: 10;
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section مع الصورة الجديدة كخلفية -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="text-6xl md:text-7xl font-bold tracking-tight">
+        RAPID <span class="accent-red">BH PRO</span>
+      </h1>
+      <p class="text-2xl mt-4 text-white/90">
+        منتجات تنظيف وعطور فاخرة
+      </p>
+      <a href="#products" 
+         class="mt-8 inline-block bg-accent-red hover:bg-red-700 text-white font-medium text-lg px-10 py-4 rounded-2xl transition-all duration-300 shadow-lg">
+        تسوق الآن
+      </a>
+    </div>
+  </section>
+
+  <!-- يمكنك إضافة باقي أقسام الموقع (المنتجات، الفوتر...) هنا -->
+  <!-- مثال سريع لقسم المنتجات -->
+  <section id="products" class="py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12">منتجاتنا المميزة</h2>
+      
+      <!-- أضف بطاقات المنتجات هنا باستخدام class="card" -->
+      <!-- مثال بطاقة واحدة: -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card p-4 relative">
+          <div class="badge">جديد</div>
+          <img src="https://via.placeholder.com/400x240" alt="منتج" class="product-img rounded-xl">
+          <div class="p-4">
+            <h3 class="text-xl font-semibold mb-2">اسم المنتج الفاخر</h3>
+            <div class="flex justify-between items-center">
+              <span class="price-tag">٢٩٩ ريال</span>
+              <span class="sold-tag">مباع ٤٢</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
       position: absolute;
       top: 12px;
       right: 12px;
