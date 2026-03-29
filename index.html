@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RAPID BH PRO | المتجر الرسمي</title>
+    <title>RAPID BH PRO | Official Store</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
@@ -18,23 +18,19 @@
             --card: #0a0a0a;
             --glass: rgba(15, 15, 15, 0.85);
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --fb-bg: #242526;
-            --fb-bubble: #3a3b3c;
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
             background-color: var(--dark);
             color: #fff;
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .hero-title { font-size: 4rem !important; }
-            .product-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
-            .side-panel { width: 85% !important; }
-        }
+        /* تنسيق الخطوط بناءً على اللغة */
+        [lang="ar"] { font-family: 'Tajawal', sans-serif; }
+        [lang="en"] { font-family: 'Montserrat', sans-serif; }
 
         .hero-section {
             height: 100vh;
@@ -44,7 +40,6 @@
                               url('https://i.ibb.co/9kCQjSsy/IMG-7517.jpg');
             background-size: cover;
             background-position: center 20%;
-            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -66,20 +61,22 @@
             backdrop-filter: blur(30px);
             z-index: 10000;
             transition: var(--transition);
-            box-shadow: 0 0 40px rgba(0,0,0,1);
         }
         #sidebar { left: -450px; border-right: 1px solid var(--gold); }
         #cart-panel { right: -450px; border-left: 1px solid var(--primary); }
-        .side-panel.active-left { left: 0 !important; }
-        .side-panel.active-right { right: 0 !important; }
+        
+        /* ضبط اتجاه القوائم عند تغيير اللغة */
+        html[dir="ltr"] #sidebar { left: auto; right: -450px; border-left: 1px solid var(--gold); border-right: none; }
+        html[dir="ltr"] #cart-panel { right: auto; left: -450px; border-right: 1px solid var(--primary); border-left: none; }
+
+        .side-panel.active-panel { left: 0 !important; right: auto !important; }
+        html[dir="ltr"] .side-panel.active-panel { right: 0 !important; left: auto !important; }
 
         .btn-premium {
             background: linear-gradient(45deg, var(--primary), #b91c1c);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
         }
-        .btn-premium:active { transform: scale(0.9); }
+        .btn-premium:active { transform: scale(0.95); }
 
         .product-card {
             background: var(--card);
@@ -94,394 +91,212 @@
             border-radius: 30px;
             margin: 10px;
             overflow: hidden;
-            position: relative;
-            cursor: zoom-in;
-        }
-        .image-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
-        
-        .img-fullscreen {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            background: rgba(0,0,0,0.95);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: zoom-out;
-            animation: fadeIn 0.3s;
         }
-        .img-fullscreen img { max-width: 90%; max-height: 90%; border-radius: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-
-        .fb-comment-bubble {
-            background-color: var(--fb-bubble);
-            border-radius: 18px;
-            padding: 10px 14px;
-            display: inline-block;
-            max-width: 100%;
-        }
-        .fb-action-btn {
-            font-size: 12px;
-            font-weight: bold;
-            color: #b0b3b8;
-            margin-right: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .fb-action-btn:hover { text-decoration: underline; }
-        .fb-action-btn.active { color: var(--primary); }
-
-        @keyframes pulse-gold { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .live-tag { animation: pulse-gold 2s infinite; }
-
-        .contact-link {
-            transition: color 0.3s;
-        }
-        .contact-link:hover {
-            color: var(--primary);
+        .image-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
     </style>
 </head>
-<body>
-
-<div id="image-overlay" class="img-fullscreen hidden" onclick="this.classList.add('hidden')">
-    <img src="" id="full-img">
-</div>
-
-<div id="box-modal" class="fixed inset-0 z-[25000] bg-black/95 hidden items-center justify-center p-4 backdrop-blur-xl">
-    <div class="bg-zinc-900 w-full max-w-2xl rounded-[40px] p-8 border border-red-600/30 max-h-[90vh] overflow-y-auto">
-        <h2 class="text-3xl font-black mb-2 text-red-600">صمم بوكس الـ 12 عبوة</h2>
-        <p class="text-gray-400 mb-6">اختر 12 منتجاً من المجموعات التالية (المتبقي: <span id="box-counter" class="text-white font-bold">12</span>)</p>
-        <div id="box-options" class="space-y-4 mb-8"></div>
-        <div class="flex gap-4">
-            <button onclick="confirmBox()" id="confirm-box-btn" class="flex-1 bg-green-600 py-4 rounded-2xl font-black opacity-50 cursor-not-allowed">تأكيد واضافة للسلة</button>
-            <button onclick="closeBoxModal()" class="px-8 bg-white/10 py-4 rounded-2xl font-bold">إلغاء</button>
-        </div>
-    </div>
-</div>
-
-<div id="master-overlay" class="fixed inset-0 bg-black/80 hidden z-[9999]" onclick="closePanels()"></div>
+<body class="antialiased">
 
 <nav class="fixed top-0 w-full z-[1000] py-6 px-8 transition-all" id="nav">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <button onclick="openSidebar()" class="text-3xl"><i class="fas fa-bars-staggered"></i></button>
-        <div class="text-2xl font-black font-['Montserrat'] tracking-tighter italic">RAPID BH<span class="text-red-600">PRO</span></div>
-        <button onclick="openCart()" class="relative">
-            <i class="fas fa-shopping-bag text-3xl"></i>
-            <span id="cart-dot" class="absolute -top-1 -right-1 bg-red-600 w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-bold">0</span>
-        </button>
+        <button onclick="toggleSidebar(true)" class="text-2xl"><i class="fas fa-bars-staggered"></i></button>
+        
+        <div class="text-xl font-black italic tracking-tighter">RAPID BH<span class="text-red-600">PRO</span></div>
+        
+        <div class="flex items-center gap-5">
+            <button onclick="toggleLanguage()" class="lang-btn" id="lang-toggle-text">EN</button>
+            <button onclick="toggleCart(true)" class="relative">
+                <i class="fas fa-shopping-bag text-2xl"></i>
+                <span id="cart-dot" class="absolute -top-1 -right-1 bg-red-600 w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-bold">0</span>
+            </button>
+        </div>
     </div>
 </nav>
 
 <aside id="sidebar" class="side-panel p-10 flex flex-col">
-    <div class="flex justify-between items-center mb-16 pt-10">
-        <span class="text-gold font-bold italic tracking-widest uppercase">Navigation</span>
-        <button onclick="closePanels()" class="text-5xl">&times;</button>
+    <div class="flex justify-between items-center mb-16">
+        <span class="text-gold font-bold uppercase tracking-widest" id="nav-label">Navigation</span>
+        <button onclick="toggleSidebar(false)" class="text-4xl">&times;</button>
     </div>
-    <nav class="flex flex-col gap-10 text-4xl font-black italic">
-        <div onclick="navigate('hero')" class="hover:text-red-600 cursor-pointer transition">الرئيسية</div>
-        <div onclick="navigate('store')" class="hover:text-red-600 cursor-pointer transition">المتجر</div>
-        <div onclick="navigate('reviews')" class="hover:text-red-600 cursor-pointer transition">الآراء</div>
-        <div onclick="contactWA()" class="text-red-600 cursor-pointer transition">الدعم</div>
+    <nav class="flex flex-col gap-8 text-3xl font-black italic">
+        <div onclick="navigate('hero')" class="hover:text-red-600 cursor-pointer" id="m-home">الرئيسية</div>
+        <div onclick="navigate('store')" class="hover:text-red-600 cursor-pointer" id="m-store">المتجر</div>
+        <div onclick="contactWA()" class="text-red-600 cursor-pointer" id="m-support">الدعم</div>
     </nav>
-    <div class="mt-auto border-t border-white/10 pt-10 text-gray-500 font-bold">
-        <p class="mb-4"><i class="fas fa-phone-alt ml-3"></i> 971508851549+</p>
-        <p><i class="fas fa-map-marker-alt ml-3"></i> United Arab Emirates</p>
-    </div>
 </aside>
 
 <aside id="cart-panel" class="side-panel flex flex-col">
     <div class="p-10 border-b border-white/5 flex justify-between items-center">
-        <h2 class="text-3xl font-black italic">السلة</h2>
-        <button onclick="closePanels()" class="text-5xl">&times;</button>
+        <h2 class="text-2xl font-black italic" id="cart-title">السلة</h2>
+        <button onclick="toggleCart(false)" class="text-4xl">&times;</button>
     </div>
-    <div id="cart-items-box" class="flex-1 overflow-y-auto p-6 space-y-6"></div>
-    <div class="p-10 bg-black/50 border-t border-white/10">
-        <div class="flex justify-between text-2xl font-black mb-8">
-            <span>الإجمالي:</span>
+    <div id="cart-items-box" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+    <div class="p-8 bg-black/50 border-t border-white/10">
+        <div class="flex justify-between text-xl font-black mb-6">
+            <span id="total-label">الإجمالي:</span>
             <span id="total-price" class="text-gold">0 AED</span>
         </div>
-        <button onclick="showCheckout()" class="w-full btn-premium py-6 rounded-3xl font-black text-2xl shadow-xl">إتمام الطلب</button>
+        <button onclick="showCheckout()" class="w-full btn-premium py-5 rounded-2xl font-black text-xl" id="checkout-btn">إتمام الطلب</button>
     </div>
 </aside>
 
+<div id="master-overlay" class="fixed inset-0 bg-black/80 hidden z-[9999]" onclick="closeAllPanels()"></div>
+
 <section id="hero" class="hero-section">
     <div class="px-6 animate__animated animate__fadeIn">
-        <h4 class="text-gold text-xl font-bold tracking-[8px] mb-6 uppercase">Since 2022</h4>
-        <h1 class="hero-title text-8xl md:text-[160px] font-black italic mb-10 leading-none">RAPID <span class="text-red-600">BH</span></h1>
-        <p class="max-w-2xl mx-auto text-lg md:text-2xl text-gray-300 font-medium mb-12">خبراء النظافة والتعطير في الإمارات. قوتنا في جودتنا.</p>
-        <div class="flex flex-col md:flex-row gap-6 justify-center">
-            <button onclick="navigate('store')" class="btn-premium px-16 py-6 rounded-full font-black text-2xl animate__animated animate__pulse animate__infinite">تسوق الآن</button>
-            <button onclick="openSidebar()" class="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-6 rounded-full font-bold text-xl">تواصل معنا</button>
-        </div>
+        <h4 class="text-gold text-lg font-bold tracking-[6px] mb-4 uppercase" id="hero-sub">Since 2022</h4>
+        <h1 class="text-7xl md:text-[120px] font-black italic mb-8 leading-none">RAPID <span class="text-red-600">BH</span></h1>
+        <p class="max-w-xl mx-auto text-lg text-gray-300 mb-10" id="hero-desc">خبراء النظافة والتعطير في الإمارات. قوتنا في جودتنا.</p>
+        <button onclick="navigate('store')" class="btn-premium px-12 py-5 rounded-full font-black text-xl" id="hero-btn">تسوق الآن</button>
     </div>
 </section>
 
-<section id="store" class="py-32 px-8">
+<section id="store" class="py-24 px-8">
     <div class="max-w-7xl mx-auto">
-        <h2 class="text-6xl font-black italic mb-20 text-center">المتجر <span class="text-red-600 text-sm live-tag">● LIVE</span></h2>
-        <div id="p-grid" class="product-grid grid grid-cols-1 md:grid-cols-3 gap-12"></div>
+        <h2 class="text-5xl font-black italic mb-16 text-center" id="store-title">المتجر</h2>
+        <div id="p-grid" class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
     </div>
 </section>
 
-<section id="reviews" class="py-32 bg-zinc-950/50">
-    <div class="max-w-3xl mx-auto px-8">
-        <h2 class="text-5xl font-black mb-16 text-center">آراء زبائننا</h2>
-        
-        <div class="bg-[#242526] p-5 rounded-2xl mb-12 border border-white/10 shadow-2xl">
-            <div class="space-y-3">
-                <div class="flex gap-3">
-                    <div class="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-user text-zinc-500"></i>
-                    </div>
-                    <input type="text" id="new-rev-name" placeholder="الاسم (إلزامي)" class="w-full bg-[#3a3b3c] rounded-xl px-4 py-2 text-sm outline-none border border-transparent focus:border-red-600 text-white font-bold">
-                </div>
-                <div class="flex gap-3">
-                    <div class="w-10 h-10 invisible flex-shrink-0"></div>
-                    <textarea id="new-rev-text" rows="2" placeholder="بماذا تفكر؟" class="w-full bg-[#3a3b3c] rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-red-600 text-white resize-none"></textarea>
-                </div>
-            </div>
-            <div class="flex justify-end border-t border-white/5 mt-4 pt-3">
-                <button onclick="postComment()" class="bg-red-600 hover:bg-red-700 text-white font-black text-sm px-8 py-2.5 rounded-full transition-all transform active:scale-95 shadow-lg">نشر التعليق</button>
-            </div>
-        </div>
-
-        <div class="space-y-8" id="reviews-box"></div>
+<footer class="bg-black py-16 px-8 border-t border-white/5 text-center">
+    <h2 class="text-3xl font-black italic mb-6 text-red-600">RAPID BH PRO</h2>
+    <div class="max-w-md mx-auto mb-8 space-y-3 text-gray-400 font-bold">
+        <p><i class="fas fa-phone-alt text-red-600 ml-2"></i> +971 50 885 1549</p>
+        <p><i class="fas fa-envelope text-red-600 ml-2"></i> support@rapidbhpro.com</p>
     </div>
-</section>
-
-<div id="checkout-modal" class="fixed inset-0 z-[20000] bg-black hidden items-center justify-center p-4">
-    <div class="bg-zinc-900 w-full max-w-2xl rounded-[40px] p-10 relative animate__animated animate__zoomIn">
-        <button onclick="closeCheckout()" class="absolute top-8 right-8 text-4xl">&times;</button>
-        <h2 class="text-4xl font-black mb-10 text-red-600 italic">تأكيد الطلب</h2>
-        <form onsubmit="handleFinalSubmit(event)" class="space-y-6">
-            <input type="text" id="c-name" placeholder="الاسم الكامل" class="w-full bg-black border border-white/10 p-5 rounded-2xl focus:border-red-600 outline-none" required>
-            <input type="tel" id="c-phone" placeholder="رقم الهاتف" class="w-full bg-black border border-white/10 p-5 rounded-2xl focus:border-red-600 outline-none" required>
-            <select id="c-city" class="w-full bg-black border border-white/10 p-5 rounded-2xl outline-none">
-                <option>أبوظبي</option><option>دبي</option><option>الشارقة</option><option>عجمان</option><option>رأس الخيمة</option><option>الفجيرة</option>
-            </select>
-            <div id="summary-final" class="bg-black/50 p-6 rounded-2xl border border-white/5 space-y-2 text-gray-400"></div>
-            <button type="submit" class="w-full btn-premium py-6 rounded-2xl font-black text-2xl shadow-2xl">إرسال الطلب للواتساب</button>
-        </form>
-    </div>
-</div>
-
-<footer class="bg-black py-20 px-8 border-t border-white/5 text-center">
-    <h2 class="text-4xl font-black italic mb-6 text-red-600">RAPID BH PRO</h2>
-    
-    <div class="max-w-md mx-auto mb-10 space-y-4">
-        <div class="flex items-center justify-center gap-3 text-gray-400 font-bold text-lg">
-            <i class="fas fa-phone-alt text-red-600"></i>
-            <a href="tel:+971508851549" class="contact-link">+971 50 885 1549</a>
-        </div>
-        <div class="flex items-center justify-center gap-3 text-gray-400 font-bold text-lg">
-            <i class="fas fa-envelope text-red-600"></i>
-            <a href="mailto:support@rapidbhpro.com" class="contact-link">support@rapidbhpro.com</a>
-        </div>
-    </div>
-
-    <p class="text-xs text-gray-800 font-bold uppercase tracking-[10px]">Copyright © 2026 RAPID BH PRO</p>
+    <p class="text-[10px] text-gray-700 tracking-[5px]">COPYRIGHT © 2026 RAPID BH PRO</p>
 </footer>
 
 <script>
+    // نظام الترجمة
+    const i18n = {
+        ar: {
+            lang: 'EN',
+            home: 'الرئيسية',
+            store: 'المتجر',
+            support: 'الدعم',
+            heroDesc: 'خبراء النظافة والتعطير في الإمارات. قوتنا في جودتنا.',
+            heroBtn: 'تسوق الآن',
+            storeTitle: 'المتجر',
+            cartTitle: 'السلة',
+            total: 'الإجمالي:',
+            checkout: 'إتمام الطلب',
+            add: 'إضافة للسلة',
+            empty: 'السلة فارغة',
+            orderMsg: 'طلب جديد من الموقع 🚚'
+        },
+        en: {
+            lang: 'AR',
+            home: 'Home',
+            store: 'Store',
+            support: 'Support',
+            heroDesc: 'Experts in Cleaning & Fragrances in UAE. Our strength is our quality.',
+            heroBtn: 'Shop Now',
+            storeTitle: 'The Store',
+            cartTitle: 'My Cart',
+            total: 'Total:',
+            checkout: 'Checkout Now',
+            add: 'Add to Cart',
+            empty: 'Cart is empty',
+            orderMsg: 'New Order from Website 🚚'
+        }
+    };
+
+    let currentLang = 'ar';
+
     const DB = [
-        { id: 1, name: "معطر عود ملكي", price: 15, img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", info: "ثبات ملكي للأقمشة والمجالس." },
-        { id: 2, name: "معطر الفخامة", price: 15, img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", info: "رائحة النظافة الفندقية الأصلية." },
-        { id: 3, name: "معطر زهور بيضاء", price: 15, img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", info: "انتعاش الزهور ليوم هادئ." },
-        { id: 4, name: "معطر فواكه", price: 15, img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", info: "طاقة منعشة تدوم طويلاً." },
-        { id: 5, name: "مزيل بقع BH 99", price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", info: "قوة BH 99 لإزالة أصعب البقع." },
-        { id: 6, name: "مزيل الدهون والشحوم الحروقه", price: 15, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", info: "إذابة الدهون الصعبة في ثوانٍ." },
-        { id: 7, name: "بوكس التوفير (12 عبوة)", price: 150, oldPrice: 180, icon: 'fas fa-box-open', info: "بوكس المشكل الخاص بك، اختر 12 حبة بسعر مميز.", isBox: true }
+        { id: 1, name: {ar: "معطر عود ملكي", en: "Royal Oud Perfume"}, price: 15, img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg" },
+        { id: 2, name: {ar: "معطر الفخامة", en: "Luxury Scent"}, price: 15, img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg" },
+        { id: 3, name: {ar: "مزيل بقع BH 99", en: "Stain Remover BH 99"}, price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg" },
+        { id: 7, name: {ar: "بوكس التوفير (12 حبة)", en: "Saving Box (12 Pcs)"}, price: 150, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", isBox: true }
     ];
 
-    let fbReviews = [
-        { id: 101, name: "سلطان الشامسي", text: "ما شاء الله ريحة خنينة وتبيض الويه", likes: 12, time: "٢ د", liked: false },
-        { id: 102, name: "مريم البلوشي", text: "العود الملكي صدق فنان وما يمزح", likes: 8, time: "١٥ د", liked: false },
-        { id: 103, name: "بو راشد", text: "تسلم يمناكم شغل مرتب وذرب وايد", likes: 24, time: "١ ساعة", liked: false },
-        { id: 104, name: "عفراء الهاملي", text: "منظف الدهون فكني من عبالة كبيرة", likes: 5, time: "٣ ساعة", liked: false },
-        { id: 105, name: "خليفة المنصوري", text: "جربت وايد بس جودتكم غير شكل", likes: 19, time: "٥ ساعة", liked: false }
-    ];
+    let cart = [];
 
-    let cart = JSON.parse(localStorage.getItem('RAPID_ELITE_CART')) || [];
-    let tempBoxChoices = {};
+    function toggleLanguage() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        document.documentElement.lang = currentLang;
+        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+        updateUI();
+    }
 
-    function init() {
+    function updateUI() {
+        const t = i18n[currentLang];
+        document.getElementById('lang-toggle-text').innerText = t.lang;
+        document.getElementById('m-home').innerText = t.home;
+        document.getElementById('m-store').innerText = t.store;
+        document.getElementById('m-support').innerText = t.support;
+        document.getElementById('hero-desc').innerText = t.heroDesc;
+        document.getElementById('hero-btn').innerText = t.heroBtn;
+        document.getElementById('store-title').innerText = t.storeTitle;
+        document.getElementById('cart-title').innerText = t.cartTitle;
+        document.getElementById('total-label').innerText = t.total;
+        document.getElementById('checkout-btn').innerText = t.checkout;
         renderProducts();
-        renderReviews();
-        updateCartCount();
-        window.addEventListener('scroll', handleNavScroll);
+        renderCart();
     }
-
-    function renderReviews() {
-        const box = document.getElementById('reviews-box');
-        box.innerHTML = fbReviews.map(r => `
-            <div class="flex gap-3 animate__animated animate__fadeIn">
-                <div class="w-10 h-10 rounded-full bg-zinc-800 flex-shrink-0 flex items-center justify-center border border-white/5 shadow-inner">
-                    <i class="fas fa-user text-zinc-600"></i>
-                </div>
-                <div class="flex flex-col items-start w-full">
-                    <div class="fb-comment-bubble shadow-lg">
-                        <div class="text-[13px] font-bold text-white mb-0.5">${r.name}</div>
-                        <div class="text-[15px] text-gray-200 leading-snug font-medium">${r.text}</div>
-                    </div>
-                    <div class="flex items-center mt-1.5 ml-1">
-                        <span onclick="toggleLike(${r.id})" class="fb-action-btn ${r.liked ? 'active' : ''}">${r.liked ? 'أعجبني' : 'أعجبني'}</span>
-                        <span onclick="focusReply(${r.id})" class="fb-action-btn">رد</span>
-                        <span class="text-[12px] text-zinc-500 font-medium">${r.time}</span>
-                        ${r.likes > 0 ? `
-                            <div class="flex items-center gap-1 mr-4 bg-[#3a3b3c] px-1.5 py-0.5 rounded-full border border-white/5">
-                                <div class="w-4 h-4 bg-red-600 rounded-full flex items-center justify-center scale-75">
-                                    <i class="fas fa-thumbs-up text-[8px] text-white"></i>
-                                </div>
-                                <span class="text-[11px] text-zinc-400 font-bold">${r.likes}</span>
-                            </div>
-                        ` : ''}
-                    </div>
-                    <div id="reply-box-${r.id}" class="hidden mt-3 w-full">
-                        <input type="text" placeholder="اكتب رداً..." class="w-full bg-[#1c1d1e] border border-white/10 rounded-full px-4 py-1.5 text-xs outline-none focus:border-red-600">
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function toggleLike(id) {
-        const rev = fbReviews.find(r => r.id === id);
-        if (rev.liked) { rev.likes--; rev.liked = false; } else { rev.likes++; rev.liked = true; }
-        renderReviews();
-    }
-
-    function focusReply(id) {
-        const rBox = document.getElementById(`reply-box-${id}`);
-        rBox.classList.toggle('hidden');
-        if(!rBox.classList.contains('hidden')) rBox.querySelector('input').focus();
-    }
-
-    function postComment() {
-        const nameInput = document.getElementById('new-rev-name');
-        const textInput = document.getElementById('new-rev-text');
-        if (!nameInput.value.trim() || !textInput.value.trim()) { toast("يرجى كتابة الاسم والتعليق أولاً"); nameInput.classList.add('border-red-600'); return; }
-        fbReviews.unshift({ id: Date.now(), name: nameInput.value, text: textInput.value, likes: 0, time: "الآن", liked: false });
-        nameInput.value = ""; textInput.value = ""; nameInput.classList.remove('border-red-600');
-        renderReviews(); toast("تم نشر تعليقك بنجاح");
-    }
-
-    function zoomImg(url) {
-        if(!url) return;
-        const overlay = document.getElementById('image-overlay');
-        const img = document.getElementById('full-img');
-        img.src = url;
-        overlay.classList.remove('hidden');
-    }
-
-    function openBoxWizard() {
-        document.getElementById('box-modal').classList.remove('hidden');
-        tempBoxChoices = {};
-        DB.slice(0, 6).forEach(p => tempBoxChoices[p.name] = 0);
-        renderBoxOptions();
-    }
-
-    function renderBoxOptions() {
-        const container = document.getElementById('box-options');
-        let currentTotal = Object.values(tempBoxChoices).reduce((a, b) => a + b, 0);
-        document.getElementById('box-counter').innerText = 12 - currentTotal;
-        container.innerHTML = DB.slice(0, 6).map(p => `
-            <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5">
-                <div class="flex items-center gap-4">
-                    <img src="${p.img}" class="w-12 h-12 rounded-lg object-cover">
-                    <span class="font-bold">${p.name}</span>
-                </div>
-                <div class="flex items-center gap-4">
-                    <button onclick="updateBoxItem('${p.name}', -1)" class="w-8 h-8 bg-zinc-800 rounded-full">-</button>
-                    <span class="text-red-600 font-black">${tempBoxChoices[p.name] || 0}</span>
-                    <button onclick="updateBoxItem('${p.name}', 1)" class="w-8 h-8 bg-zinc-800 rounded-full">+</button>
-                </div>
-            </div>
-        `).join('');
-        const btn = document.getElementById('confirm-box-btn');
-        if(currentTotal === 12) btn.classList.remove('opacity-50', 'cursor-not-allowed');
-        else btn.classList.add('opacity-50', 'cursor-not-allowed');
-    }
-
-    function updateBoxItem(name, delta) {
-        let currentTotal = Object.values(tempBoxChoices).reduce((a, b) => a + b, 0);
-        if (delta > 0 && currentTotal >= 12) return;
-        if (delta < 0 && tempBoxChoices[name] <= 0) return;
-        tempBoxChoices[name] += delta;
-        renderBoxOptions();
-    }
-
-    function confirmBox() {
-        let currentTotal = Object.values(tempBoxChoices).reduce((a, b) => a + b, 0);
-        if(currentTotal !== 12) return;
-        const boxDetails = Object.entries(tempBoxChoices).filter(([_, qty]) => qty > 0).map(([name, qty]) => `${name} (${qty})`).join(' + ');
-        const product = DB.find(p => p.id === 7);
-        cart.push({...product, name: `بوكس التوفير (12 حبة): ${boxDetails}`, qty: 1, isCustomBoxCartItem: true });
-        save(); updateCartCount(); closeBoxModal(); openCart(); toast("تم إضافة البوكس لسلتك");
-    }
-
-    function closeBoxModal() { document.getElementById('box-modal').classList.add('hidden'); }
 
     function renderProducts() {
         const grid = document.getElementById('p-grid');
         grid.innerHTML = DB.map(p => `
-            <div class="product-card group animate__animated animate__fadeInUp">
-                <div class="image-box ${p.isBox ? 'flex items-center justify-center bg-black' : ''}" onclick="${p.isBox ? '' : `zoomImg('${p.img}')`}">
-                    ${p.isBox ? `<i class="${p.icon} text-8xl text-gold group-hover:scale-110 transition-transform"></i>` : `<img src="${p.img}" loading="lazy">`}
+            <div class="product-card p-6">
+                <div class="image-box bg-zinc-900 mb-6">
+                    <img src="${p.img}" class="rounded-2xl">
                 </div>
-                <div class="p-8">
-                    <h3 class="text-3xl font-black italic mb-4">${p.name}</h3>
-                    <p class="text-gray-500 mb-8 h-10 overflow-hidden text-sm">${p.info}</p>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            ${p.oldPrice ? `<span class="block text-gray-600 line-through text-sm">${p.oldPrice} AED</span>` : ''}
-                            <span class="text-3xl font-black text-gold">${p.price} AED</span>
-                        </div>
-                        <button onclick="${p.isBox ? 'openBoxWizard()' : `addToCart(${p.id})`}" class="btn-premium px-6 py-3 rounded-2xl flex items-center justify-center font-bold">
-                            ${p.isBox ? 'تخصيص البوكس' : '<i class="fas fa-plus"></i>'}
-                        </button>
-                    </div>
+                <h3 class="text-2xl font-black mb-2">${p.name[currentLang]}</h3>
+                <div class="flex justify-between items-center mt-6">
+                    <span class="text-2xl font-black text-gold">${p.price} AED</span>
+                    <button onclick="addToCart(${p.id})" class="btn-premium px-6 py-2 rounded-xl font-bold">
+                        ${i18n[currentLang].add}
+                    </button>
                 </div>
             </div>
         `).join('');
     }
 
     function addToCart(id) {
-        const product = DB.find(p => p.id === id);
-        const exists = cart.find(i => i.id === id && !i.isCustomBoxCartItem);
-        if(exists) exists.qty++; else cart.push({...product, qty: 1});
-        save(); updateCartCount(); toast(`تمت إضافة ${product.name}`);
+        const p = DB.find(x => x.id === id);
+        const exists = cart.find(i => i.id === id);
+        if(exists) exists.qty++; else cart.push({...p, qty: 1});
+        updateCartCount();
+        renderCart();
+        // Toast
+        const msg = currentLang === 'ar' ? 'تمت الإضافة' : 'Added to cart';
+        console.log(msg);
     }
-
-    function openSidebar() { document.getElementById('sidebar').classList.add('active-left'); document.getElementById('master-overlay').classList.remove('hidden'); }
-    function openCart() { document.getElementById('cart-panel').classList.add('active-right'); document.getElementById('master-overlay').classList.remove('hidden'); renderCart(); }
-    function closePanels() { document.getElementById('sidebar').classList.remove('active-left'); document.getElementById('cart-panel').classList.remove('active-right'); document.getElementById('master-overlay').classList.add('hidden'); }
-    function navigate(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); closePanels(); }
-    function save() { localStorage.setItem('RAPID_ELITE_CART', JSON.stringify(cart)); }
-    function updateCartCount() { document.getElementById('cart-dot').innerText = cart.reduce((a, b) => a + b.qty, 0); }
 
     function renderCart() {
         const box = document.getElementById('cart-items-box');
         let total = 0;
-        if(cart.length === 0) box.innerHTML = `<div class="text-center py-20 opacity-20 italic">السلة فارغة</div>`;
-        else {
+        if(cart.length === 0) {
+            box.innerHTML = `<div class="text-center py-10 opacity-30">${i18n[currentLang].empty}</div>`;
+        } else {
             box.innerHTML = cart.map((item, idx) => {
                 total += (item.price * item.qty);
-                return `<div class="bg-zinc-900 p-4 rounded-3xl border border-white/5 flex gap-4">
-                    ${item.isCustomBoxCartItem 
-                        ? `<div class="w-16 h-16 rounded-xl bg-black flex items-center justify-center border border-white/10 shadow-inner flex-shrink-0">
-                             <i class="fas fa-box-open text-3xl text-gold脉animate__animated animate__pulse animate__infinite pulse脉low"></i>
-                           </div>`
-                        : `<img src="${item.img}" class="w-16 h-16 object-cover rounded-xl flex-shrink-0">`
-                    }
-                    <div class="flex-1 min-w-0">
-                        <h4 class="font-bold text-sm mb-2 text-white truncate">${item.name}</h4>
-                        <div class="flex justify-between items-center">
-                            <div class="flex gap-4 bg-black px-3 py-1 rounded-lg">
-                                <span onclick="changeQty(${idx}, -1)" class="cursor-pointer text-gray-500 hover:text-white">-</span>
-                                <span class="text-red-600 font-bold text-lg">${item.qty}</span>
-                                <span onclick="changeQty(${idx}, 1)" class="cursor-pointer text-gray-500 hover:text-white">+</span>
+                return `
+                <div class="flex gap-4 bg-zinc-900/50 p-3 rounded-2xl border border-white/5">
+                    <img src="${item.img}" class="w-16 h-16 rounded-lg object-cover">
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm">${item.name[currentLang]}</h4>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-gold font-black">${item.price * item.qty} AED</span>
+                            <div class="flex items-center gap-3 bg-black px-2 py-1 rounded-lg">
+                                <button onclick="changeQty(${idx}, -1)">-</button>
+                                <span class="text-red-600 font-bold">${item.qty}</span>
+                                <button onclick="changeQty(${idx}, 1)">+</button>
                             </div>
-                            <span class="font-black text-xl text-gold脉">${item.price * item.qty} AED</span>
                         </div>
                     </div>
                 </div>`;
@@ -493,45 +308,56 @@
     function changeQty(idx, delta) {
         cart[idx].qty += delta;
         if(cart[idx].qty <= 0) cart.splice(idx, 1);
-        save(); renderCart(); updateCartCount();
+        renderCart();
+        updateCartCount();
     }
+
+    function updateCartCount() {
+        document.getElementById('cart-dot').innerText = cart.reduce((a, b) => a + b.qty, 0);
+    }
+
+    function toggleSidebar(show) {
+        const s = document.getElementById('sidebar');
+        const o = document.getElementById('master-overlay');
+        if(show) { s.classList.add('active-panel'); o.classList.remove('hidden'); }
+        else { s.classList.remove('active-panel'); o.classList.add('hidden'); }
+    }
+
+    function toggleCart(show) {
+        const c = document.getElementById('cart-panel');
+        const o = document.getElementById('master-overlay');
+        if(show) { c.classList.add('active-panel'); o.classList.remove('hidden'); renderCart(); }
+        else { c.classList.remove('active-panel'); o.classList.add('hidden'); }
+    }
+
+    function closeAllPanels() { toggleSidebar(false); toggleCart(false); }
+
+    function navigate(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        closeAllPanels();
+    }
+
+    function contactWA() { window.open('https://wa.me/971508851549', '_blank'); }
 
     function showCheckout() {
         if(cart.length === 0) return;
-        document.getElementById('checkout-modal').style.display = 'flex';
-        const sumBox = document.getElementById('summary-final');
         let total = 0;
-        sumBox.innerHTML = cart.map(i => { total += (i.price * i.qty); return `<div class="flex justify-between text-sm"><span>${i.name.substring(0,30)}... x${i.qty}</span><span>${i.price * i.qty} AED</span></div>`; }).join('');
-        sumBox.innerHTML += `<div class="border-t border-white/10 pt-4 flex justify-between font-black text-white"><span>الإجمالي</span><span>${total} AED</span></div>`;
-    }
-
-    function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
-
-    function handleFinalSubmit(e) {
-        e.preventDefault();
-        const name = document.getElementById('c-name').value;
-        const phone = document.getElementById('c-phone').value;
-        const city = document.getElementById('c-city').value;
-        let msg = `طلب جديد: RAPID BH PRO 🚚\n\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n📍 الإمارة: ${city}\n\n🛒 السلة:\n`;
-        let total = 0;
-        cart.forEach(i => { msg += `- ${i.name} (عدد ${i.qty}) = ${i.price * i.qty} AED\n`; total += (i.price * i.qty); });
-        msg += `\n💰 الإجمالي: ${total} درهم`;
+        let msg = `${i18n[currentLang].orderMsg}\n\n`;
+        cart.forEach(i => {
+            msg += `- ${i.name[currentLang]} x${i.qty} = ${i.price * i.qty} AED\n`;
+            total += (i.price * i.qty);
+        });
+        msg += `\nTotal: ${total} AED`;
         window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`, '_blank');
-        cart = []; save(); location.reload();
     }
 
-    function toast(txt) {
-        const t = document.createElement('div');
-        t.className = "fixed bottom-10 left-10 bg-white text-black px-8 py-4 rounded-2xl font-black z-[50000] shadow-2xl animate__animated animate__backInUp";
-        t.innerText = txt;
-        document.body.appendChild(t);
-        setTimeout(() => t.remove(), 2500);
-    }
-
-    function handleNavScroll() { const n = document.getElementById('nav'); if(window.scrollY > 50) n.classList.add('glass-nav', 'py-4'); else n.classList.remove('glass-nav', 'py-4'); }
-    function contactWA() { window.open('https://wa.me/971508851549', '_blank'); }
-
-    init();
+    // Initialize
+    updateUI();
+    window.addEventListener('scroll', () => {
+        const n = document.getElementById('nav');
+        if(window.scrollY > 50) n.classList.add('glass-nav', 'py-4');
+        else n.classList.remove('glass-nav', 'py-4');
+    });
 </script>
 </body>
 </html>
