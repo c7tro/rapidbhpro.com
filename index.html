@@ -132,6 +132,13 @@
 
         @keyframes pulse-gold { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .live-tag { animation: pulse-gold 2s infinite; }
+
+        .contact-link {
+            transition: color 0.3s;
+        }
+        .contact-link:hover {
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
@@ -259,7 +266,19 @@
 </div>
 
 <footer class="bg-black py-20 px-8 border-t border-white/5 text-center">
-    <h2 class="text-4xl font-black italic mb-10 text-red-600">RAPID BH PRO</h2>
+    <h2 class="text-4xl font-black italic mb-6 text-red-600">RAPID BH PRO</h2>
+    
+    <div class="max-w-md mx-auto mb-10 space-y-4">
+        <div class="flex items-center justify-center gap-3 text-gray-400 font-bold text-lg">
+            <i class="fas fa-phone-alt text-red-600"></i>
+            <a href="tel:+971508851549" class="contact-link">+971 50 885 1549</a>
+        </div>
+        <div class="flex items-center justify-center gap-3 text-gray-400 font-bold text-lg">
+            <i class="fas fa-envelope text-red-600"></i>
+            <a href="mailto:support@rapidbhpro.com" class="contact-link">support@rapidbhpro.com</a>
+        </div>
+    </div>
+
     <p class="text-xs text-gray-800 font-bold uppercase tracking-[10px]">Copyright © 2026 RAPID BH PRO</p>
 </footer>
 
@@ -396,7 +415,6 @@
         if(currentTotal !== 12) return;
         const boxDetails = Object.entries(tempBoxChoices).filter(([_, qty]) => qty > 0).map(([name, qty]) => `${name} (${qty})`).join(' + ');
         const product = DB.find(p => p.id === 7);
-        // عند إضافة البوكس، نحدد أنه بوكس في الكود لكي نعرف ذلك عند العرض في السلة
         cart.push({...product, name: `بوكس التوفير (12 حبة): ${boxDetails}`, qty: 1, isCustomBoxCartItem: true });
         save(); updateCartCount(); closeBoxModal(); openCart(); toast("تم إضافة البوكس لسلتك");
     }
@@ -441,7 +459,6 @@
     function save() { localStorage.setItem('RAPID_ELITE_CART', JSON.stringify(cart)); }
     function updateCartCount() { document.getElementById('cart-dot').innerText = cart.reduce((a, b) => a + b.qty, 0); }
 
-    // --- دالة عرض السلة المحدثة ---
     function renderCart() {
         const box = document.getElementById('cart-items-box');
         let total = 0;
@@ -449,7 +466,6 @@
         else {
             box.innerHTML = cart.map((item, idx) => {
                 total += (item.price * item.qty);
-                // التعديل هنا: فحص ما إذا كان العنصر هو البوكس المخصص لعرض الأيقونة بدلاً من الصورة
                 return `<div class="bg-zinc-900 p-4 rounded-3xl border border-white/5 flex gap-4">
                     ${item.isCustomBoxCartItem 
                         ? `<div class="w-16 h-16 rounded-xl bg-black flex items-center justify-center border border-white/10 shadow-inner flex-shrink-0">
