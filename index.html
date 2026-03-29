@@ -112,7 +112,6 @@
         }
         .img-fullscreen img { max-width: 90%; max-height: 90%; border-radius: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
 
-        /* FB Styles Re-Imagined for RAPID BH (Red Theme) */
         .fb-comment-bubble {
             background-color: var(--fb-bubble);
             border-radius: 18px;
@@ -275,7 +274,6 @@
         { id: 7, name: "بوكس التوفير (12 عبوة)", price: 150, oldPrice: 180, icon: 'fas fa-box-open', info: "بوكس المشكل الخاص بك، اختر 12 حبة بسعر مميز.", isBox: true }
     ];
 
-    // بيانات التعليقات الافتراضية
     let fbReviews = [
         { id: 101, name: "سلطان الشامسي", text: "ما شاء الله ريحة خنينة وتبيض الويه", likes: 12, time: "٢ د", liked: false },
         { id: 102, name: "مريم البلوشي", text: "العود الملكي صدق فنان وما يمزح", likes: 8, time: "١٥ د", liked: false },
@@ -294,7 +292,6 @@
         window.addEventListener('scroll', handleNavScroll);
     }
 
-    // وظائف التعليقات التفاعلية
     function renderReviews() {
         const box = document.getElementById('reviews-box');
         box.innerHTML = fbReviews.map(r => `
@@ -330,13 +327,7 @@
 
     function toggleLike(id) {
         const rev = fbReviews.find(r => r.id === id);
-        if (rev.liked) {
-            rev.likes--;
-            rev.liked = false;
-        } else {
-            rev.likes++;
-            rev.liked = true;
-        }
+        if (rev.liked) { rev.likes--; rev.liked = false; } else { rev.likes++; rev.liked = true; }
         renderReviews();
     }
 
@@ -349,31 +340,12 @@
     function postComment() {
         const nameInput = document.getElementById('new-rev-name');
         const textInput = document.getElementById('new-rev-text');
-
-        if (!nameInput.value.trim() || !textInput.value.trim()) {
-            toast("يرجى كتابة الاسم والتعليق أولاً");
-            nameInput.classList.add('border-red-600');
-            return;
-        }
-
-        const newComment = {
-            id: Date.now(),
-            name: nameInput.value,
-            text: textInput.value,
-            likes: 0,
-            time: "الآن",
-            liked: false
-        };
-
-        fbReviews.unshift(newComment);
-        nameInput.value = "";
-        textInput.value = "";
-        nameInput.classList.remove('border-red-600');
-        renderReviews();
-        toast("تم نشر تعليقك بنجاح");
+        if (!nameInput.value.trim() || !textInput.value.trim()) { toast("يرجى كتابة الاسم والتعليق أولاً"); nameInput.classList.add('border-red-600'); return; }
+        fbReviews.unshift({ id: Date.now(), name: nameInput.value, text: textInput.value, likes: 0, time: "الآن", liked: false });
+        nameInput.value = ""; textInput.value = ""; nameInput.classList.remove('border-red-600');
+        renderReviews(); toast("تم نشر تعليقك بنجاح");
     }
 
-    // وظائف المتجر المتبقية (بدون تغيير)
     function zoomImg(url) {
         if(!url) return;
         const overlay = document.getElementById('image-overlay');
@@ -424,7 +396,8 @@
         if(currentTotal !== 12) return;
         const boxDetails = Object.entries(tempBoxChoices).filter(([_, qty]) => qty > 0).map(([name, qty]) => `${name} (${qty})`).join(' + ');
         const product = DB.find(p => p.id === 7);
-        cart.push({...product, name: `بوكس (12 حبة): ${boxDetails}`, qty: 1, img: 'https://i.ibb.co/9kCQjSsy/IMG-7517.jpg'});
+        // عند إضافة البوكس، نحدد أنه بوكس في الكود لكي نعرف ذلك عند العرض في السلة
+        cart.push({...product, name: `بوكس التوفير (12 حبة): ${boxDetails}`, qty: 1, isCustomBoxCartItem: true });
         save(); updateCartCount(); closeBoxModal(); openCart(); toast("تم إضافة البوكس لسلتك");
     }
 
@@ -456,7 +429,7 @@
 
     function addToCart(id) {
         const product = DB.find(p => p.id === id);
-        const exists = cart.find(i => i.id === id && !i.isBox);
+        const exists = cart.find(i => i.id === id && !i.isCustomBoxCartItem);
         if(exists) exists.qty++; else cart.push({...product, qty: 1});
         save(); updateCartCount(); toast(`تمت إضافة ${product.name}`);
     }
@@ -468,6 +441,7 @@
     function save() { localStorage.setItem('RAPID_ELITE_CART', JSON.stringify(cart)); }
     function updateCartCount() { document.getElementById('cart-dot').innerText = cart.reduce((a, b) => a + b.qty, 0); }
 
+    // --- دالة عرض السلة المحدثة ---
     function renderCart() {
         const box = document.getElementById('cart-items-box');
         let total = 0;
@@ -475,17 +449,23 @@
         else {
             box.innerHTML = cart.map((item, idx) => {
                 total += (item.price * item.qty);
+                // التعديل هنا: فحص ما إذا كان العنصر هو البوكس المخصص لعرض الأيقونة بدلاً من الصورة
                 return `<div class="bg-zinc-900 p-4 rounded-3xl border border-white/5 flex gap-4">
-                    <img src="${item.img || 'https://i.ibb.co/9kCQjSsy/IMG-7517.jpg'}" class="w-16 h-16 object-cover rounded-xl">
-                    <div class="flex-1">
-                        <h4 class="font-bold text-xs mb-2">${item.name}</h4>
+                    ${item.isCustomBoxCartItem 
+                        ? `<div class="w-16 h-16 rounded-xl bg-black flex items-center justify-center border border-white/10 shadow-inner flex-shrink-0">
+                             <i class="fas fa-box-open text-3xl text-gold脉animate__animated animate__pulse animate__infinite pulse脉low"></i>
+                           </div>`
+                        : `<img src="${item.img}" class="w-16 h-16 object-cover rounded-xl flex-shrink-0">`
+                    }
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-sm mb-2 text-white truncate">${item.name}</h4>
                         <div class="flex justify-between items-center">
                             <div class="flex gap-4 bg-black px-3 py-1 rounded-lg">
-                                <span onclick="changeQty(${idx}, -1)" class="cursor-pointer">-</span>
-                                <span class="text-red-600 font-bold">${item.qty}</span>
-                                <span onclick="changeQty(${idx}, 1)" class="cursor-pointer">+</span>
+                                <span onclick="changeQty(${idx}, -1)" class="cursor-pointer text-gray-500 hover:text-white">-</span>
+                                <span class="text-red-600 font-bold text-lg">${item.qty}</span>
+                                <span onclick="changeQty(${idx}, 1)" class="cursor-pointer text-gray-500 hover:text-white">+</span>
                             </div>
-                            <span class="font-bold text-sm">${item.price * item.qty} AED</span>
+                            <span class="font-black text-xl text-gold脉">${item.price * item.qty} AED</span>
                         </div>
                     </div>
                 </div>`;
@@ -505,10 +485,7 @@
         document.getElementById('checkout-modal').style.display = 'flex';
         const sumBox = document.getElementById('summary-final');
         let total = 0;
-        sumBox.innerHTML = cart.map(i => {
-            total += (i.price * i.qty);
-            return `<div class="flex justify-between text-sm"><span>${i.name.substring(0,30)}... x${i.qty}</span><span>${i.price * i.qty} AED</span></div>`;
-        }).join('');
+        sumBox.innerHTML = cart.map(i => { total += (i.price * i.qty); return `<div class="flex justify-between text-sm"><span>${i.name.substring(0,30)}... x${i.qty}</span><span>${i.price * i.qty} AED</span></div>`; }).join('');
         sumBox.innerHTML += `<div class="border-t border-white/10 pt-4 flex justify-between font-black text-white"><span>الإجمالي</span><span>${total} AED</span></div>`;
     }
 
@@ -535,11 +512,7 @@
         setTimeout(() => t.remove(), 2500);
     }
 
-    function handleNavScroll() {
-        const n = document.getElementById('nav');
-        if(window.scrollY > 50) n.classList.add('glass-nav', 'py-4'); else n.classList.remove('glass-nav', 'py-4');
-    }
-
+    function handleNavScroll() { const n = document.getElementById('nav'); if(window.scrollY > 50) n.classList.add('glass-nav', 'py-4'); else n.classList.remove('glass-nav', 'py-4'); }
     function contactWA() { window.open('https://wa.me/971508851549', '_blank'); }
 
     init();
