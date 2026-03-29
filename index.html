@@ -138,7 +138,11 @@
     .review-card {
       background: #1a1a1a;
       border: 1px solid #333;
-      border-radius: 12px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+    .review-card:hover {
+      border-color: #e63946;
     }
   </style>
 </head>
@@ -152,7 +156,7 @@
     </div>
     <div class="flex gap-8 text-lg font-medium">
       <a href="#" onclick="showPage('home')" class="nav-link text-white">الرئيسية</a>
-      <a href="#" onclick="showPage('about')" class="nav-link text-white">about us</a>
+      <a href="#" onclick="showPage('about')" class="nav-link text-white">من نحن</a>
       <a href="#products" onclick="showPage('home')" class="nav-link text-white">المنتجات</a>
     </div>
   </div>
@@ -360,169 +364,125 @@
       </div>
     </div>
 
-    <!-- آراء العملاء -->
     <!-- آراء العملاء - شكل فيسبوك -->
-<h2 class="text-4xl font-bold text-center mb-12 accent-red">آراء العملاء</h2>
+    <h2 class="text-4xl font-bold text-center mb-12 accent-red">آراء العملاء</h2>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="max-w-4xl mx-auto">
 
-  <!-- تعليق 1 -->
-  <div class="review-card p-6 rounded-3xl">
-    <div class="flex gap-4">
-      <img src="https://i.ibb.co/XxYvK8/abstract-avatar1.png" 
-           class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
-           alt="بروفايل">
-      <div class="flex-1">
-        <div class="flex items-center gap-2">
-          <p class="font-semibold text-white">أحمد الشمري</p>
-          <span class="text-gray-500 text-sm">•</span>
-          <p class="text-gray-500 text-sm">منذ أسبوع</p>
-        </div>
-        <p class="text-lg mt-2 leading-relaxed">"الريحة تجنن تدوم أيام على المفروشات!"</p>
-        
-        <div class="flex items-center gap-5 mt-4 text-gray-400 text-sm">
-          <div class="flex items-center gap-1">
-            👍 <span>28</span>
+      <!-- صندوق إضافة تعليق جديد -->
+      <div class="review-card p-6 rounded-3xl mb-10">
+        <div class="flex gap-4">
+          <img src="https://picsuphotos/id/64/128/128" 
+               class="w-11 h-11 rounded-full flex-shrink-0 object-cover border-2 border-gray-600" 
+               alt="أنت">
+          <div class="flex-1">
+            <textarea id="new-comment" 
+                      class="w-full bg-[#1a1a1a] border border-gray-700 rounded-2xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-red-600 resize-none h-24"
+                      placeholder="اكتب رأيك في المنتجات..."></textarea>
+            
+            <div class="flex justify-end mt-3">
+              <button onclick="addNewComment()" 
+                      class="bg-accent-red hover:bg-red-700 px-8 py-3 rounded-2xl font-bold transition flex items-center gap-2">
+                <i class="fas fa-paper-plane"></i>
+                نشر التعليق
+              </button>
+            </div>
           </div>
-          <div class="flex items-center gap-1">
-            ❤️ <span>12</span>
-          </div>
-          <button class="hover:text-white transition">رد</button>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- تعليق 2 -->
-  <div class="review-card p-6 rounded-3xl">
-    <div class="flex gap-4">
-      <img src="https://i.ibbco/0jZfK7L/abstract-avatar2.png" 
-           class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
-           alt="بروفايل">
-      <div class="flex-1">
-        <div class="flex items-center gap-2">
-          <p class="font-semibold text-white">فاطمة الزهراء</p>
-          <span class="text-gray-500 text-sm">•</span>
-          <p class="text-gray-500 text-sm">منذ يومين</p>
-        </div>
-        <p class="text-lg mt-2 leading-relaxed">"تنظيف سريع وما يتعب اليد مزيل الشحوم خرافي جداً"</p>
-        
-        <div class="flex items-center gap-5 mt-4 text-gray-400 text-sm">
-          <div class="flex items-center gap-1">
-            👍 <span>41</span>
+      <!-- قائمة التعليقات -->
+      <div id="comments-container" class="space-y-8">
+
+        <!-- تعليق 1 -->
+        <div class="review-card p-6 rounded-3xl">
+          <div class="flex gap-4">
+            <img src="https://picsum.photoid/201/128/128" 
+                 class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
+                 alt="بروفايل">
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <p class="font-semibold text-white">أحمد الشمري</p>
+                <span class="text-gray-500 text-sm">•</span>
+                <p class="text-gray-500 text-sm">منذ أسبوع</p>
+              </div>
+              <p class="text-lg mt-2 leading-relaxed">"الريحة تجنن تدوم أيام على المفروشات صرت أستخدمه كل أسبوع!"</p>
+              <div class="flex items-center gap-6 mt-4 text-gray-400 text-sm">
+                <div class="flex items-center gap-1 hover:text-white cursor-pointer transition">👍 <span>28</span></div>
+                <div class="flex items-center gap-1 hover:text-white cursor-pointer transition">❤️ <span>12</span></div>
+                <div class="hover:text-white cursor-pointer transition">رد</div>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-1">
-            🔥 <span>19</span>
-          </div>
-          <button class="hover:text-white transition">رد</button>
         </div>
+
+        <!-- تعليق 2 -->
+        <div class="review-card p-6 rounded-3xl">
+          <div class="flex gap-4">
+            <img src="https://picsum.photoi/237/128/128" 
+                 class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
+                 alt="بروفايل">
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <p class="font-semibold text-white">فاطمة الزهراء</p>
+                <span class="text-gray-500 text-sm">•</span>
+                <p class="text-gray-500 text-sm">منذ يومين</p>
+              </div>
+              <p class="text-lg mt-2 leading-relaxed">"تنظيف سريع وما يتعب اليد مزيل الشحوم ماشاءالله"</p>
+              <div class="flex items-center gap-6 mt-4 text-gray-400 text-sm">
+                <div class="flex items-center gap-1 hover:text-white cursor-pointer transition">👍 <span>41</span></div>
+                <div class="flex items-center gap-1 hover:text-white cursor-pointer transition">🔥 <span>19</span></div>
+                <div class="hover:text-white cursor-pointer transition">رد</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- تعليق 3 -->
+        <div class="review-card p-6 rounded-3xl">
+          <div class="flex gap-4">
+            <img src="https://picsum.photoid64/128/128" 
+                 class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
+                 alt="بروفايل">
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <p class="font-semibold text-white">محمد العتيبي</p>
+                <span class="text-gray-500 text-sm">•</span>
+                <p class="text-gray-500 text-sm">منذ 3 أيام</p>
+              </div>
+              <p class="text-lg mt-2 leading-relaxed">"مزيل الشحوم هذا أقوى شي جربته يذيب الدهون المحروقة بسهولة"</p>
+              <div class="flex items-center gap-6 mt-4 text-gray-400 text-sm">
+                <div class="flex items-center gap-1 hover:text-white cursor-pointer transition">👍 <span>35</span></div>
+                <div class="flex items-center gap-1 hover:text-white cursor-pointer transition">❤️ <span>8</span></div>
+                <div class="hover:text-white cursor-pointer transition">رد</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- تعليق 4 -->
+        <div class="review-card p-6 rounded-3xl">
+          <div class="flex gap-4">
+            <img src="https://picsum.photos/i201/128/128" 
+                 class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
+                 alt="بروفايل">
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <p class="font-semibold text-white">سارة المهيري</p>
+                <span class="text-gray-500 text-sm">•</span>
+                <p class="text-gray-500 text-sm">منذ أسبوع</p>
+              </div>
+              <p class="text-lg mt-2 leading-relaxed">"رخيص وفاخرالريحة تدوم أيام"</p>
+              <div class="flex items-center gap-6 mt-4 text-gray-400 text-sm">
+                <div class="flex items-center gap-1 hover:text-white cursor-pointer transition">👍 <span>22</span></div>
+                <div class="hover:text-white cursor-pointer transition">رد</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-
-  <!-- تعليق 3 -->
-  <div class="review-card p-6 rounded-3xl">
-    <div class="flex gap-4">
-      <img src="https://i.ibb.co/3mcb1tr/abstra-avatar3.png" 
-           class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
-           alt="بروفايل">
-      <div class="flex-1">
-        <div class="flex items-center gap-2">
-          <p class="font-semibold text-white">محمد العتيبي</p>
-          <span class="text-gray-500 text-sm">•</span>
-          <p class="text-gray-500 text-sm">منذ 3 أيام</p>
-        </div>
-        <p class="text-lg mt-2 leading-relaxed">"مزيل الشحوم هذا أقوى شي جربته يذيب الدهون المحروقة بسهولة"</p>
-        
-        <div class="flex items-center gap-5 mt-4 text-gray-400 text-sm">
-          <div class="flex items-center gap-1">
-            👍 <span>35</span>
-          </div>
-          <div class="flex items-center gap-1">
-            ❤️ <span>8</span>
-          </div>
-          <button class="hover:text-white transition">رد</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- تعليق 4 -->
-  <div class="review-card p-6 rounded-3xl">
-    <div class="flex gap-4">
-      <img src="https://i.ibb.co/Y7B86C5abstract-avatar4.png" 
-           class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
-           alt="بروفايل">
-      <div class="flex-1">
-        <div class="flex items-center gap-2">
-          <p class="font-semibold text-white">سارة المهيري</p>
-          <span class="text-gray-500 text-sm">•</span>
-          <p class="text-gray-500 text-sm">منذ أسبوع</p>
-        </div>
-        <p class="text-lg mt-2 leading-relaxed">"رخيص وفاخرالريحة تدوم أيام ونظيف "</p>
-        
-        <div class="flex items-center gap-5 mt-4 text-gray-400 text-sm">
-          <div class="flex items-center gap-1">
-            👍 <span>22</span>
-          </div>
-          <button class="hover:text-white transition">رد</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- تعليق 5 (بالإنجليزي) -->
-  <div class="review-card p-6 rounded-3xl">
-    <div class="flex gap-4">
-      <img src="https://i.ibb.co/KzxfrNkabstract-avatar5.png" 
-           class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
-           alt="بروفايل">
-      <div class="flex-1">
-        <div class="flex items-center gap-2">
-          <p class="font-semibold text-white">Fatima Al Mansoori</p>
-          <span class="text-gray-500 text-sm">•</span>
-          <p class="text-gray-500 text-sm">2 weeks ago</p>
-        </div>
-        <p class="text-lg mt-2 leading-relaxed">"The smell stays for days, wow! Best air freshener I've used."</p>
-        
-        <div class="flex items-center gap-5 mt-4 text-gray-400 text-sm">
-          <div class="flex items-center gap-1">
-            👍 <span>19</span>
-          </div>
-          <div class="flex items-center gap-1">
-            ❤️ <span>15</span>
-          </div>
-          <button class="hover:text-white transition">Reply</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- تعليق 6 -->
-  <div class="review-card p-6 rounded-3xl">
-    <div class="flex gap-4">
-      <img src="https://i.ibb.co/V0nJW4/abstract-avatar6.png" 
-           class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
-           alt="بروفايل">
-      <div class="flex-1">
-        <div class="flex items-center gap-2">
-          <p class="font-semibold text-white">Khalid Al Hashmi</p>
-          <span class="text-gray-500 text-sm">•</span>
-          <p class="text-gray-500 text-sm">1 week ago</p>
-        </div>
-        <p class="text-lg mt-2 leading-relaxed">"Best grease remover ever! It works like magic on burnt oil."</p>
-        
-        <div class="flex items-center gap-5 mt-4 text-gray-400 text-sm">
-          <div class="flex items-center gap-1">
-            👍 <span>47</span>
-          </div>
-          <button class="hover:text-white transition">Reply</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
 
     <!-- أماكن التوفر -->
     <div class="mt-20 bg-[#111] border border-[#d4af37] rounded-3xl p-12 text-center">
@@ -667,7 +627,6 @@
     }
   }
 
-  // تبديل الصفحات
   function showPage(page) {
     document.getElementById('home-page').classList.add('hidden');
     document.getElementById('about-page').classList.add('hidden');
@@ -679,9 +638,47 @@
     }
   }
 
+  // إضافة تعليق جديد
+  function addNewComment() {
+    const textarea = document.getElementById('new-comment');
+    const commentText = textarea.value.trim();
+
+    if (commentText === '') {
+      alert('يرجى كتابة تعليق قبل النشر');
+      return;
+    }
+
+    const container = document.getElementById('comments-container');
+
+    const newCommentHTML = `
+      <div class="review-card p-6 rounded-3xl">
+        <div class="flex gap-4">
+          <img src="https://picsum.photos/id/64/128/128" 
+               class="w-12 h-12 rounded-full flex-shrink-0 object-cover border-2 border-gray-700" 
+               alt="بروفايل">
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <p class="font-semibold text-white">أنت</p>
+              <span class="text-gray-500 text-sm">•</span>
+              <p class="text-gray-500 text-sm">الآن</p>
+            </div>
+            <p class="text-lg mt-2 leading-relaxed">"${commentText}"</p>
+            <div class="flex items-center gap-6 mt-4 text-gray-400 text-sm">
+              <div class="flex items-center gap-1">👍 <span>1</span></div>
+              <div class="hover:text-white cursor-pointer transition">رد</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    container.insertAdjacentHTML('afterbegin', newCommentHTML);
+    textarea.value = '';
+  }
+
   // تهيئة
   updateCartCount();
-  showPage('home'); // افتراضياً يبدأ بالصفحة الرئيسية
+  showPage('home');
 </script>
 
 </body>
