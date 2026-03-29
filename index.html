@@ -18,6 +18,8 @@
             --card: #0a0a0a;
             --glass: rgba(15, 15, 15, 0.85);
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --fb-bg: #242526;
+            --fb-bubble: #3a3b3c;
         }
 
         body {
@@ -97,7 +99,6 @@
         }
         .image-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
         
-        /* ميزة تكبير الصورة */
         .img-fullscreen {
             position: fixed;
             inset: 0;
@@ -110,6 +111,24 @@
             animation: fadeIn 0.3s;
         }
         .img-fullscreen img { max-width: 90%; max-height: 90%; border-radius: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+
+        /* FB Styles */
+        .fb-comment-bubble {
+            background-color: var(--fb-bubble);
+            border-radius: 18px;
+            padding: 10px 14px;
+            display: inline-block;
+            max-width: 100%;
+        }
+        .fb-action-btn {
+            font-size: 12px;
+            font-weight: bold;
+            color: #b0b3b8;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+        .fb-action-btn:hover { text-decoration: underline; }
+        .fb-action-btn.active { color: #2e89ff; }
 
         @keyframes pulse-gold { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .live-tag { animation: pulse-gold 2s infinite; }
@@ -125,10 +144,7 @@
     <div class="bg-zinc-900 w-full max-w-2xl rounded-[40px] p-8 border border-red-600/30 max-h-[90vh] overflow-y-auto">
         <h2 class="text-3xl font-black mb-2 text-red-600">صمم بوكس الـ 12 عبوة</h2>
         <p class="text-gray-400 mb-6">اختر 12 منتجاً من المجموعات التالية (المتبقي: <span id="box-counter" class="text-white font-bold">12</span>)</p>
-        
-        <div id="box-options" class="space-y-4 mb-8">
-            </div>
-
+        <div id="box-options" class="space-y-4 mb-8"></div>
         <div class="flex gap-4">
             <button onclick="confirmBox()" id="confirm-box-btn" class="flex-1 bg-green-600 py-4 rounded-2xl font-black opacity-50 cursor-not-allowed">تأكيد واضافة للسلة</button>
             <button onclick="closeBoxModal()" class="px-8 bg-white/10 py-4 rounded-2xl font-bold">إلغاء</button>
@@ -201,9 +217,22 @@
 </section>
 
 <section id="reviews" class="py-32 bg-zinc-950/50">
-    <div class="max-w-7xl mx-auto px-8">
-        <h2 class="text-5xl font-black mb-20">آراء زبائننا</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10" id="reviews-box"></div>
+    <div class="max-w-3xl mx-auto px-8">
+        <h2 class="text-5xl font-black mb-16 text-center">آراء زبائننا</h2>
+        
+        <div class="bg-[#242526] p-4 rounded-xl mb-10 border border-white/10 shadow-2xl">
+            <div class="flex gap-3 mb-3">
+                <div class="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-user text-zinc-500"></i>
+                </div>
+                <input type="text" placeholder="اكتب تعليقك..." class="flex-1 bg-[#3a3b3c] rounded-full px-5 py-2 text-sm outline-none focus:ring-1 ring-blue-500 text-white">
+            </div>
+            <div class="flex justify-end border-t border-white/5 pt-2">
+                <button class="text-blue-500 font-bold text-sm px-6 py-1.5 hover:bg-white/5 rounded-md transition">نشر</button>
+            </div>
+        </div>
+
+        <div class="space-y-8" id="reviews-box"></div>
     </div>
 </section>
 
@@ -236,7 +265,6 @@
         { id: 4, name: "معطر فواكه", price: 15, img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", info: "طاقة منعشة تدوم طويلاً." },
         { id: 5, name: "مزيل بقع BH 99", price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", info: "قوة BH 99 لإزالة أصعب البقع." },
         { id: 6, name: "مزيل الدهون والشحوم الحروقه", price: 15, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", info: "إذابة الدهون الصعبة في ثوانٍ." },
-        // التعديل هنا: استخدام أيقونة FontAwesome بدلاً من رابط الصورة
         { id: 7, name: "بوكس التوفير (12 عبوة)", price: 150, oldPrice: 180, icon: 'fas fa-box-open', info: "بوكس المشكل الخاص بك، اختر 12 حبة بسعر مميز.", isBox: true }
     ];
 
@@ -250,16 +278,14 @@
         window.addEventListener('scroll', handleNavScroll);
     }
 
-    // --- ميزة الصور ---
     function zoomImg(url) {
-        if(!url) return; // لضمان عدم تكبير الأيقونة
+        if(!url) return;
         const overlay = document.getElementById('image-overlay');
         const img = document.getElementById('full-img');
         img.src = url;
         overlay.classList.remove('hidden');
     }
 
-    // --- ميزة البوكس ---
     function openBoxWizard() {
         document.getElementById('box-modal').classList.remove('hidden');
         tempBoxChoices = {};
@@ -299,7 +325,6 @@
         let currentTotal = Object.values(tempBoxChoices).reduce((a, b) => a + b, 0);
         if (delta > 0 && currentTotal >= 12) return;
         if (delta < 0 && tempBoxChoices[name] <= 0) return;
-        
         tempBoxChoices[name] += delta;
         renderBoxOptions();
     }
@@ -307,34 +332,20 @@
     function confirmBox() {
         let currentTotal = Object.values(tempBoxChoices).reduce((a, b) => a + b, 0);
         if(currentTotal !== 12) return;
-
-        const boxDetails = Object.entries(tempBoxChoices)
-            .filter(([_, qty]) => qty > 0)
-            .map(([name, qty]) => `${name} (${qty})`).join(' + ');
-
+        const boxDetails = Object.entries(tempBoxChoices).filter(([_, qty]) => qty > 0).map(([name, qty]) => `${name} (${qty})`).join(' + ');
         const product = DB.find(p => p.id === 7);
-        // التعديل هنا لضمان وجود صورة افتراضية في السلة للبوكس
         cart.push({...product, name: `بوكس (12 حبة): ${boxDetails}`, qty: 1, img: 'https://i.ibb.co/9kCQjSsy/IMG-7517.jpg'});
-        
-        save();
-        updateCartCount();
-        closeBoxModal();
-        openCart();
-        toast("تم إضافة البوكس المخصص لسلتك");
+        save(); updateCartCount(); closeBoxModal(); openCart(); toast("تم إضافة البوكس لسلتك");
     }
 
     function closeBoxModal() { document.getElementById('box-modal').classList.add('hidden'); }
 
-    // --- نظام المتجر المحدث ---
     function renderProducts() {
         const grid = document.getElementById('p-grid');
         grid.innerHTML = DB.map(p => `
             <div class="product-card group animate__animated animate__fadeInUp">
                 <div class="image-box ${p.isBox ? 'flex items-center justify-center bg-black' : ''}" onclick="${p.isBox ? '' : `zoomImg('${p.img}')`}">
-                    ${p.isBox 
-                        ? `<i class="${p.icon} text-8xl text-gold group-hover:scale-110 transition-transform"></i>`
-                        : `<img src="${p.img}" loading="lazy">`
-                    }
+                    ${p.isBox ? `<i class="${p.icon} text-8xl text-gold group-hover:scale-110 transition-transform"></i>` : `<img src="${p.img}" loading="lazy">`}
                 </div>
                 <div class="p-8">
                     <h3 class="text-3xl font-black italic mb-4">${p.name}</h3>
@@ -353,7 +364,6 @@
         `).join('');
     }
 
-    // --- الوظائف الأساسية (تبقى كما هي) ---
     function addToCart(id) {
         const product = DB.find(p => p.id === id);
         const exists = cart.find(i => i.id === id && !i.isBox);
@@ -371,11 +381,10 @@
     function renderCart() {
         const box = document.getElementById('cart-items-box');
         let total = 0;
-        if(cart.length === 0) { box.innerHTML = `<div class="text-center py-20 opacity-20 italic">السلة فارغة</div>`; }
+        if(cart.length === 0) box.innerHTML = `<div class="text-center py-20 opacity-20 italic">السلة فارغة</div>`;
         else {
             box.innerHTML = cart.map((item, idx) => {
                 total += (item.price * item.qty);
-                // السلة تستخدم صورة افتراضية للبوكس لعرض أنيق
                 return `<div class="bg-zinc-900 p-4 rounded-3xl border border-white/5 flex gap-4">
                     <img src="${item.img || 'https://i.ibb.co/9kCQjSsy/IMG-7517.jpg'}" class="w-16 h-16 object-cover rounded-xl">
                     <div class="flex-1">
@@ -422,10 +431,7 @@
         const city = document.getElementById('c-city').value;
         let msg = `طلب جديد: RAPID BH PRO 🚚\n\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n📍 الإمارة: ${city}\n\n🛒 السلة:\n`;
         let total = 0;
-        cart.forEach(i => {
-            msg += `- ${i.name} (عدد ${i.qty}) = ${i.price * i.qty} AED\n`;
-            total += (i.price * i.qty);
-        });
+        cart.forEach(i => { msg += `- ${i.name} (عدد ${i.qty}) = ${i.price * i.qty} AED\n`; total += (i.price * i.qty); });
         msg += `\n💰 الإجمالي: ${total} درهم`;
         window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`, '_blank');
         cart = []; save(); location.reload();
@@ -444,9 +450,42 @@
         if(window.scrollY > 50) n.classList.add('glass-nav', 'py-4'); else n.classList.remove('glass-nav', 'py-4');
     }
 
+    // الوظيفة المحدثة: عرض التعليقات بتصميم FB
     function renderReviews() {
-        const revs = [{n: "أحمد الحمادي", t: "أفضل جودة منظفات جربتها في دبي."}, {n: "Sarah M.", t: "The fragrance lasts for days!"}];
-        document.getElementById('reviews-box').innerHTML = revs.map(r => `<div class="bg-black p-8 rounded-[40px] border border-white/5"><p class="text-gray-400 italic mb-4">"${r.t}"</p><h5 class="text-red-600 font-black">— ${r.n}</h5></div>`).join('');
+        const fbReviews = [
+            { name: "سلطان الشامسي", text: "ما شاء الله ريحة خنينة وتبيض الويه", likes: 12, time: "٢ د" },
+            { name: "مريم البلوشي", text: "العود الملكي صدق فنان وما يمزح", likes: 8, time: "١٥ د" },
+            { name: "بو راشد", text: "تسلم يمناكم شغل مرتب وذرب وايد", likes: 24, time: "١ ساعة" },
+            { name: "عفراء الهاملي", text: "منظف الدهون فكني من عبالة كبيرة", likes: 5, time: "٣ ساعة" },
+            { name: "خليفة المنصوري", text: "جربت وايد بس جودتكم غير شكل", likes: 19, time: "٥ ساعة" }
+        ];
+
+        document.getElementById('reviews-box').innerHTML = fbReviews.map(r => `
+            <div class="flex gap-3 animate__animated animate__fadeIn">
+                <div class="w-10 h-10 rounded-full bg-zinc-800 flex-shrink-0 flex items-center justify-center border border-white/5 shadow-inner">
+                    <i class="fas fa-user text-zinc-600"></i>
+                </div>
+                <div class="flex flex-col items-start w-full">
+                    <div class="fb-comment-bubble shadow-lg">
+                        <div class="text-[13px] font-bold text-white mb-0.5">${r.name}</div>
+                        <div class="text-[15px] text-gray-200 leading-snug font-medium">${r.text}</div>
+                    </div>
+                    <div class="flex items-center mt-1.5 ml-1">
+                        <span class="fb-action-btn active">أعجبني</span>
+                        <span class="fb-action-btn">رد</span>
+                        <span class="text-[12px] text-zinc-500 font-medium">${r.time}</span>
+                        ${r.likes > 0 ? `
+                            <div class="flex items-center gap-1 mr-4 bg-[#3a3b3c] px-1.5 py-0.5 rounded-full border border-white/5">
+                                <div class="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center scale-75">
+                                    <i class="fas fa-thumbs-up text-[8px] text-white"></i>
+                                </div>
+                                <span class="text-[11px] text-zinc-400 font-bold">${r.likes}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+        `).join('');
     }
 
     function contactWA() { window.open('https://wa.me/971508851549', '_blank'); }
