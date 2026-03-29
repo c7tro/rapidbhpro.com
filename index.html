@@ -112,7 +112,7 @@
         }
         .img-fullscreen img { max-width: 90%; max-height: 90%; border-radius: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
 
-        /* FB Styles */
+        /* FB Styles Re-Imagined for RAPID BH (Red Theme) */
         .fb-comment-bubble {
             background-color: var(--fb-bubble);
             border-radius: 18px;
@@ -126,9 +126,10 @@
             color: #b0b3b8;
             margin-right: 12px;
             cursor: pointer;
+            transition: 0.2s;
         }
         .fb-action-btn:hover { text-decoration: underline; }
-        .fb-action-btn.active { color: #2e89ff; }
+        .fb-action-btn.active { color: var(--primary); }
 
         @keyframes pulse-gold { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .live-tag { animation: pulse-gold 2s infinite; }
@@ -220,15 +221,21 @@
     <div class="max-w-3xl mx-auto px-8">
         <h2 class="text-5xl font-black mb-16 text-center">آراء زبائننا</h2>
         
-        <div class="bg-[#242526] p-4 rounded-xl mb-10 border border-white/10 shadow-2xl">
-            <div class="flex gap-3 mb-3">
-                <div class="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center flex-shrink-0">
-                    <i class="fas fa-user text-zinc-500"></i>
+        <div class="bg-[#242526] p-5 rounded-2xl mb-12 border border-white/10 shadow-2xl">
+            <div class="space-y-3">
+                <div class="flex gap-3">
+                    <div class="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-user text-zinc-500"></i>
+                    </div>
+                    <input type="text" id="new-rev-name" placeholder="الاسم (إلزامي)" class="w-full bg-[#3a3b3c] rounded-xl px-4 py-2 text-sm outline-none border border-transparent focus:border-red-600 text-white font-bold">
                 </div>
-                <input type="text" placeholder="اكتب تعليقك..." class="flex-1 bg-[#3a3b3c] rounded-full px-5 py-2 text-sm outline-none focus:ring-1 ring-blue-500 text-white">
+                <div class="flex gap-3">
+                    <div class="w-10 h-10 invisible flex-shrink-0"></div>
+                    <textarea id="new-rev-text" rows="2" placeholder="بماذا تفكر؟" class="w-full bg-[#3a3b3c] rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-red-600 text-white resize-none"></textarea>
+                </div>
             </div>
-            <div class="flex justify-end border-t border-white/5 pt-2">
-                <button class="text-blue-500 font-bold text-sm px-6 py-1.5 hover:bg-white/5 rounded-md transition">نشر</button>
+            <div class="flex justify-end border-t border-white/5 mt-4 pt-3">
+                <button onclick="postComment()" class="bg-red-600 hover:bg-red-700 text-white font-black text-sm px-8 py-2.5 rounded-full transition-all transform active:scale-95 shadow-lg">نشر التعليق</button>
             </div>
         </div>
 
@@ -268,6 +275,15 @@
         { id: 7, name: "بوكس التوفير (12 عبوة)", price: 150, oldPrice: 180, icon: 'fas fa-box-open', info: "بوكس المشكل الخاص بك، اختر 12 حبة بسعر مميز.", isBox: true }
     ];
 
+    // بيانات التعليقات الافتراضية
+    let fbReviews = [
+        { id: 101, name: "سلطان الشامسي", text: "ما شاء الله ريحة خنينة وتبيض الويه", likes: 12, time: "٢ د", liked: false },
+        { id: 102, name: "مريم البلوشي", text: "العود الملكي صدق فنان وما يمزح", likes: 8, time: "١٥ د", liked: false },
+        { id: 103, name: "بو راشد", text: "تسلم يمناكم شغل مرتب وذرب وايد", likes: 24, time: "١ ساعة", liked: false },
+        { id: 104, name: "عفراء الهاملي", text: "منظف الدهون فكني من عبالة كبيرة", likes: 5, time: "٣ ساعة", liked: false },
+        { id: 105, name: "خليفة المنصوري", text: "جربت وايد بس جودتكم غير شكل", likes: 19, time: "٥ ساعة", liked: false }
+    ];
+
     let cart = JSON.parse(localStorage.getItem('RAPID_ELITE_CART')) || [];
     let tempBoxChoices = {};
 
@@ -278,6 +294,86 @@
         window.addEventListener('scroll', handleNavScroll);
     }
 
+    // وظائف التعليقات التفاعلية
+    function renderReviews() {
+        const box = document.getElementById('reviews-box');
+        box.innerHTML = fbReviews.map(r => `
+            <div class="flex gap-3 animate__animated animate__fadeIn">
+                <div class="w-10 h-10 rounded-full bg-zinc-800 flex-shrink-0 flex items-center justify-center border border-white/5 shadow-inner">
+                    <i class="fas fa-user text-zinc-600"></i>
+                </div>
+                <div class="flex flex-col items-start w-full">
+                    <div class="fb-comment-bubble shadow-lg">
+                        <div class="text-[13px] font-bold text-white mb-0.5">${r.name}</div>
+                        <div class="text-[15px] text-gray-200 leading-snug font-medium">${r.text}</div>
+                    </div>
+                    <div class="flex items-center mt-1.5 ml-1">
+                        <span onclick="toggleLike(${r.id})" class="fb-action-btn ${r.liked ? 'active' : ''}">${r.liked ? 'أعجبني' : 'أعجبني'}</span>
+                        <span onclick="focusReply(${r.id})" class="fb-action-btn">رد</span>
+                        <span class="text-[12px] text-zinc-500 font-medium">${r.time}</span>
+                        ${r.likes > 0 ? `
+                            <div class="flex items-center gap-1 mr-4 bg-[#3a3b3c] px-1.5 py-0.5 rounded-full border border-white/5">
+                                <div class="w-4 h-4 bg-red-600 rounded-full flex items-center justify-center scale-75">
+                                    <i class="fas fa-thumbs-up text-[8px] text-white"></i>
+                                </div>
+                                <span class="text-[11px] text-zinc-400 font-bold">${r.likes}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div id="reply-box-${r.id}" class="hidden mt-3 w-full">
+                        <input type="text" placeholder="اكتب رداً..." class="w-full bg-[#1c1d1e] border border-white/10 rounded-full px-4 py-1.5 text-xs outline-none focus:border-red-600">
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function toggleLike(id) {
+        const rev = fbReviews.find(r => r.id === id);
+        if (rev.liked) {
+            rev.likes--;
+            rev.liked = false;
+        } else {
+            rev.likes++;
+            rev.liked = true;
+        }
+        renderReviews();
+    }
+
+    function focusReply(id) {
+        const rBox = document.getElementById(`reply-box-${id}`);
+        rBox.classList.toggle('hidden');
+        if(!rBox.classList.contains('hidden')) rBox.querySelector('input').focus();
+    }
+
+    function postComment() {
+        const nameInput = document.getElementById('new-rev-name');
+        const textInput = document.getElementById('new-rev-text');
+
+        if (!nameInput.value.trim() || !textInput.value.trim()) {
+            toast("يرجى كتابة الاسم والتعليق أولاً");
+            nameInput.classList.add('border-red-600');
+            return;
+        }
+
+        const newComment = {
+            id: Date.now(),
+            name: nameInput.value,
+            text: textInput.value,
+            likes: 0,
+            time: "الآن",
+            liked: false
+        };
+
+        fbReviews.unshift(newComment);
+        nameInput.value = "";
+        textInput.value = "";
+        nameInput.classList.remove('border-red-600');
+        renderReviews();
+        toast("تم نشر تعليقك بنجاح");
+    }
+
+    // وظائف المتجر المتبقية (بدون تغيير)
     function zoomImg(url) {
         if(!url) return;
         const overlay = document.getElementById('image-overlay');
@@ -297,7 +393,6 @@
         const container = document.getElementById('box-options');
         let currentTotal = Object.values(tempBoxChoices).reduce((a, b) => a + b, 0);
         document.getElementById('box-counter').innerText = 12 - currentTotal;
-
         container.innerHTML = DB.slice(0, 6).map(p => `
             <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5">
                 <div class="flex items-center gap-4">
@@ -311,14 +406,9 @@
                 </div>
             </div>
         `).join('');
-
         const btn = document.getElementById('confirm-box-btn');
-        if(currentTotal === 12) {
-            btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            btn.classList.add('animate__animated', 'animate__pulse');
-        } else {
-            btn.classList.add('opacity-50', 'cursor-not-allowed');
-        }
+        if(currentTotal === 12) btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        else btn.classList.add('opacity-50', 'cursor-not-allowed');
     }
 
     function updateBoxItem(name, delta) {
@@ -448,44 +538,6 @@
     function handleNavScroll() {
         const n = document.getElementById('nav');
         if(window.scrollY > 50) n.classList.add('glass-nav', 'py-4'); else n.classList.remove('glass-nav', 'py-4');
-    }
-
-    // الوظيفة المحدثة: عرض التعليقات بتصميم FB
-    function renderReviews() {
-        const fbReviews = [
-            { name: "سلطان الشامسي", text: "ما شاء الله ريحة خنينة وتبيض الويه", likes: 12, time: "٢ د" },
-            { name: "مريم البلوشي", text: "العود الملكي صدق فنان وما يمزح", likes: 8, time: "١٥ د" },
-            { name: "بو راشد", text: "تسلم يمناكم شغل مرتب وذرب وايد", likes: 24, time: "١ ساعة" },
-            { name: "عفراء الهاملي", text: "منظف الدهون فكني من عبالة كبيرة", likes: 5, time: "٣ ساعة" },
-            { name: "خليفة المنصوري", text: "جربت وايد بس جودتكم غير شكل", likes: 19, time: "٥ ساعة" }
-        ];
-
-        document.getElementById('reviews-box').innerHTML = fbReviews.map(r => `
-            <div class="flex gap-3 animate__animated animate__fadeIn">
-                <div class="w-10 h-10 rounded-full bg-zinc-800 flex-shrink-0 flex items-center justify-center border border-white/5 shadow-inner">
-                    <i class="fas fa-user text-zinc-600"></i>
-                </div>
-                <div class="flex flex-col items-start w-full">
-                    <div class="fb-comment-bubble shadow-lg">
-                        <div class="text-[13px] font-bold text-white mb-0.5">${r.name}</div>
-                        <div class="text-[15px] text-gray-200 leading-snug font-medium">${r.text}</div>
-                    </div>
-                    <div class="flex items-center mt-1.5 ml-1">
-                        <span class="fb-action-btn active">أعجبني</span>
-                        <span class="fb-action-btn">رد</span>
-                        <span class="text-[12px] text-zinc-500 font-medium">${r.time}</span>
-                        ${r.likes > 0 ? `
-                            <div class="flex items-center gap-1 mr-4 bg-[#3a3b3c] px-1.5 py-0.5 rounded-full border border-white/5">
-                                <div class="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center scale-75">
-                                    <i class="fas fa-thumbs-up text-[8px] text-white"></i>
-                                </div>
-                                <span class="text-[11px] text-zinc-400 font-bold">${r.likes}</span>
-                            </div>
-                        ` : ''}
-                    </div>
-                </div>
-            </div>
-        `).join('');
     }
 
     function contactWA() { window.open('https://wa.me/971508851549', '_blank'); }
