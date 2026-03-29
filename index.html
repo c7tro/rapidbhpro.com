@@ -236,7 +236,8 @@
         { id: 4, name: "عطر فواكه", price: 15, img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", info: "طاقة منعشة تدوم طويلاً." },
         { id: 5, name: "مزيل بقع BH 99", price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", info: "قوة BH 99 لإزالة أصعب البقع." },
         { id: 6, name: "قاهر الدهون", price: 15, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", info: "إذابة الدهون الصعبة في ثوانٍ." },
-        { id: 7, name: "بوكس التوفير (12 عبوة)", price: 150, oldPrice: 180, img: "https://i.ibb.co/9kCQjSsy/IMG-7517.jpg", info: "بوكس المشكل الخاص بك، اختر 12 حبة بسعر مميز.", isBox: true }
+        // التعديل هنا: استخدام أيقونة FontAwesome بدلاً من رابط الصورة
+        { id: 7, name: "بوكس التوفير (12 عبوة)", price: 150, oldPrice: 180, icon: 'fas fa-box-open', info: "بوكس المشكل الخاص بك، اختر 12 حبة بسعر مميز.", isBox: true }
     ];
 
     let cart = JSON.parse(localStorage.getItem('RAPID_ELITE_CART')) || [];
@@ -251,6 +252,7 @@
 
     // --- ميزة الصور ---
     function zoomImg(url) {
+        if(!url) return; // لضمان عدم تكبير الأيقونة
         const overlay = document.getElementById('image-overlay');
         const img = document.getElementById('full-img');
         img.src = url;
@@ -311,7 +313,8 @@
             .map(([name, qty]) => `${name} (${qty})`).join(' + ');
 
         const product = DB.find(p => p.id === 7);
-        cart.push({...product, name: `بوكس (12 حبة): ${boxDetails}`, qty: 1});
+        // التعديل هنا لضمان وجود صورة افتراضية في السلة للبوكس
+        cart.push({...product, name: `بوكس (12 حبة): ${boxDetails}`, qty: 1, img: 'https://i.ibb.co/9kCQjSsy/IMG-7517.jpg'});
         
         save();
         updateCartCount();
@@ -327,8 +330,11 @@
         const grid = document.getElementById('p-grid');
         grid.innerHTML = DB.map(p => `
             <div class="product-card group animate__animated animate__fadeInUp">
-                <div class="image-box" onclick="zoomImg('${p.img}')">
-                    <img src="${p.img}" loading="lazy">
+                <div class="image-box ${p.isBox ? 'flex items-center justify-center bg-black' : ''}" onclick="${p.isBox ? '' : `zoomImg('${p.img}')`}">
+                    ${p.isBox 
+                        ? `<i class="${p.icon} text-8xl text-gold group-hover:scale-110 transition-transform"></i>`
+                        : `<img src="${p.img}" loading="lazy">`
+                    }
                 </div>
                 <div class="p-8">
                     <h3 class="text-3xl font-black italic mb-4">${p.name}</h3>
@@ -369,8 +375,9 @@
         else {
             box.innerHTML = cart.map((item, idx) => {
                 total += (item.price * item.qty);
+                // السلة تستخدم صورة افتراضية للبوكس لعرض أنيق
                 return `<div class="bg-zinc-900 p-4 rounded-3xl border border-white/5 flex gap-4">
-                    <img src="${item.img}" class="w-16 h-16 object-cover rounded-xl">
+                    <img src="${item.img || 'https://i.ibb.co/9kCQjSsy/IMG-7517.jpg'}" class="w-16 h-16 object-cover rounded-xl">
                     <div class="flex-1">
                         <h4 class="font-bold text-xs mb-2">${item.name}</h4>
                         <div class="flex justify-between items-center">
