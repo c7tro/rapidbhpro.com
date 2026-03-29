@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAPID BH PRO | Premium Cleaning & Fragrance</title>
+    <title>RAPID BH PRO | المنصة الاحترافية المتكاملة</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -13,495 +13,543 @@
     <style>
         :root {
             --primary: #e63946;
-            --primary-dark: #9d1717;
             --gold: #d4af37;
-            --dark-bg: #050505;
-            --card-bg: #111111;
-            --text-muted: #888;
-            --transition-main: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --dark: #050505;
+            --card: #0f0f0f;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Base Styles */
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: var(--dark-bg);
-            color: #ffffff;
-            scroll-behavior: smooth;
+            background-color: var(--dark);
+            color: #fff;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Custom Scrollbar */
+        /* --- Scrollbar Custom --- */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-        /* --- Animations & Interactions --- */
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(230, 57, 70, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
-        }
-        .btn-animate { transition: var(--transition-main); position: relative; overflow: hidden; }
-        .btn-animate:active { transform: scale(0.92); }
-        .pulse-effect { animation: pulse-red 2s infinite; }
-
-        /* --- Sidebar Navigation --- */
-        #mobile-sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 320px;
-            height: 100vh;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 9999;
-            transition: var(--transition-main);
-            border-right: 1px solid var(--gold);
-        }
-        #mobile-sidebar.open { left: 0; }
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            z-index: 9998;
-        }
-
+        /* --- Global Interaction Classes --- */
+        .clickable { cursor: pointer; transition: var(--transition); }
+        .clickable:active { transform: scale(0.9) !important; }
+        .glass-effect { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); }
+        
         /* --- Hero Section Fix --- */
-        .hero-section {
+        .hero-premium {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), url('https://i.ibb.co/9kCQjSsy/IMG-7517.jpg');
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.9)), url('https://i.ibb.co/9kCQjSsy/IMG-7517.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
-        /* --- Product Card Design --- */
-        .premium-card {
-            background: var(--card-bg);
-            border: 1px solid #222;
+        /* --- Product Card Mastery --- */
+        .product-node {
+            background: var(--card);
             border-radius: 40px;
-            transition: var(--transition-main);
-            position: relative;
-        }
-        .premium-card:hover {
-            transform: translateY(-20px);
-            border-color: var(--primary);
-            box-shadow: 0 30px 60px rgba(230, 57, 70, 0.15);
-        }
-        .img-wrapper {
-            height: 350px;
-            border-radius: 35px;
-            margin: 15px;
             overflow: hidden;
+            border: 1px solid #1a1a1a;
+            transition: var(--transition);
             position: relative;
         }
-        .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s ease;
+        .product-node:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary);
+            box-shadow: 0 30px 60px rgba(230, 57, 70, 0.1);
         }
-        .premium-card:hover .img-wrapper img { transform: scale(1.1); }
+        .img-container { height: 350px; overflow: hidden; position: relative; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .product-node:hover .img-container img { transform: scale(1.1); }
 
-        /* --- Lightbox System --- */
-        #lightbox-overlay {
+        /* --- Panels Control --- */
+        .side-panel {
+            position: fixed;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: #080808;
+            z-index: 10000;
+            transition: var(--transition);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+        }
+        #sidebar { left: -450px; border-right: 1px solid var(--gold); }
+        #cart-panel { right: -450px; border-left: 1px solid var(--primary); }
+        
+        .side-panel.open-left { left: 0; }
+        .side-panel.open-right { right: 0; }
+
+        /* --- Lightbox --- */
+        #lightbox-system {
             display: none;
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.95);
-            z-index: 10000;
-            flex-direction: column;
+            z-index: 20000;
             align-items: center;
             justify-content: center;
-        }
-        .lightbox-img {
-            max-width: 90%;
-            max-height: 80vh;
-            border-radius: 20px;
-            box-shadow: 0 0 50px #000;
+            flex-direction: column;
         }
 
-        /* --- Global Components --- */
-        .gold-badge {
-            background: linear-gradient(45deg, #d4af37, #f9d976);
-            color: #000;
-            font-weight: 900;
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 10px;
+        /* --- Form Styling --- */
+        .input-premium {
+            background: #111;
+            border: 1px solid #222;
+            padding: 15px 20px;
+            border-radius: 15px;
+            width: 100%;
+            color: #fff;
+            transition: 0.3s;
         }
+        .input-premium:focus { border-color: var(--primary); outline: none; background: #151515; }
 
-        .cart-panel {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 400px;
-            height: 100vh;
-            background: #0a0a0a;
-            z-index: 10001;
-            transition: var(--transition-main);
-            box-shadow: -10px 0 50px rgba(0,0,0,0.5);
-        }
-        .cart-panel.active { right: 0; }
+        /* --- Badges --- */
+        .badge-gold { background: linear-gradient(45deg, var(--gold), #f9d976); color: #000; padding: 4px 12px; border-radius: 50px; font-weight: 900; font-size: 10px; }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .float-anim { animation: float 3s ease-in-out infinite; }
     </style>
 </head>
 <body>
 
-<div class="overlay" id="global-overlay" onclick="closeAllPanels()"></div>
+<div id="global-overlay" class="fixed inset-0 bg-black/80 hidden z-[9999]" onclick="closeAllPanels()"></div>
 
-<nav class="fixed w-full z-[1000] px-8 py-6 transition-all duration-500" id="navbar">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <button onclick="toggleSidebar()" class="text-3xl hover:text-red-600 transition active:scale-75">
+<nav class="fixed w-full z-[1000] px-10 py-6 transition-all duration-500" id="navbar">
+    <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+        <div onclick="openSidebar()" class="text-3xl clickable hover:text-red-500">
             <i class="fas fa-bars-staggered"></i>
-        </button>
+        </div>
 
-        <div class="text-3xl font-black tracking-tighter uppercase font-['Montserrat']">
+        <div class="text-3xl font-black font-['Montserrat'] tracking-tighter">
             RAPID <span class="text-red-600">BH PRO</span>
         </div>
 
         <div class="flex items-center gap-8">
-            <div onclick="toggleCart()" class="relative cursor-pointer group">
-                <i class="fas fa-shopping-cart text-2xl group-hover:text-red-500 transition"></i>
-                <span id="cart-counter" class="absolute -top-3 -right-3 bg-red-600 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold border-2 border-black">0</span>
+            <div onclick="openCart()" class="relative clickable group">
+                <i class="fas fa-shopping-bag text-3xl group-hover:text-red-500 transition"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 border-black">0</span>
             </div>
         </div>
     </div>
 </nav>
 
-<aside id="mobile-sidebar">
-    <div class="p-10">
+<aside id="sidebar" class="side-panel">
+    <div class="p-10 flex flex-col h-full">
         <div class="flex justify-between items-center mb-16">
-            <span class="text-xl font-bold text-gold">القائمة</span>
-            <button onclick="toggleSidebar()" class="text-4xl text-white hover:text-red-600">&times;</button>
+            <span class="text-gold font-black tracking-widest uppercase">التحكم</span>
+            <button onclick="closeAllPanels()" class="text-4xl hover:text-red-600">&times;</button>
         </div>
-        <nav class="flex flex-col gap-8 text-2xl font-black">
-            <a href="#" onclick="toggleSidebar()" class="hover:translate-x-4 transition-transform">الرئيسية</a>
-            <a href="#products" onclick="toggleSidebar()" class="hover:translate-x-4 transition-transform text-red-600">المتجر</a>
-            <a href="#" onclick="showSection('about')" class="hover:translate-x-4 transition-transform">قصتنا</a>
-            <a href="#" class="hover:translate-x-4 transition-transform opacity-50">تتبع الطلب</a>
+        <nav class="flex flex-col gap-10">
+            <div onclick="closeAllPanels()" class="text-3xl font-black clickable hover:translate-x-4">الرئيسية</div>
+            <div onclick="scrollToID('store'); closeAllPanels();" class="text-3xl font-black clickable hover:translate-x-4">تسوق المنتجات</div>
+            <div onclick="scrollToID('reviews'); closeAllPanels();" class="text-3xl font-black clickable hover:translate-x-4">آراء العملاء</div>
+            <div onclick="openCustomerSupport()" class="text-3xl font-black clickable hover:translate-x-4 text-red-600">الدعم الفني</div>
         </nav>
-        <div class="mt-40 border-t border-gray-800 pt-10">
-            <p class="text-gray-500 mb-6">الدعم الفني</p>
-            <a href="tel:971508851549" class="block mb-4"><i class="fas fa-phone-alt text-red-600 ml-2"></i> 971508851549+</a>
-            <a href="mailto:info@rapidbhpro.com" class="block"><i class="fas fa-envelope text-red-600 ml-2"></i> info@rapidbhpro.com</a>
+        <div class="mt-auto pt-10 border-t border-white/5 space-y-4 text-gray-500">
+            <p class="clickable hover:text-white" onclick="copyToClipboard('971508851549')"><i class="fas fa-phone-alt ml-3"></i> 971508851549+</p>
+            <p class="clickable hover:text-white" onclick="copyToClipboard('info@rapidbhpro.com')"><i class="fas fa-envelope ml-3"></i> info@rapidbhpro.com</p>
         </div>
     </div>
 </aside>
 
-<div id="cart-sidebar" class="cart-panel p-8 flex flex-col">
-    <div class="flex justify-between items-center mb-10 border-b border-gray-900 pb-6">
-        <h2 class="text-3xl font-black italic">السلة</h2>
-        <button onclick="toggleCart()" class="text-3xl">&times;</button>
+<aside id="cart-panel" class="side-panel">
+    <div class="p-10 border-b border-white/5 flex justify-between items-center">
+        <h2 class="text-2xl font-black italic">حقيبة التسوق</h2>
+        <button onclick="closeAllPanels()" class="text-4xl">&times;</button>
     </div>
-    <div id="cart-items-container" class="flex-1 overflow-y-auto space-y-6">
+    <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-6">
         </div>
-    <div class="border-t border-gray-900 pt-8 mt-4">
-        <div class="flex justify-between text-2xl font-bold mb-8">
+    <div class="p-10 bg-zinc-950 border-t border-white/5">
+        <div class="flex justify-between text-2xl font-black mb-10">
             <span>الإجمالي:</span>
-            <span id="cart-total-val" class="text-gold">0 AED</span>
+            <span id="cart-total" class="text-red-600">0 AED</span>
         </div>
-        <button onclick="startCheckout()" class="w-full bg-red-600 py-5 rounded-3xl font-black text-xl hover:bg-red-700 transition">تأكيد الطلب</button>
+        <button onclick="startCheckoutProcess()" class="w-full bg-red-600 py-6 rounded-3xl font-black text-xl hover:bg-red-700 transition clickable">إتمام الطلب</button>
+    </div>
+</aside>
+
+<div id="lightbox-system" onclick="closeLightbox()">
+    <button class="absolute top-10 right-10 text-5xl">&times;</button>
+    <img id="lb-img" class="max-w-[90%] max-h-[80vh] rounded-3xl">
+    <h3 id="lb-title" class="mt-8 text-2xl font-bold text-gold"></h3>
+</div>
+
+<header class="hero-premium">
+    <div class="text-center px-6 animate__animated animate__fadeIn">
+        <div class="float-anim">
+            <h4 class="text-gold font-bold tracking-[12px] mb-8 uppercase italic">Elite UAE Products</h4>
+            <h1 class="text-7xl md:text-[140px] font-black leading-none mb-10">RAPID <span class="text-red-600">PRO</span></h1>
+        </div>
+        <p class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-400 mb-16 leading-relaxed">
+            الريادة في حلول النظافة والروائح الملكية. نجمع لك قوة BH PRO مع فخامة الاختيار.
+        </p>
+        <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
+            <button onclick="scrollToID('store')" class="bg-red-600 text-white px-20 py-7 rounded-full font-black text-3xl hover:scale-110 active:scale-90 transition shadow-2xl">ابدأ التسوق</button>
+            <button onclick="openSidebar()" class="border-2 border-white/30 px-14 py-6 rounded-full font-bold text-xl hover:bg-white hover:text-black transition">تواصل معنا</button>
+        </div>
+    </div>
+</header>
+
+<section id="store" class="py-40 px-10">
+    <div class="max-w-[1700px] mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-32 gap-10">
+            <div>
+                <h2 class="text-6xl font-black italic mb-6">منتجاتنا المختارة</h2>
+                <div class="w-24 h-2 bg-red-600 rounded-full"></div>
+            </div>
+            <div class="flex gap-4 bg-zinc-900 p-2 rounded-2xl border border-white/5">
+                <button onclick="filterGrid('all')" class="px-10 py-3 rounded-xl bg-red-600 font-bold clickable">الكل</button>
+                <button onclick="filterGrid('perfume')" class="px-10 py-3 rounded-xl hover:bg-zinc-800 transition font-bold clickable">عطور</button>
+                <button onclick="filterGrid('clean')" class="px-10 py-3 rounded-xl hover:bg-zinc-800 transition font-bold clickable">منظفات</button>
+            </div>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+            </div>
+    </div>
+</section>
+
+<section id="reviews" class="py-40 bg-[#080808] border-y border-white/5 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-10">
+        <h2 class="text-5xl font-black text-center mb-32">ماذا قالوا عنا</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10" id="reviews-container">
+            </div>
+    </div>
+</section>
+
+<div id="checkout-modal" class="fixed inset-0 z-[30000] bg-black hidden items-center justify-center p-6">
+    <div class="bg-zinc-950 w-full max-w-4xl rounded-[50px] border border-white/10 p-12 md:p-20 animate__animated animate__zoomIn relative">
+        <button onclick="closeCheckout()" class="absolute top-10 right-10 text-5xl">&times;</button>
+        <h2 class="text-5xl font-black mb-12 italic text-red-600 text-center">تأكيد الطلب 🚚</h2>
+        
+        <form onsubmit="finalWhatsAppOrder(event)" class="space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <input type="text" id="cust-name" class="input-premium" placeholder="اسمك الكريم" required>
+                <input type="tel" id="cust-phone" class="input-premium" placeholder="رقم الموبايل" required>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <select id="cust-emirate" class="input-premium" required>
+                    <option value="Abu Dhabi">أبوظبي</option>
+                    <option value="Dubai">دبي</option>
+                    <option value="Sharjah">الشارقة</option>
+                    <option value="Ajman">عجمان</option>
+                    <option value="RAK">رأس الخيمة</option>
+                    <option value="Fujairah">الفجيرة</option>
+                    <option value="UAQ">أم القيوين</option>
+                </select>
+                <input type="text" id="cust-area" class="input-premium" placeholder="المنطقة / الشارع" required>
+            </div>
+            
+            <div class="bg-zinc-900 p-10 rounded-3xl border border-white/5 mt-10">
+                <h4 class="text-2xl font-bold mb-6">ملخص الحقيبة</h4>
+                <div id="order-summary-list" class="space-y-4 text-gray-400"></div>
+                <div class="mt-8 pt-8 border-t border-white/10 flex justify-between text-4xl font-black">
+                    <span>الإجمالي</span>
+                    <span id="order-total-final" class="text-gold">0 AED</span>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-green-600 py-8 rounded-3xl font-black text-3xl hover:bg-green-700 transition clickable shadow-2xl">
+                إرسال الطلب عبر واتساب <i class="fab fa-whatsapp mr-2"></i>
+            </button>
+        </form>
     </div>
 </div>
 
-<main>
-    <section class="hero-section">
-        <div class="text-center px-4 animate__animated animate__zoomIn">
-            <h4 class="text-gold text-xl md:text-2xl font-bold mb-6 tracking-[5px]">UAE PREMIUM BRAND</h4>
-            <h1 class="text-7xl md:text-[150px] font-black leading-none mb-8 text-white">RAPID <span class="text-red-600">PRO</span></h1>
-            <p class="max-w-2xl mx-auto text-gray-300 text-lg md:text-xl mb-12 leading-relaxed">
-                خبراء النظافة والروائح الفاخرة. نقدم لك قوة التنظيف الاحترافية مع عبير العطور العالمية في عبوة واحدة.
+<footer class="bg-black py-40 border-t border-white/5 px-10">
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-20">
+        <div class="md:col-span-2">
+            <h2 class="text-5xl font-black italic mb-10">RAPID <span class="text-red-600">PRO</span></h2>
+            <p class="text-2xl text-gray-500 max-w-sm leading-relaxed">
+                الجودة التي يثق بها المحترفون في الإمارات. نظافة مطلقة وروائح تأسر الألباب.
             </p>
-            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                <button onclick="scrollToProducts()" class="bg-red-600 text-white px-16 py-6 rounded-full font-black text-2xl pulse-effect btn-animate active:scale-90">تسوق الآن</button>
-                <button class="border-2 border-white px-12 py-5 rounded-full font-bold hover:bg-white hover:text-black transition">شاهد النتائج</button>
+        </div>
+        <div>
+            <h4 class="text-gold font-bold mb-10 uppercase tracking-widest">تواصل</h4>
+            <ul class="space-y-6 text-xl text-gray-400">
+                <li class="clickable hover:text-white" onclick="copyToClipboard('971508851549')">971508851549+</li>
+                <li>info@rapidbhpro.com</li>
+                <li>الإمارات العربية المتحدة</li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-red-600 font-bold mb-10 uppercase tracking-widest">تابعنا</h4>
+            <div class="flex gap-8 text-4xl">
+                <i class="fab fa-instagram clickable hover:text-red-500"></i>
+                <i class="fab fa-tiktok clickable hover:text-red-500"></i>
+                <i class="fab fa-whatsapp clickable hover:text-green-500" onclick="openCustomerSupport()"></i>
             </div>
         </div>
-    </section>
-
-    <section id="products" class="py-40 bg-black">
-        <div class="max-w-7xl mx-auto px-8">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-                <div>
-                    <h2 class="text-6xl font-black italic mb-6">مجموعتنا الفاخرة</h2>
-                    <p class="text-gray-500 text-xl">اختر ما يناسب ذوقك من المعطرات والمنظفات الأكثر مبيعاً في الإمارات</p>
-                </div>
-                <div class="bg-gray-900 p-2 rounded-2xl flex">
-                    <button class="bg-red-600 px-8 py-3 rounded-xl font-bold">الكل</button>
-                    <button class="px-8 py-3 font-bold opacity-40">المعطرات</button>
-                    <button class="px-8 py-3 font-bold opacity-40">المنظفات</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16" id="product-grid">
-                </div>
-        </div>
-    </section>
-
-    <section class="py-40 bg-[#080808] border-y border-gray-900 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-8">
-            <h2 class="text-center text-5xl font-black mb-24">ثقة عملاء RAPID BH PRO</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-black p-10 rounded-[40px] border border-gray-800">
-                    <div class="flex text-gold mb-6"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-gray-300 mb-8 leading-loose">"ما شاء الله، عطر العود الملكي ثباته غير طبيعي. رشيته في البيت والريحة تمت 3 أيام. فعلاً شغل احترافي."</p>
-                    <h5 class="font-bold text-red-600">— خالد الهاشمي (أبوظبي)</h5>
-                </div>
-                <div class="bg-black p-10 rounded-[40px] border border-gray-800">
-                    <div class="flex text-gold mb-6"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-gray-400 mb-8 leading-loose italic">"The BH Pro Degreaser is a miracle. Cleaned my oven in minutes with zero effort. Highly recommend!"</p>
-                    <h5 class="font-bold text-red-600">— Robert M. (Dubai Marina)</h5>
-                </div>
-                <div class="bg-black p-10 rounded-[40px] border border-gray-800">
-                    <div class="flex text-gold mb-6"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-gray-300 mb-8 leading-loose">"عطر الفخامة كأني داخل فندق 5 نجوم. نظافة وريحة تفتح النفس. خدمة التوصيل كانت سريعة جداً."</p>
-                    <h5 class="font-bold text-red-600">— سارة المنصوري</h5>
-                </div>
-                <div class="bg-black p-10 rounded-[40px] border border-gray-800">
-                    <div class="flex text-gold mb-6"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-gray-400 mb-8 leading-loose italic">"Best cleaning products in UAE. The scents are very premium and don't cause any allergies. Love it!"</p>
-                    <h5 class="font-bold text-red-600">— Elena Petrova</h5>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<div id="lightbox-overlay" onclick="closeLightbox()">
-    <button class="absolute top-10 right-10 text-5xl">&times;</button>
-    <img src="" class="lightbox-img" id="lightbox-img">
-    <div class="mt-8 text-2xl font-bold" id="lightbox-caption"></div>
-</div>
-
-<footer class="bg-black pt-32 pb-10 border-t border-gray-900 px-8">
-    <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-20 mb-24">
-            <div class="md:col-span-2">
-                <h2 class="text-4xl font-black mb-8 italic">RAPID <span class="text-red-600">PRO</span></h2>
-                <p class="text-gray-500 max-w-sm text-xl leading-relaxed">
-                    علامة تجارية إماراتية رائدة متخصصة في توفير حلول النظافة والتعطير للمنازل والمؤسسات بأعلى معايير الجودة العالمية.
-                </p>
-            </div>
-            <div>
-                <h4 class="font-black text-xl mb-8 uppercase text-red-600">اتصل بنا</h4>
-                <ul class="space-y-6 text-lg">
-                    <li><i class="fas fa-phone-alt ml-3"></i> 971508851549+</li>
-                    <li><i class="fas fa-envelope ml-3"></i> info@rapidbhpro.com</li>
-                    <li><i class="fas fa-map-marker-alt ml-3"></i> الإمارات العربية المتحدة</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-black text-xl mb-8 uppercase text-red-600">تابعنا</h4>
-                <div class="flex gap-6">
-                    <a href="#" class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="text-center pt-10 border-t border-gray-900 text-gray-700">
-            © 2026 RAPID BH PRO. تصميم احترافي للمحترفين.
-        </div>
+    </div>
+    <div class="text-center mt-32 text-gray-800 font-black tracking-[15px] uppercase text-xs">
+        &copy; 2026 RAPID BH PRO - ALL RIGHTS RESERVED
     </div>
 </footer>
 
 <script>
-    // --- Database & State ---
-    const products = [
-        { id: 1, name: "عطر عود ملكي", price: 15, tag: "Best Seller", img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", desc: "عبق العود العربي الأصيل لتعطير المجالس والمفارش بلمسة ملكية." },
-        { id: 2, name: "عطر الفخامة", price: 15, tag: "Lux Signature", img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", desc: "رائحة النظافة الفاخرة المستوحاة من أرقى فنادق دبي." },
-        { id: 3, name: "عطر زهور بيضاء", price: 15, tag: "Fresh", img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", desc: "انتعاش الزهور النادر ليوم مليء بالحيوية والهدوء." },
-        { id: 4, name: "عطر فواكه استوائية", price: 15, tag: "Sweet Burst", img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", desc: "مزيج منعش من الفواكه الاستوائية لرائحة فواحة تدوم طويلاً." },
-        { id: 5, name: "مزيل بقع BH 99", price: 15, tag: "Strongest", img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", desc: "المنظف المعجزة لإزالة أصعب بقع الحبر، القهوة، والزيوت من الأقمشة." },
-        { id: 6, name: "قاهر الدهون المحترف", price: 15, tag: "Degreaser", img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", desc: "تخلص من دهون المطبخ المحروقة والزيوت المتراكمة في ثوانٍ معدودة." }
+    // 1. Database (The Engine)
+    const PRODUCTS = [
+        { id: 1, name: "عطر عود ملكي", category: "perfume", price: 15, tag: "أفضل تقييم", img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", info: "ثبات ملكي يدوم لثلاث أيام متواصلة." },
+        { id: 2, name: "عطر الفخامة", category: "perfume", price: 15, tag: "Signature", img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", info: "رائحة النظافة الأصلية للفنادق الفاخرة." },
+        { id: 3, name: "عطر زهور بيضاء", category: "perfume", price: 15, tag: "Fresh", img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", info: "مزيج منعش من اللافندر والياسمين البري." },
+        { id: 4, name: "عطر فواكه استوائية", category: "perfume", price: 15, tag: "Sweet", img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", info: "طاقة وحيوية في كل رشة تدوم طويلاً." },
+        { id: 5, name: "مزيل بقع BH 99", category: "clean", price: 15, tag: "Expert Choice", img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", info: "قوة إزالة الحبر والزيوت في ثوانٍ معدودة." },
+        { id: 6, name: "قاهر الدهون المحترف", category: "clean", price: 15, tag: "Heavy Duty", img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", info: "الخيار الأول لإذابة دهون المطابخ الصعبة." }
     ];
 
-    let cart = JSON.parse(localStorage.getItem('rapid_cart')) || [];
+    const REVIEWS = [
+        { name: "خالد المنصوري", text: "العود الملكي شيء خيالي، ثباته في البيت يطول بشكل ما توقعته.", lang: "ar" },
+        { name: "John Wick", text: "The BH 99 cleaner is magic. Removed oil stains from my car seats instantly.", lang: "en" },
+        { name: "سارة الفلاسي", text: "عطر الفخامة ريحته نظافة فندق، والتعامل جداً راقي.", lang: "ar" },
+        { name: "Elena S.", text: "Best fragrance brand in UAE. Highly recommend the Tropical Fruit!", lang: "en" }
+    ];
 
-    // --- UI Controls ---
-    function toggleSidebar() {
-        const sb = document.getElementById('mobile-sidebar');
-        const overlay = document.getElementById('global-overlay');
-        sb.classList.toggle('open');
-        overlay.style.display = sb.classList.contains('open') ? 'block' : 'none';
-        vibrate();
+    let cart = JSON.parse(localStorage.getItem('RAPID_CART_SYS')) || [];
+
+    // 2. Initialization Functions
+    function init() {
+        renderProducts(PRODUCTS);
+        renderReviews();
+        updateCartUI();
+        loadSavedCustomerData();
     }
 
-    function toggleCart() {
-        const cartPanel = document.getElementById('cart-sidebar');
-        const overlay = document.getElementById('global-overlay');
-        cartPanel.classList.toggle('active');
-        overlay.style.display = cartPanel.classList.contains('active') ? 'block' : 'none';
-        renderCart();
-        vibrate();
+    // 3. UI Control Functions
+    function openSidebar() {
+        document.getElementById('sidebar').classList.add('open-left');
+        document.getElementById('global-overlay').classList.remove('hidden');
+        haptic();
+    }
+
+    function openCart() {
+        document.getElementById('cart-panel').classList.add('open-right');
+        document.getElementById('global-overlay').classList.remove('hidden');
+        renderCartItems();
+        haptic();
     }
 
     function closeAllPanels() {
-        document.getElementById('mobile-sidebar').classList.remove('open');
-        document.getElementById('cart-sidebar').classList.remove('active');
-        document.getElementById('global-overlay').style.display = 'none';
+        document.getElementById('sidebar').classList.remove('open-left');
+        document.getElementById('cart-panel').classList.remove('open-right');
+        document.getElementById('global-overlay').classList.add('hidden');
+        haptic();
     }
 
-    function vibrate() {
+    function haptic() {
         if (navigator.vibrate) navigator.vibrate(15);
     }
 
-    // --- Rendering Logic ---
-    function init() {
+    function scrollToID(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // 4. Store Logic
+    function renderProducts(db) {
         const grid = document.getElementById('product-grid');
-        grid.innerHTML = products.map(p => `
-            <div class="premium-card group animate__animated animate__fadeInUp">
-                <div class="img-wrapper cursor-zoom-in" onclick="openLightbox('${p.img}', '${p.name}')">
-                    <img src="${p.img}" alt="${p.name}">
-                    <div class="absolute top-6 left-6"><span class="gold-badge">${p.tag}</span></div>
+        grid.innerHTML = db.map(p => `
+            <div class="product-node group animate__animated animate__fadeInUp">
+                <div class="img-container clickable" onclick="openLightbox('${p.img}', '${p.name}')">
+                    <img src="${p.img}" loading="lazy">
+                    <div class="absolute top-8 left-8"><span class="badge-gold">${p.tag}</span></div>
                 </div>
                 <div class="p-10">
                     <h3 class="text-3xl font-black mb-4">${p.name}</h3>
-                    <p class="text-gray-500 mb-8 leading-loose">${p.desc}</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-4xl font-black text-gold">${p.price} <small class="text-sm">AED</small></span>
-                        <button onclick="addToCart(${p.id})" class="bg-white text-black w-16 h-16 rounded-2xl flex items-center justify-center hover:bg-red-600 hover:text-white transition active:scale-90 shadow-xl">
+                    <p class="text-gray-500 mb-10 h-12 overflow-hidden">${p.info}</p>
+                    <div class="flex justify-between items-center border-t border-white/5 pt-10">
+                        <span class="text-4xl font-black text-gold">${p.price} AED</span>
+                        <button onclick="addToCart(${p.id})" class="bg-white text-black w-16 h-16 rounded-2xl flex items-center justify-center hover:bg-red-600 hover:text-white transition clickable shadow-xl">
                             <i class="fas fa-plus text-2xl"></i>
                         </button>
                     </div>
                 </div>
             </div>
         `).join('');
-        updateCartCounter();
     }
 
-    // --- Cart Actions ---
+    function filterGrid(cat) {
+        const filtered = cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat);
+        renderProducts(filtered);
+        haptic();
+    }
+
+    // 5. Cart Logic
     function addToCart(id) {
-        const p = products.find(prod => prod.id === id);
-        const exists = cart.find(item => item.id === id);
-        if (exists) {
-            exists.qty++;
+        const p = PRODUCTS.find(prod => prod.id === id);
+        const item = cart.find(i => i.id === id);
+        if (item) {
+            item.qty++;
         } else {
             cart.push({ ...p, qty: 1 });
         }
-        updateCartCounter();
-        saveCart();
-        showToast(`تمت إضافة ${p.name} بنجاح ✅`);
-        vibrate();
+        updateCartUI();
+        showToast(`تمت إضافة ${p.name} إلى حقيبتك!`);
+        haptic();
     }
 
-    function updateCartCounter() {
-        const count = cart.reduce((sum, item) => sum + item.qty, 0);
-        document.getElementById('cart-counter').textContent = count;
+    function updateCartUI() {
+        localStorage.setItem('RAPID_CART_SYS', JSON.stringify(cart));
+        const count = cart.reduce((acc, i) => acc + i.qty, 0);
+        document.getElementById('cart-count').innerText = count;
     }
 
-    function renderCart() {
-        const container = document.getElementById('cart-items-container');
+    function renderCartItems() {
+        const container = document.getElementById('cart-items');
         let total = 0;
         if (cart.length === 0) {
-            container.innerHTML = `<div class="text-center py-20 opacity-20"><i class="fas fa-shopping-basket text-8xl mb-6"></i><p>السلة فارغة</p></div>`;
+            container.innerHTML = `<div class="text-center py-20 opacity-20"><i class="fas fa-box-open text-9xl mb-10"></i><p class="text-2xl font-black italic">الحقيبة فارغة</p></div>`;
         } else {
             container.innerHTML = cart.map((item, idx) => {
                 total += (item.price * item.qty);
                 return `
-                    <div class="flex gap-6 bg-[#151515] p-6 rounded-[30px] border border-gray-800 animate__animated animate__slideInLeft">
+                    <div class="flex gap-6 bg-[#111] p-6 rounded-3xl border border-white/5 animate__animated animate__fadeInRight">
                         <img src="${item.img}" class="w-20 h-20 object-cover rounded-2xl">
                         <div class="flex-1">
-                            <h4 class="font-bold">${item.name}</h4>
-                            <div class="flex justify-between items-center mt-4">
-                                <div class="flex items-center gap-4 bg-black px-4 py-2 rounded-xl">
-                                    <span onclick="updateQty(${idx}, -1)" class="cursor-pointer">-</span>
-                                    <span>${item.qty}</span>
-                                    <span onclick="updateQty(${idx}, 1)" class="cursor-pointer">+</span>
+                            <h4 class="font-bold mb-4">${item.name}</h4>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-6 bg-black px-4 py-2 rounded-xl">
+                                    <span onclick="updateQty(${idx}, -1)" class="clickable font-black text-2xl">-</span>
+                                    <span class="font-bold text-red-600">${item.qty}</span>
+                                    <span onclick="updateQty(${idx}, 1)" class="clickable font-black text-2xl">+</span>
                                 </div>
-                                <span class="text-gold font-bold">${item.price * item.qty} AED</span>
+                                <span class="font-black">${item.price * item.qty} AED</span>
                             </div>
                         </div>
-                        <button onclick="removeItem(${idx})" class="text-red-600"><i class="fas fa-trash"></i></button>
                     </div>
                 `;
             }).join('');
         }
-        document.getElementById('cart-total-val').textContent = `${total} AED`;
+        document.getElementById('cart-total').innerText = `${total} AED`;
     }
 
-    function updateQty(idx, delta) {
-        cart[idx].qty += delta;
+    function updateQty(idx, change) {
+        cart[idx].qty += change;
         if (cart[idx].qty <= 0) cart.splice(idx, 1);
-        saveCart();
-        renderCart();
-        updateCartCounter();
+        updateCartUI();
+        renderCartItems();
+        haptic();
     }
 
-    function removeItem(idx) {
-        cart.splice(idx, 1);
-        saveCart();
-        renderCart();
-        updateCartCounter();
+    // 6. Checkout Process
+    function startCheckoutProcess() {
+        if (cart.length === 0) return showToast("الحقيبة فارغة!");
+        document.getElementById('checkout-modal').style.display = 'flex';
+        renderOrderSummary();
+        haptic();
     }
 
-    function saveCart() {
-        localStorage.setItem('rapid_cart', JSON.stringify(cart));
+    function closeCheckout() {
+        document.getElementById('checkout-modal').style.display = 'none';
     }
 
-    // --- Lightbox Functions ---
-    function openLightbox(src, title) {
-        const overlay = document.getElementById('lightbox-overlay');
-        const img = document.getElementById('lightbox-img');
-        const caption = document.getElementById('lightbox-caption');
-        img.src = src;
-        caption.textContent = title;
-        overlay.style.display = 'flex';
-        vibrate();
-    }
-
-    function closeLightbox() {
-        document.getElementById('lightbox-overlay').style.display = 'none';
-    }
-
-    // --- Checkout Flow ---
-    function startCheckout() {
-        if (cart.length === 0) return alert("السلة فارغة!");
-        
-        let message = `مرحباً RAPID BH PRO 👋\nأود طلب المنتجات التالية:\n\n`;
+    function renderOrderSummary() {
+        const summary = document.getElementById('order-summary-list');
         let total = 0;
-        cart.forEach((item, i) => {
-            message += `${i+1}. *${item.name}* (${item.qty} حبة) - ${item.price * item.qty} AED\n`;
+        summary.innerHTML = cart.map(item => {
+            total += (item.price * item.qty);
+            return `<div class="flex justify-between"><span>${item.name} (x${item.qty})</span><span>${item.price * item.qty} AED</span></div>`;
+        }).join('');
+        document.getElementById('order-total-final').innerText = `${total} AED`;
+    }
+
+    function finalWhatsAppOrder(e) {
+        e.preventDefault();
+        const name = document.getElementById('cust-name').value;
+        const phone = document.getElementById('cust-phone').value;
+        const em = document.getElementById('cust-emirate').value;
+        const area = document.getElementById('cust-area').value;
+
+        // Save for next time
+        localStorage.setItem('RAPID_CUST_NAME', name);
+        localStorage.setItem('RAPID_CUST_PHONE', phone);
+
+        let msg = `طلب جديد لبراند RAPID BH PRO 📦\n\n`;
+        msg += `👤 *الاسم:* ${name}\n`;
+        msg += `📞 *الموبايل:* ${phone}\n`;
+        msg += `📍 *الموقع:* ${em} - ${area}\n\n`;
+        msg += `🛒 *المنتجات:*\n`;
+        
+        let total = 0;
+        cart.forEach(item => {
+            msg += `- ${item.name} | العدد: ${item.qty} | السعر: ${item.price * item.qty} AED\n`;
             total += (item.price * item.qty);
         });
-        message += `\n💰 *الإجمالي: ${total} درهم إماراتي*`;
-        message += `\n\nيرجى التواصل لتزويدكم بالعنوان 🚚`;
         
-        const url = `https://wa.me/971508851549?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+        msg += `\n💰 *الإجمالي: ${total} درهم إماراتي*`;
+        
+        window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`, '_blank');
+        cart = [];
+        updateCartUI();
+        location.reload();
     }
 
-    // --- Visual Helpers ---
+    // 7. Helpers & Extra Features
     function showToast(text) {
         const toast = document.createElement('div');
-        toast.className = 'fixed bottom-10 left-10 bg-white text-black px-10 py-5 rounded-2xl font-bold shadow-2xl z-[20000] animate__animated animate__bounceInUp';
-        toast.textContent = text;
+        toast.className = 'fixed bottom-10 left-10 bg-white text-black px-12 py-5 rounded-2xl font-black z-[40000] shadow-2xl animate__animated animate__bounceInUp';
+        toast.innerText = text;
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), 3000);
     }
 
-    function scrollToProducts() {
-        document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-        vibrate();
+    function openLightbox(src, title) {
+        document.getElementById('lb-img').src = src;
+        document.getElementById('lb-title').innerText = title;
+        document.getElementById('lightbox-system').style.display = 'flex';
+        haptic();
     }
 
-    // Scroll Navbar Effect
+    function closeLightbox() {
+        document.getElementById('lightbox-system').style.display = 'none';
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text);
+        showToast("تم النسخ للحافظة ✅");
+    }
+
+    function openCustomerSupport() {
+        window.open('https://wa.me/971508851549?text=مرحباً، أحتاج إلى دعم فني بخصوص المنتجات', '_blank');
+    }
+
+    function loadSavedCustomerData() {
+        const name = localStorage.getItem('RAPID_CUST_NAME');
+        const phone = localStorage.getItem('RAPID_CUST_PHONE');
+        if (name) document.getElementById('cust-name').value = name;
+        if (phone) document.getElementById('cust-phone').value = phone;
+    }
+
+    function renderReviews() {
+        const container = document.getElementById('reviews-container');
+        container.innerHTML = REVIEWS.map(r => `
+            <div class="bg-black p-10 rounded-[40px] border border-white/5 animate__animated animate__fadeInUp">
+                <div class="flex text-gold mb-6"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="text-gray-400 mb-8 italic">"${r.text}"</p>
+                <h5 class="font-black text-red-600">— ${r.name}</h5>
+            </div>
+        `).join('');
+    }
+
+    // Navbar Scroll Logic
     window.addEventListener('scroll', () => {
         const nav = document.getElementById('navbar');
-        if (window.scrollY > 100) {
-            nav.classList.add('bg-black', 'py-4', 'shadow-2xl');
+        if (window.scrollY > 50) {
+            nav.classList.add('bg-black/95', 'backdrop-blur-xl', 'py-4', 'border-b', 'border-white/5');
             nav.classList.remove('py-6');
         } else {
-            nav.classList.remove('bg-black', 'py-4', 'shadow-2xl');
+            nav.classList.remove('bg-black/95', 'backdrop-blur-xl', 'py-4', 'border-b', 'border-white/5');
             nav.classList.add('py-6');
         }
     });
 
-    // Run
+    // Fire Initial Engine
     init();
 
 </script>
