@@ -179,7 +179,7 @@
             background-color: var(--dark);
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            max-w-4xl mx-auto p-10;
+            max-width: 100%;
         }
 
         .fb-comment-bubble {
@@ -260,8 +260,7 @@
             </div>
         </div>
         
-        <div id="box-options-list" class="space-y-4 mb-10">
-            </div>
+        <div id="box-options-list" class="space-y-4 mb-10"></div>
 
         <div class="flex gap-4">
             <button onclick="confirmBoxSelection()" id="confirm-box-btn" class="flex-1 bg-green-600 py-6 rounded-3xl font-black text-xl opacity-40 cursor-not-allowed transition-all" data-ar="إضافة للسلة" data-en="Add to Cart">إضافة للسلة</button>
@@ -317,8 +316,7 @@
         <button onclick="closePanels()" class="text-5xl">&times;</button>
     </div>
     
-    <div id="cart-content" class="flex-1 overflow-y-auto p-8 space-y-6">
-        </div>
+    <div id="cart-content" class="flex-1 overflow-y-auto p-8 space-y-6"></div>
 
     <div class="p-12 bg-black/80 border-t border-white/10 backdrop-blur-md">
         <div class="flex justify-between text-3xl font-black mb-10">
@@ -349,8 +347,7 @@
             <div class="w-32 h-2 bg-red-600 mx-auto rounded-full"></div>
         </header>
 
-        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
-            </div>
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16"></div>
     </div>
 </section>
 
@@ -375,8 +372,13 @@
                 </div>
             </div>
 
-            <div id="fb-comment-list" class="space-y-8">
-                </div>
+            <div id="fb-comment-list" class="space-y-8"></div>
+            
+            <div id="show-more-container" class="mt-12 text-center hidden">
+                <button onclick="showMoreComments()" class="bg-white/5 hover:bg-white/10 border border-white/10 px-10 py-4 rounded-full font-bold text-gray-400 transition" id="show-more-btn">
+                    <span data-ar="إظهار المزيد" data-en="Show More">إظهار المزيد</span>
+                </button>
+            </div>
         </div>
     </div>
 </section>
@@ -440,7 +442,8 @@
         lang: 'ar',
         cart: JSON.parse(localStorage.getItem('rapid_pro_cart')) || [],
         boxSelection: {},
-        comments: [...FB_COMMENTS_DATA]
+        comments: [...FB_COMMENTS_DATA],
+        visibleComments: 5 // عدد التعليقات الظاهرة حالياً
     };
 
     /* --- INITIALIZATION --- */
@@ -459,7 +462,7 @@
                 <div class="image-box" onclick="${p.isBox ? 'openBoxWizard()' : `viewImage('${p.img}')`}">
                     ${p.isBox ? 
                         `<div class="h-full flex flex-col items-center justify-center bg-gradient-to-br from-zinc-800 to-black">
-                            <i class="fas fa-box-open text-7xl text-gold mb-4animate-float"></i>
+                            <i class="fas fa-box-open text-7xl text-gold mb-4 animate-float"></i>
                             <span class="font-black text-gold">12 PCS</span>
                         </div>` : 
                         `<img src="${p.img}" alt="${p.name}" loading="lazy">`
@@ -518,7 +521,11 @@
     /* --- FB COMMENTS RENDERING --- */
     function renderFBComments() {
         const list = document.getElementById('fb-comment-list');
-        list.innerHTML = state.comments.map(c => `
+        const showMore = document.getElementById('show-more-container');
+        
+        const sliced = state.comments.slice(0, state.visibleComments);
+        
+        list.innerHTML = sliced.map(c => `
             <div class="flex gap-4 items-start animate__animated animate__fadeInUp">
                 <div class="w-12 h-12 rounded-full ${c.color} flex items-center justify-center font-black text-xl text-white flex-shrink-0 shadow-lg">
                     ${c.initial}
@@ -546,6 +553,17 @@
                 </div>
             </div>
         `).join('');
+
+        if (state.comments.length > state.visibleComments) {
+            showMore.classList.remove('hidden');
+        } else {
+            showMore.classList.add('hidden');
+        }
+    }
+
+    function showMoreComments() {
+        state.visibleComments += 5;
+        renderFBComments();
     }
 
     /* --- LOGIC CENTER --- */
