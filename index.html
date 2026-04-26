@@ -15,21 +15,138 @@
     <style>
         /* --- Root Variables & Base Styles --- */
         :root {
-            --primary: #e63946; /* الأحمر */
-            --gold: #c5a028; /* الذهبي */
-            --dark: #000000; /* الأسود */
-            --zinc-dark: #09090b; /* أسود فاتح */
-            --card: #0f0f11; /* لون البطاقات */
-            --glass: rgba(10, 10, 10, 0.9); /* الزجاج الغامق */
+            --primary: #e63946;
+            --gold: #c5a028;
+            --dark: #000000;
+            --zinc-dark: #09090b;
+            --card: #0f0f11;
+            --glass: rgba(10, 10, 10, 0.9);
             --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --text-color: #ffffff;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255,255,255,0.05);
             
-            /* Facebook Colors Adapted for Black Mode */
             --fb-bg: #18191a;
             --fb-bubble: #242526;
             --fb-pop: #3a3b3c;
             --fb-text: #e4e6eb;
             --fb-gray: #b0b3b8;
         }
+
+        /* === LIGHT MODE === */
+        body.light-mode {
+            --dark: #f0f0f0;
+            --zinc-dark: #e5e5e5;
+            --card: #ffffff;
+            --glass: rgba(255, 255, 255, 0.95);
+            --text-color: #111111;
+            --text-muted: #555555;
+            --border-color: rgba(0,0,0,0.08);
+            --fb-bg: #f0f2f5;
+            --fb-bubble: #e4e6eb;
+            --fb-pop: #d8dadf;
+            --fb-text: #1c1e21;
+            --fb-gray: #65676b;
+            background-color: #f5f5f7;
+            color: #111111;
+        }
+
+        body.light-mode nav { background: rgba(255,255,255,0.08) !important; }
+        body.light-mode .glass-nav { background: rgba(255,255,255,0.15) !important; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.15) !important; }
+        body.light-mode nav .text-gray-400 { color: rgba(255,255,255,0.7) !important; }
+        body.light-mode nav .lang-btn { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: #fff; }
+        body.light-mode nav .fas, body.light-mode nav .fab { color: #fff; }
+        body.light-mode #sidebar, body.light-mode #cart-panel { background: rgba(255,255,255,0.98); }
+        body.light-mode .product-card { background: #fff; border-color: #e5e7eb; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        body.light-mode .product-card:hover { box-shadow: 0 20px 40px rgba(230,57,70,0.12); }
+        body.light-mode .image-box { background: #f3f4f6; }
+        body.light-mode #reviews { background: #f0f0f0; }
+        body.light-mode .fb-comments-section { border-color: rgba(0,0,0,0.08); }
+        body.light-mode .fb-comment-bubble { background: #e4e6eb; }
+        body.light-mode input, body.light-mode textarea, body.light-mode select { background: #fff !important; border-color: #d1d5db !important; color: #111 !important; }
+        body.light-mode input::placeholder, body.light-mode textarea::placeholder { color: #9ca3af; }
+        body.light-mode #checkout-modal > div { background: #fff; }
+        body.light-mode #box-modal > div { background: #fff; }
+        body.light-mode .bg-white\/5 { background: rgba(0,0,0,0.04) !important; }
+        body.light-mode .bg-black\/40 { background: rgba(0,0,0,0.06) !important; }
+        body.light-mode .bg-black\/30 { background: rgba(0,0,0,0.03) !important; }
+        body.light-mode .bg-black\/50 { background: rgba(0,0,0,0.05) !important; }
+        body.light-mode .bg-black\/60 { background: rgba(255,255,255,0.85) !important; }
+        body.light-mode .bg-black\/80 { background: rgba(240,240,240,0.95) !important; }
+        body.light-mode .text-gray-400 { color: #6b7280 !important; }
+        body.light-mode .text-gray-500 { color: #6b7280 !important; }
+        body.light-mode .text-gray-600 { color: #9ca3af !important; }
+        body.light-mode .border-white\/5 { border-color: rgba(0,0,0,0.07) !important; }
+        body.light-mode .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
+        body.light-mode footer { background: #fff; border-color: rgba(0,0,0,0.08); }
+        body.light-mode .bg-zinc-950 { background: #ebebeb !important; }
+        body.light-mode .bg-zinc-900 { background: #f9f9f9 !important; }
+        body.light-mode .bg-zinc-800 { background: #e5e5e5 !important; }
+        body.light-mode .text-white { color: #111111 !important; }
+        body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 { color: #111111; }
+        body.light-mode .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.7)), 
+                              url('https://i.ibb.co/4RYyzcXY/IMG-8023.jpg') !important;
+            background-position: center center !important;
+        }
+        body.light-mode #master-overlay { background: rgba(0,0,0,0.5) !important; }
+        body.light-mode .lang-btn { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.12); color: #111; }
+
+        /* Theme Toggle Button */
+        #theme-toggle {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        #theme-toggle:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(197,160,40,0.25);
+            transform: scale(1.08);
+        }
+
+        .theme-icon-wrap {
+            position: relative;
+            width: 22px;
+            height: 22px;
+        }
+
+        .icon-moon, .icon-sun {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); color: #c5a028; }
+        .icon-sun  { opacity: 0; transform: rotate(90deg) scale(0.4); color: #f59e0b; }
+
+        body.light-mode #theme-toggle {
+            background: rgba(0,0,0,0.06);
+            border-color: rgba(0,0,0,0.15);
+        }
+        body.light-mode .icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.4); }
+        body.light-mode .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+
+        /* Transition for the whole page */
+        body, body * {
+            transition: background-color 0.4s ease, color 0.3s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        /* Exclude elements where transition breaks things */
+        body .hero-bg, body img, body .btn-premium, body video { transition: var(--transition) !important; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -265,7 +382,7 @@
         <div id="box-options-list" class="space-y-4 mb-10"></div>
 
         <div class="flex gap-4">
-            <button onclick="confirmBoxSelection()" id="confirm-box-btn" class="flex-1 bg-green-600 py-6 rounded-3xl font-black text-xl opacity-40 cursor-not-allowed transition-all" data-ar="إضافة للسلة" data-en="Add to Cart">إضافة للسلة</button>
+            <button onclick="confirmBoxSelection()" id="confirm-box-btn" class="flex-1 bg-green-600 py-6 rounded-3xl font-black text-xl opacity-40 cursor-allowed transition-all" data-ar="إضافة للسلة" data-en="Add to Cart">إضافة للسلة</button>
             <button onclick="closeBoxModal()" class="px-10 bg-white/5 py-6 rounded-3xl font-bold" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
         </div>
     </div>
@@ -286,6 +403,12 @@
         </div>
 
         <div class="flex items-center gap-6">
+            <button onclick="toggleTheme()" id="theme-toggle" title="تبديل الوضع">
+                <div class="theme-icon-wrap">
+                    <span class="icon-moon"><i class="fas fa-moon"></i></span>
+                    <span class="icon-sun"><i class="fas fa-sun"></i></span>
+                </div>
+            </button>
             <button onclick="toggleLang()" class="lang-btn" id="lang-switcher">EN</button>
             <button onclick="openCart()" class="relative group">
                 <div id="cart-dot" class="absolute -top-2 -right-2 bg-red-600 text-[10px] w-6 h-6 rounded-full flex items-center justify-center font-black border-2 border-black group-hover:scale-125 transition">0</div>
@@ -514,16 +637,16 @@
         renderFBComments();
     }
 
-    /* --- UI RENDERING (ORIGINAL - NO CHANGES) --- */
+    /* --- UI RENDERING --- */
     function renderProducts() {
         const grid = document.getElementById('products-grid');
         grid.innerHTML = PRODUCTS.map(p => `
             <div class="product-card animate__animated animate__fadeIn">
                 <div class="image-box" onclick="${p.isBox ? 'openBoxWizard()' : `viewImage('${p.img}')`}">
                     ${p.isBox ? 
-                        `<div class="h-full flex flex-col items-center justify-center bg-gradient-to-br from-zinc-800 to-black">
-                            <i class="fas fa-box-open text-7xl text-gold mb-4 animate-float"></i>
-                            <span class="font-black text-gold">12 PCS</span>
+                        `<div class="h-full flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #27272a 0%, #000000 100%) !important;">
+                            <i class="fas fa-box-open text-7xl mb-4 animate-float" style="color: #c5a028 !important;"></i>
+                            <span class="font-black" style="color: #c5a028 !important;">12 PCS</span>
                         </div>` : 
                         `<img src="${p.img}" alt="${p.name}" loading="lazy">`
                     }
@@ -578,7 +701,7 @@
         document.getElementById('cart-total').innerText = `${total} AED`;
     }
 
-    /* --- LOGIC CENTER (ORIGINAL) --- */
+    /* --- LOGIC CENTER --- */
     function viewImage(url) {
         document.getElementById('full-img').src = url;
         document.getElementById('image-overlay').classList.remove('hidden');
@@ -676,6 +799,17 @@
         t.innerText = txt;
         document.body.appendChild(t);
         setTimeout(() => { t.classList.replace('animate__fadeInUp', 'animate__fadeOutDown'); setTimeout(() => t.remove(), 500); }, 2500);
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+        const isLight = document.body.classList.contains('light-mode');
+        localStorage.setItem('rapid_pro_theme', isLight ? 'light' : 'dark');
+    }
+
+    // Apply saved theme on load
+    if (localStorage.getItem('rapid_pro_theme') === 'light') {
+        document.body.classList.add('light-mode');
     }
 
     init();
