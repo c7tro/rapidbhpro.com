@@ -533,7 +533,13 @@
             <input type="text" id="c-name" placeholder="الاسم الكامل" data-ar-placeholder="الاسم الكامل" data-en-placeholder="Full Name" class="w-full bg-black border border-white/10 p-5 rounded-2xl outline-none text-white" required>
             <input type="tel" id="c-phone" placeholder="رقم الهاتف" data-ar-placeholder="رقم الهاتف" data-en-placeholder="Phone Number" class="w-full bg-black border border-white/10 p-5 rounded-2xl outline-none text-white" required>
             <select id="c-city" class="w-full bg-black border border-white/10 p-5 rounded-2xl outline-none text-white">
-                <option value="Abu Dhabi">أبوظبي</option><option value="Dubai">دبي</option><option value="Sharjah">الشارقة</option>
+                <option value="Abu Dhabi">أبوظبي</option>
+                <option value="Dubai">دبي</option>
+                <option value="Sharjah">الشارقة</option>
+                <option value="Ajman">عجمان</option>
+                <option value="Umm Al Quwain">أم القيوين</option>
+                <option value="Ras Al Khaimah">رأس الخيمة</option>
+                <option value="Fujairah">الفجيرة</option>
             </select>
             <div id="summary-final" class="bg-black/50 p-6 rounded-2xl border border-white/5 space-y-2 text-gray-400"></div>
             <button type="submit" class="w-full btn-premium py-6 rounded-2xl font-black text-2xl shadow-2xl" data-ar="إرسال للواتساب" data-en="Send to WhatsApp">إرسال للواتساب</button>
@@ -549,13 +555,70 @@
 
     /* --- DATA CENTER --- */
     const PRODUCTS = [
-        { id: 1, name: "معطر عود ملكي", nameEn: "Royal Oud", price: 15, img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", info: "ثبات عالي للأقمشة والفرش براحه العود الملكي.", infoEn: "Premium Oud scent for luxury fabrics." },
-        { id: 2, name: "معطر برائحة العطور العربية الفخمة", nameEn: "Luxury Fragrance", price: 15, img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", info: "رائحة تدوم لايام بثبات وتركيز عالي مناسبة للارضيات والمفروشات .", infoEn: "The signature 5-star hotel scent." },
-        { id: 3, name: "معطر زهور بيضاء", nameEn: "White Flowers", price: 15, img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", info: "انتعاش الزهور الطبيعية مناسب للارضيات والستائر.", infoEn: "Pure and calm floral essence." },
-        { id: 4, name: "معطر فواكه إستوائيه", nameEn: "Fresh Fruits", price: 15, img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", info: "مزيج فواكه صيفيه منعشة رائحة قويه مناسبه للارضيات.", infoEn: "Dynamic summer fruit blend." },
-        { id: 5, name: "مزيل البقع الصعبه", nameEn: "Stain Remover BH99", price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", info: "يتم استخدامه لإزالة أصعب البقع من الأقمشة.", infoEn: "Advanced formula for toughest stains." },
-        { id: 6, name: "مزيل الدهون والشحوم المحروقه", nameEn: "Grease Killer", price: 15, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", info: "قوة مضاعفة لإزالة الشحوم والدهون.", infoEn: "Industrial power grease dissolver." },
-        { id: 7, name: "بوكس التوفير (12 عبوة)", nameEn: "Mega Savings (12 Pack)", price: 150, isBox: true, info: "صمم بوكسك الخاص ووفر 30 درهم.", infoEn: "Custom build your pack & save 30 AED." }
+        { 
+            id: 1, 
+            name: "معطر عود ملكي", 
+            nameEn: "Royal Oud", 
+            price: 15, 
+            img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", // ضع رابط الصورة هنا
+            info: "ثبات عالي للأقمشة والفرش براحه العود الملكي.", 
+            infoEn: "Premium Oud scent for luxury fabrics." 
+        },
+        { 
+            id: 2, 
+            name: "معطر برائحة العطور العربية الفخمة", 
+            nameEn: "Luxury Fragrance", 
+            price: 15, 
+            img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", // ضع رابط الصورة هنا
+            info: "رائحة تدوم لايام بثبات وتركيز عالي مناسبة للارضيات والمفروشات .", 
+            infoEn: "The signature 5-star hotel scent." 
+        },
+        { 
+            id: 3, 
+            name: "معطر زهور بيضاء", 
+            nameEn: "White Flowers", 
+            price: 15, 
+            img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", // ضع رابط الصورة هنا
+            info: "انتعاش الزهور الطبيعية مناسب للارضيات والستائر.", 
+            infoEn: "Pure and calm floral essence." 
+        },
+        { 
+            id: 4, 
+            name: "معطر فواكه إستوائيه", 
+            nameEn: "Fresh Fruits", 
+            price: 15, 
+            img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", // ضع رابط الصورة هنا
+            info: "مزيج فواكه صيفيه منعشة رائحة قويه مناسبه للارضيات.", 
+            infoEn: "Dynamic summer fruit blend." 
+        },
+        { 
+            id: 5, 
+            name: "مزيل البقع الصعبه", 
+            nameEn: "Stain Remover BH99", 
+            price: 15, 
+            img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", // ضع رابط الصورة هنا
+            info: "يتم استخدامه لإزالة أصعب البقع من الأقمشة.", 
+            infoEn: "Advanced formula for toughest stains." 
+        },
+        { 
+            id: 6, 
+            name: "مزيل الدهون والشحوم المحروقه", 
+            nameEn: "Grease Killer", 
+            price: 15, 
+            img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", // ضع رابط الصورة هنا
+            info: "قوة مضاعفة لإزالة الشحوم والدهون.", 
+            infoEn: "Industrial power grease dissolver." 
+        },
+        { 
+            id: 7, 
+            name: "بوكس التوفير (12 عبوة)", 
+            nameEn: "Mega Savings (12 Pack)", 
+            price: 150, 
+            isBox: true, 
+            img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", // ضع رابط الصورة هنا
+            info: "صمم بوكسك الخاص ووفر 30 درهم.", 
+            infoEn: "Custom build your pack & save 30 AED." 
+        }
     ];
 
     let state = {
@@ -590,45 +653,69 @@
     async function postComment() {
         const nameInput = document.getElementById('reviewer-name');
         const textInput = document.getElementById('reviewer-text');
-        
+
         if (!nameInput.value.trim() || !textInput.value.trim()) {
-            toast(state.lang === 'ar' ? 'يرجى كتابة الاسم والتعليق' : 'Please fill Name and Comment');
+            toast(state.lang === 'ar' ? 'يرجى ملء جميع الحقول' : 'Please fill all fields');
             return;
         }
 
-        const { error } = await supabaseClient
-            .from('comments')
-            .insert([{ name: nameInput.value, text: textInput.value }]);
+        const newComment = {
+            name: nameInput.value.trim(),
+            text: textInput.value.trim(),
+            likes: 0,
+            replies: 0,
+            time: state.lang === 'ar' ? 'الآن' : 'Just now',
+            created_at: new Date()
+        };
+
+        const { error } = await supabaseClient.from('comments').insert([newComment]);
 
         if (!error) {
-            nameInput.value = ''; textInput.value = '';
+            nameInput.value = '';
+            textInput.value = '';
             fetchComments();
-            toast(state.lang === 'ar' ? 'شكراً لرأيك! تم النشر' : 'Thanks! Post published');
+            toast(state.lang === 'ar' ? 'شكراً لرأيك!' : 'Thanks for your review!');
+        } else {
+            toast('Error posting comment');
         }
     }
 
     function renderFBComments() {
         const list = document.getElementById('fb-comment-list');
-        const sliced = state.comments.slice(0, state.visibleComments);
+        list.innerHTML = '';
         
-        list.innerHTML = sliced.map(c => `
-            <div class="flex gap-4 items-start animate__animated animate__fadeInUp">
-                <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center font-black text-xl text-white flex-shrink-0 shadow-lg">
-                    ${c.name.charAt(0).toUpperCase()}
-                </div>
-                <div class="flex flex-col items-start min-w-0">
-                    <div class="fb-comment-bubble border border-white/5 shadow-md mb-2">
-                        <div class="font-black text-white text-sm mb-1">${c.name}</div>
-                        <div class="text-white text-[15px] leading-snug">${c.text}</div>
+        const toShow = state.comments.slice(0, state.visibleComments);
+        
+        toShow.forEach((c, idx) => {
+            const timeStr = c.created_at ? new Date(c.created_at).toLocaleDateString() : (state.lang === 'ar' ? 'منذ فترة' : 'A while ago');
+            const html = `
+                <div class="animate__animated animate__fadeInUp" style="animation-delay: ${idx * 0.1}s">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center font-black text-gray-500 text-xl flex-shrink-0">
+                            ${c.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="flex-1">
+                            <div class="fb-comment-bubble">
+                                <div class="font-bold text-sm mb-1 text-red-600">${c.name}</div>
+                                <p class="text-sm leading-relaxed">${c.text}</p>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <span class="fb-action-btn" onclick="likeComment(this)">${state.lang === 'ar' ? 'أعجبني' : 'Like'}</span>
+                                <span class="fb-action-btn">${state.lang === 'ar' ? 'رد' : 'Reply'}</span>
+                                <span class="text-[11px] text-gray-600 ml-2">${timeStr}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+            list.insertAdjacentHTML('beforeend', html);
+        });
 
+        const btnContainer = document.getElementById('show-more-container');
         if (state.comments.length > state.visibleComments) {
-            document.getElementById('show-more-container').classList.remove('hidden');
+            btnContainer.classList.remove('hidden');
         } else {
-            document.getElementById('show-more-container').classList.add('hidden');
+            btnContainer.classList.add('hidden');
         }
     }
 
@@ -637,157 +724,194 @@
         renderFBComments();
     }
 
-    /* --- UI RENDERING --- */
+    function likeComment(btn) {
+        btn.classList.toggle('active');
+        btn.innerText = btn.classList.contains('active') ? (state.lang === 'ar' ? 'تم الإعجاب' : 'Liked') : (state.lang === 'ar' ? 'أعجبني' : 'Like');
+    }
+
+    /* --- CORE LOGIC --- */
     function renderProducts() {
         const grid = document.getElementById('products-grid');
         grid.innerHTML = PRODUCTS.map(p => `
-            <div class="product-card animate__animated animate__fadeIn">
-                <div class="image-box" onclick="${p.isBox ? 'openBoxWizard()' : `viewImage('${p.img}')`}">
-                    ${p.isBox ? 
-                        `<div class="h-full flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #27272a 0%, #000000 100%) !important;">
-                            <i class="fas fa-box-open text-7xl mb-4 animate-float" style="color: #c5a028 !important;"></i>
-                            <span class="font-black" style="color: #c5a028 !important;">12 PCS</span>
-                        </div>` : 
-                        `<img src="${p.img}" alt="${p.name}" loading="lazy">`
-                    }
-                    <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 font-black text-gold">
-                        ${p.price} AED
+            <div class="product-card group">
+                <div class="image-box" onclick="zoomImage('${p.img}')">
+                    <img src="${p.img}" alt="${p.name}" loading="lazy">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i class="fas fa-search-plus text-4xl"></i>
                     </div>
                 </div>
                 <div class="p-10">
-                    <h3 class="text-3xl font-black mb-4 italic">${state.lang === 'ar' ? p.name : p.nameEn}</h3>
-                    <p class="text-gray-500 mb-8 text-sm leading-relaxed">${state.lang === 'ar' ? p.info : p.infoEn}</p>
-                    <button onclick="${p.isBox ? 'openBoxWizard()' : `addToCart(${p.id})`}" class="w-full btn-premium py-5 rounded-2xl flex items-center justify-center gap-3">
-                        ${p.isBox ? 
-                            `<i class="fas fa-tools"></i> <span>${state.lang === 'ar' ? 'تخصيص البوكس' : 'Customize Box'}</span>` : 
-                            `<i class="fas fa-cart-plus"></i> <span>${state.lang === 'ar' ? 'إضافة للسلة' : 'Add to Cart'}</span>`
-                        }
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-3xl font-black italic w-2/3">${state.lang === 'ar' ? p.name : p.nameEn}</h3>
+                        <span class="text-2xl font-black text-red-600">${p.price} AED</span>
+                    </div>
+                    <p class="text-gray-400 mb-8 h-12 overflow-hidden text-sm">${state.lang === 'ar' ? p.info : p.infoEn}</p>
+                    <button onclick="${p.isBox ? 'openBoxModal()' : `addToCart(${p.id})`}" class="w-full btn-premium py-5 rounded-2xl flex items-center justify-center gap-4">
+                        <i class="fas fa-cart-plus"></i>
+                        <span>${p.isBox ? (state.lang === 'ar' ? 'صمم بوكسك' : 'Build Box') : (state.lang === 'ar' ? 'إضافة للسلة' : 'Add to Cart')}</span>
                     </button>
                 </div>
             </div>
         `).join('');
     }
 
-    function renderCart() {
-        const container = document.getElementById('cart-content');
-        if (state.cart.length === 0) {
-            container.innerHTML = `<div class="h-full flex flex-col items-center justify-center opacity-20"><i class="fas fa-shopping-basket text-8xl mb-4"></i><p class="font-bold uppercase tracking-widest">Empty</p></div>`;
-            document.getElementById('cart-total').innerText = `0 AED`;
-            return;
+    function addToCart(id) {
+        const product = PRODUCTS.find(p => p.id === id);
+        const exists = state.cart.find(item => item.id === id && !item.isCustomBox);
+        
+        if(exists) {
+            exists.qty++;
+        } else {
+            state.cart.push({...product, qty: 1});
         }
+        updateUI();
+        openCart();
+        toast(state.lang === 'ar' ? 'تمت الإضافة للسلة' : 'Added to Cart');
+    }
 
-        let total = 0;
-        container.innerHTML = state.cart.map((item, index) => {
-            total += (item.price * item.qty);
-            return `
-                <div class="bg-white/5 p-6 rounded-[30px] border border-white/5 flex gap-6 items-center">
-                    <div class="w-20 h-20 bg-zinc-800 rounded-2xl overflow-hidden flex-shrink-0">
-                        ${item.isBox ? '<div class="h-full flex items-center justify-center"><i class="fas fa-box text-gold text-2xl"></i></div>' : `<img src="${item.img}" class="w-full h-full object-cover">`}
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <h4 class="font-bold text-base leading-tight mb-2 truncate text-white">${state.lang === 'ar' ? item.name : (item.nameEn || item.name)}</h4>
+    function updateUI() {
+        localStorage.setItem('rapid_pro_cart', JSON.stringify(state.cart));
+        
+        // Update Cart Dot
+        const totalQty = state.cart.reduce((acc, item) => acc + item.qty, 0);
+        document.getElementById('cart-dot').innerText = totalQty;
+        
+        // Update Cart Content
+        const cartContent = document.getElementById('cart-content');
+        if(state.cart.length === 0) {
+            cartContent.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-gray-600 opacity-50">
+                <i class="fas fa-shopping-basket text-8xl mb-6"></i>
+                <p class="text-2xl font-bold">${state.lang === 'ar' ? 'سلتك فارغة حالياً' : 'Your cart is empty'}</p>
+            </div>`;
+        } else {
+            cartContent.innerHTML = state.cart.map((item, idx) => `
+                <div class="bg-white/5 p-6 rounded-[30px] border border-white/5 flex gap-6 items-center animate__animated animate__fadeInRight" style="animation-delay: ${idx * 0.1}s">
+                    <img src="${item.img}" class="w-24 h-24 rounded-2xl object-cover">
+                    <div class="flex-1">
+                        <h4 class="font-black text-xl mb-1">${state.lang === 'ar' ? item.name : item.nameEn}</h4>
+                        ${item.details ? `<p class="text-[10px] text-gold mb-2">${item.details}</p>` : ''}
                         <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-4 bg-black/40 px-3 py-1.5 rounded-xl">
-                                <button onclick="updateQty(${index}, -1)" class="text-red-500 font-black">-</button>
-                                <span class="font-black text-sm text-white">${item.qty}</span>
-                                <button onclick="updateQty(${index}, 1)" class="text-green-500 font-black">+</button>
+                            <div class="flex items-center gap-4 bg-black/40 px-4 py-2 rounded-xl">
+                                <button onclick="changeQty(${idx}, -1)" class="text-red-600 font-black">-</button>
+                                <span class="font-black text-sm">${item.qty}</span>
+                                <button onclick="changeQty(${idx}, 1)" class="text-green-600 font-black">+</button>
                             </div>
-                            <span class="text-gold font-black">${item.price * item.qty} AED</span>
+                            <span class="font-black text-red-600">${item.price * item.qty} AED</span>
                         </div>
                     </div>
                 </div>
-            `;
-        }).join('');
+            `).join('');
+        }
+        
+        // Update Total
+        const total = state.cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
         document.getElementById('cart-total').innerText = `${total} AED`;
+
+        // Update Language Static Texts
+        document.querySelectorAll('[data-ar]').forEach(el => {
+            el.innerText = state.lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+        });
+        document.querySelectorAll('[data-ar-placeholder]').forEach(el => {
+            el.placeholder = state.lang === 'ar' ? el.getAttribute('data-ar-placeholder') : el.getAttribute('data-en-placeholder');
+        });
     }
 
-    /* --- LOGIC CENTER --- */
-    function viewImage(url) {
-        document.getElementById('full-img').src = url;
-        document.getElementById('image-overlay').classList.remove('hidden');
+    function changeQty(idx, delta) {
+        state.cart[idx].qty += delta;
+        if(state.cart[idx].qty < 1) state.cart.splice(idx, 1);
+        updateUI();
     }
 
-    function toggleLang() {
-        state.lang = state.lang === 'ar' ? 'en' : 'ar';
-        document.documentElement.lang = state.lang;
-        document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('lang-switcher').innerText = state.lang === 'ar' ? 'EN' : 'AR';
-        document.querySelectorAll('[data-ar]').forEach(el => el.innerText = el.getAttribute(`data-${state.lang}`));
-        document.querySelectorAll('[data-ar-placeholder]').forEach(el => el.placeholder = el.getAttribute(`data-${state.lang}-placeholder`));
-        renderProducts(); renderCart(); renderFBComments(); closePanels();
-    }
-
-    function addToCart(id) {
-        const product = PRODUCTS.find(p => p.id === id);
-        const existing = state.cart.find(i => i.id === id && !i.isBox);
-        if (existing) existing.qty++; else state.cart.push({ ...product, qty: 1 });
-        saveAndSync();
-        toast(state.lang === 'ar' ? 'تمت الإضافة بنجاح ✅' : 'Added Successfully ✅');
-    }
-
-    function updateQty(index, delta) {
-        state.cart[index].qty += delta;
-        if (state.cart[index].qty <= 0) state.cart.splice(index, 1);
-        saveAndSync();
-    }
-
-    function openBoxWizard() {
+    /* --- CUSTOM BOX LOGIC --- */
+    function openBoxModal() {
         state.boxSelection = {};
-        PRODUCTS.slice(0, 6).forEach(p => state.boxSelection[p.name] = 0);
+        PRODUCTS.filter(p => !p.isBox).forEach(p => state.boxSelection[p.id] = 0);
         renderBoxOptions();
         document.getElementById('box-modal').classList.remove('hidden');
+        document.getElementById('box-modal').classList.add('flex');
+        updateBoxCounter();
     }
 
     function renderBoxOptions() {
         const list = document.getElementById('box-options-list');
-        let total = Object.values(state.boxSelection).reduce((a, b) => a + b, 0);
-        document.getElementById('box-counter').innerText = 12 - total;
-        list.innerHTML = PRODUCTS.slice(0, 6).map(p => `
-            <div class="flex items-center justify-between bg-white/5 p-5 rounded-3xl border border-white/5">
-                <span class="font-bold text-white text-sm">${state.lang === 'ar' ? p.name : p.nameEn}</span>
+        list.innerHTML = PRODUCTS.filter(p => !p.isBox).map(p => `
+            <div class="flex justify-between items-center bg-black/40 p-6 rounded-3xl border border-white/5">
+                <div class="flex items-center gap-4">
+                    <img src="${p.img}" class="w-16 h-16 rounded-xl object-cover">
+                    <span class="font-bold text-lg">${state.lang === 'ar' ? p.name : p.nameEn}</span>
+                </div>
                 <div class="flex items-center gap-6">
-                    <button onclick="updateBoxItem('${p.name}', -1)" class="w-10 h-10 bg-zinc-800 rounded-full hover:bg-red-600 transition text-red-500 font-black">-</button>
-                    <span class="text-xl font-black w-4 text-center text-red-600">${state.boxSelection[p.name]}</span>
-                    <button onclick="updateBoxItem('${p.name}', 1)" class="w-10 h-10 bg-zinc-800 rounded-full hover:bg-green-600 transition text-green-500 font-black">+</button>
+                    <button onclick="updateBoxItem(${p.id}, -1)" class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center font-black">-</button>
+                    <span id="box-qty-${p.id}" class="text-xl font-black w-6 text-center">0</span>
+                    <button onclick="updateBoxItem(${p.id}, 1)" class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center font-black">+</button>
                 </div>
             </div>
         `).join('');
-        const btn = document.getElementById('confirm-box-btn');
-        if (total === 12) btn.classList.remove('opacity-40', 'cursor-not-allowed'); else btn.classList.add('opacity-40', 'cursor-not-allowed');
     }
 
-    function updateBoxItem(name, delta) {
-        let total = Object.values(state.boxSelection).reduce((a, b) => a + b, 0);
-        if ((delta > 0 && total >= 12) || (delta < 0 && state.boxSelection[name] <= 0)) return;
-        state.boxSelection[name] += delta;
-        renderBoxOptions();
+    function updateBoxItem(id, delta) {
+        const currentTotal = Object.values(state.boxSelection).reduce((a, b) => a + b, 0);
+        if(delta > 0 && currentTotal >= 12) return;
+        if(delta < 0 && state.boxSelection[id] <= 0) return;
+        
+        state.boxSelection[id] += delta;
+        document.getElementById(`box-qty-${id}`).innerText = state.boxSelection[id];
+        updateBoxCounter();
+    }
+
+    function updateBoxCounter() {
+        const currentTotal = Object.values(state.boxSelection).reduce((a, b) => a + b, 0);
+        const remaining = 12 - currentTotal;
+        document.getElementById('box-counter').innerText = remaining;
+        
+        const btn = document.getElementById('confirm-box-btn');
+        if(remaining === 0) {
+            btn.classList.remove('opacity-40', 'cursor-allowed');
+            btn.classList.add('bg-green-600');
+        } else {
+            btn.classList.add('opacity-40', 'cursor-allowed');
+        }
     }
 
     function confirmBoxSelection() {
-        if (Object.values(state.boxSelection).reduce((a, b) => a + b, 0) !== 12) return;
-        const summary = Object.entries(state.boxSelection).filter(([_, qty]) => qty > 0).map(([n, qty]) => `${n} (${qty})`).join(', ');
-        state.cart.push({ id: 7, name: `بوكس 12 حبة: ${summary}`, price: 150, qty: 1, isBox: true });
-        saveAndSync(); closeBoxModal(); openCart();
+        const currentTotal = Object.values(state.boxSelection).reduce((a, b) => a + b, 0);
+        if(currentTotal < 12) {
+            toast(state.lang === 'ar' ? 'يرجى اختيار 12 عبوة' : 'Please select 12 items');
+            return;
+        }
+        
+        let details = [];
+        for(let id in state.boxSelection) {
+            if(state.boxSelection[id] > 0) {
+                const p = PRODUCTS.find(prod => prod.id == id);
+                details.push(`${state.lang === 'ar' ? p.name : p.nameEn} (${state.boxSelection[id]})`);
+            }
+        }
+        
+        state.cart.push({
+            id: Date.now(),
+            name: "بوكس التوفير (12 عبوة)",
+            nameEn: "Custom Mega Box (12 Pack)",
+            price: 150,
+            qty: 1,
+            img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg",
+            details: details.join(' | '),
+            isCustomBox: true
+        });
+        
+        closeBoxModal();
+        updateUI();
+        openCart();
     }
 
-    function showCheckout() { if(state.cart.length > 0) document.getElementById('checkout-modal').style.display = 'flex'; }
-    function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
-    
-    function handleFinalSubmit(e) {
-        e.preventDefault();
-        const total = state.cart.reduce((a, b) => a + (b.price * b.qty), 0);
-        let msg = `طلب جديد:\nالاسم: ${document.getElementById('c-name').value}\nالهاتف: ${document.getElementById('c-phone').value}\n\n🛒 السلة:\n`;
-        state.cart.forEach(i => msg += `• ${i.name} x${i.qty} = ${i.price*i.qty} AED\n`);
-        msg += `\n💰 الإجمالي: ${total} AED`;
-        window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`, '_blank');
-        state.cart = []; saveAndSync(); closeCheckout();
-    }
-
-    function saveAndSync() { localStorage.setItem('rapid_pro_cart', JSON.stringify(state.cart)); updateUI(); renderCart(); }
-    function updateUI() { document.getElementById('cart-dot').innerText = state.cart.reduce((a, b) => a + b.qty, 0); }
+    /* --- UI HELPERS --- */
     function openSidebar() { document.getElementById('sidebar').classList.add('active-left'); document.getElementById('master-overlay').classList.remove('hidden'); }
-    function openCart() { document.getElementById('cart-panel').classList.add('active-right'); document.getElementById('master-overlay').classList.remove('hidden'); renderCart(); }
-    function closePanels() { document.getElementById('sidebar').classList.remove('active-left'); document.getElementById('cart-panel').classList.remove('active-right'); document.getElementById('master-overlay').classList.add('hidden'); }
+    function openCart() { document.getElementById('cart-panel').classList.add('active-right'); document.getElementById('master-overlay').classList.remove('hidden'); }
+    function closePanels() { 
+        document.getElementById('sidebar').classList.remove('active-left'); 
+        document.getElementById('cart-panel').classList.remove('active-right'); 
+        document.getElementById('master-overlay').classList.add('hidden'); 
+    }
     function closeBoxModal() { document.getElementById('box-modal').classList.add('hidden'); }
     function navigate(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); closePanels(); }
     function openWA() { window.open('https://wa.me/971508851549', '_blank'); }
@@ -807,12 +931,59 @@
         localStorage.setItem('rapid_pro_theme', isLight ? 'light' : 'dark');
     }
 
-    // Apply saved theme on load
-    if (localStorage.getItem('rapid_pro_theme') === 'light') {
+    if(localStorage.getItem('rapid_pro_theme') === 'light') {
         document.body.classList.add('light-mode');
     }
 
-    init();
+    function toggleLang() {
+        state.lang = state.lang === 'ar' ? 'en' : 'ar';
+        document.documentElement.lang = state.lang;
+        document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('lang-switcher').innerText = state.lang === 'ar' ? 'EN' : 'AR';
+        renderProducts();
+        updateUI();
+        renderFBComments();
+    }
+
+    function zoomImage(src) {
+        document.getElementById('full-img').src = src;
+        document.getElementById('image-overlay').classList.remove('hidden');
+    }
+
+    function showCheckout() {
+        if(state.cart.length === 0) return toast(state.lang === 'ar' ? 'السلة فارغة' : 'Cart is empty');
+        const summary = state.cart.map(item => `<div>${state.lang === 'ar' ? item.name : item.nameEn} x ${item.qty}</div>`).join('');
+        document.getElementById('summary-final').innerHTML = summary;
+        document.getElementById('checkout-modal').classList.remove('hidden');
+        document.getElementById('checkout-modal').classList.add('flex');
+    }
+
+    function closeCheckout() { document.getElementById('checkout-modal').classList.add('hidden'); }
+
+    function handleFinalSubmit(e) {
+        e.preventDefault();
+        const name = document.getElementById('c-name').value;
+        const phone = document.getElementById('c-phone').value;
+        const city = document.getElementById('c-city').value;
+        
+        let msg = `طلب جديد من: ${name}\nرقم الهاتف: ${phone}\nالمدينة: ${city}\n\nالمنتجات:\n`;
+        state.cart.forEach(item => {
+            msg += `- ${item.name} x ${item.qty} (${item.price * item.qty} AED)\n`;
+            if(item.details) msg += `  (التفاصيل: ${item.details})\n`;
+        });
+        
+        const total = state.cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+        msg += `\nالمجموع الكلي: ${total} AED`;
+        
+        window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`, '_blank');
+        state.cart = [];
+        updateUI();
+        closeCheckout();
+        closePanels();
+    }
+
+    window.onload = init;
 </script>
+
 </body>
 </html>
