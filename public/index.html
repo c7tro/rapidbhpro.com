@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -10,38 +9,37 @@
     <meta name="author" content="Rapid BH Pro">
     <meta property="og:title" content="Rapid BH Pro | المتجر الرسمي - معطرات ومنظفات عالية الجودة">
     <meta property="og:description" content="اكتشف أفضل معطرات الجو، معطر جنات، مزيل البقع والشحوم. حلول تنظيف وتعطير احترافية للمنزل والملابس.">
+    <meta property="og:image" content="https://i.ibb.co/9kCQjSsy/IMG-7517.jpg">
     <meta property="og:url" content="https://rapidbhpro.com/">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #e63946;
-            --primary-dark: #b91c1c;
-            --gold: #c5a028;
-            --bg-main: #050506;
-            --bg-surface: #0d0d10;
-            --bg-elevated: #141418;
-            --glass: rgba(10, 10, 12, 0.85);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-subtle: rgba(255, 255, 255, 0.07);
-            --shadow-card: 0 12px 32px -8px rgba(0, 0, 0, 0.7);
+            --primary: #d93843;
+            --primary-hover: #be2b35;
+            --gold: #bfa036;
+            --bg-main: #09090b;
+            --bg-surface: #111114;
+            --bg-elevated: #18181c;
+            --glass: rgba(17, 17, 20, 0.88);
+            --text-main: #f4f4f6;
+            --text-muted: #9ca3af;
+            --border-subtle: rgba(255, 255, 255, 0.08);
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         body.light-mode {
-            --bg-main: #f6f6f8;
+            --bg-main: #f7f7f8;
             --bg-surface: #ffffff;
-            --bg-elevated: #f1f2f5;
-            --glass: rgba(255, 255, 255, 0.9);
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --border-subtle: rgba(15, 23, 42, 0.08);
-            --shadow-card: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+            --bg-elevated: #f0f0f3;
+            --glass: rgba(255, 255, 255, 0.92);
+            --text-main: #18181b;
+            --text-muted: #52525b;
+            --border-subtle: rgba(0, 0, 0, 0.08);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -52,62 +50,54 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.65;
-            transition: background-color 0.4s var(--ease), color 0.3s var(--ease);
+            transition: background-color 0.35s var(--ease), color 0.3s var(--ease);
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
 
         /* Navigation */
         #nav-bar {
-            padding: 1.5rem 2rem;
-            transition: all 0.4s var(--ease);
+            padding: 1.25rem 1.5rem;
+            transition: all 0.35s var(--ease);
         }
         #nav-bar.scrolled {
-            padding: 0.9rem 2rem;
+            padding: 0.85rem 1.5rem;
             background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
-        body:not(.light-mode) #nav-bar:not(.scrolled) .nav-element { color: #ffffff; }
+        body:not(.light-mode) #nav-bar .nav-element { color: #f4f4f6; }
         body.light-mode #nav-bar:not(.scrolled) .nav-element { color: #ffffff; }
         body.light-mode #nav-bar.scrolled .nav-element { color: var(--text-main); }
 
-        /* Hero Section */
+        /* Hero Section - Calm & Editorial */
         .hero-section {
             position: relative;
-            height: 92vh;
-            min-height: 620px;
+            height: 82vh;
+            min-height: 540px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: #000;
+            background: #09090b;
         }
         .hero-bg {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 60%, var(--bg-main) 100%),
+            background-image: linear-gradient(to bottom, rgba(9,9,11,0.45) 0%, rgba(9,9,11,0.65) 70%, var(--bg-main) 100%),
                               url('https://i.ibb.co/9kCQjSsy/IMG-7517.jpg');
             background-size: cover;
             background-position: center 30%;
             z-index: 1;
-            transform: scale(1.03);
-            animation: slowBreath 16s ease-in-out infinite alternate;
-            transition: background-image 0.5s ease;
+            transition: background-image 0.4s ease;
         }
         body.light-mode .hero-bg {
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.5) 75%, var(--bg-main) 100%),
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 75%, var(--bg-main) 100%),
                               url('https://i.ibb.co/4RYyzcXY/IMG-8023.jpg');
             background-position: center center;
-        }
-        @keyframes slowBreath {
-            from { transform: scale(1.02); }
-            to { transform: scale(1.08); }
         }
 
         /* Side Panels */
@@ -115,45 +105,41 @@
             position: fixed;
             top: 0;
             height: 100dvh;
-            width: 400px;
+            width: 390px;
             max-width: 90vw;
             background: var(--bg-surface);
             z-index: 5000;
-            transition: transform 0.45s var(--ease);
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            transition: transform 0.4s var(--ease);
             border-color: var(--border-subtle);
         }
         #sidebar { left: 0; transform: translateX(-100%); border-right: 1px solid var(--border-subtle); }
         #cart-panel { right: 0; transform: translateX(100%); border-left: 1px solid var(--border-subtle); }
-        #sidebar.active { transform: translateX(0); }
-        #cart-panel.active { transform: translateX(0); }
+        #sidebar.active, #cart-panel.active { transform: translateX(0); }
 
         html[lang="en"] #sidebar { left: auto; right: 0; transform: translateX(100%); border-left: 1px solid var(--border-subtle); border-right: none; }
         html[lang="en"] #cart-panel { right: auto; left: 0; transform: translateX(-100%); border-right: 1px solid var(--border-subtle); border-left: none; }
-        html[lang="en"] #sidebar.active,
-        html[lang="en"] #cart-panel.active { transform: translateX(0); }
+        html[lang="en"] #sidebar.active, html[lang="en"] #cart-panel.active { transform: translateX(0); }
 
-        /* Product Cards */
+        /* Product Cards - Matte & Clean */
         .product-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
-            border-radius: 28px;
+            border-radius: 22px;
             overflow: hidden;
-            transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+            transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
             position: relative;
-            box-shadow: var(--shadow-card);
             display: flex;
             flex-direction: column;
         }
         .product-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(230, 57, 70, 0.4);
+            transform: translateY(-4px);
+            border-color: rgba(217, 56, 67, 0.35);
         }
         .image-box {
             position: relative;
-            height: 320px;
-            margin: 12px;
-            border-radius: 20px;
+            height: 290px;
+            margin: 10px;
+            border-radius: 16px;
             overflow: hidden;
             background: var(--bg-elevated);
             cursor: zoom-in;
@@ -162,96 +148,83 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.7s var(--ease);
+            transition: transform 0.6s var(--ease);
         }
-        .product-card:hover .image-box img { transform: scale(1.06); }
+        .product-card:hover .image-box img { transform: scale(1.04); }
 
         /* Grid 2 Compact View */
-        .grid-2 .product-card { border-radius: 20px; }
-        .grid-2 .image-box { height: 175px; margin: 8px; border-radius: 14px; }
-        .grid-2 .card-body { padding: 14px !important; }
-        .grid-2 h3 { font-size: 1.05rem !important; margin-bottom: 4px !important; }
-        .grid-2 p { font-size: 0.75rem !important; margin-bottom: 12px !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .grid-2 .btn-premium { padding: 10px !important; font-size: 0.8rem !important; border-radius: 12px; }
-        .grid-2 .price-badge { top: 14px !important; left: 14px !important; font-size: 0.75rem !important; padding: 4px 10px !important; }
+        .grid-2 .product-card { border-radius: 16px; }
+        .grid-2 .image-box { height: 165px; margin: 7px; border-radius: 12px; }
+        .grid-2 .card-body { padding: 12px !important; }
+        .grid-2 h3 { font-size: 0.95rem !important; margin-bottom: 4px !important; }
+        .grid-2 p { font-size: 0.72rem !important; margin-bottom: 10px !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .grid-2 .btn-action { padding: 9px !important; font-size: 0.78rem !important; border-radius: 10px; }
+        .grid-2 .price-badge { top: 12px !important; left: 12px !important; font-size: 0.72rem !important; padding: 3px 8px !important; }
 
         /* Slider */
         .slider-container { position: relative; width: 100%; height: 100%; overflow: hidden; touch-action: pan-y; }
-        .slider-track { display: flex; transition: transform 0.45s var(--ease); width: 100%; height: 100%; }
+        .slider-track { display: flex; transition: transform 0.4s var(--ease); width: 100%; height: 100%; }
         .slide { min-width: 100%; height: 100%; }
-        .slider-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; background: rgba(0,0,0,0.4); padding: 4px 8px; border-radius: 20px; backdrop-filter: blur(4px); }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: all 0.3s; }
-        .dot.active { background: var(--primary); width: 16px; border-radius: 10px; }
+        .slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 10; background: rgba(0,0,0,0.45); padding: 4px 8px; border-radius: 20px; }
+        .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.45); transition: all 0.3s; }
+        .dot.active { background: #ffffff; width: 14px; border-radius: 10px; }
 
-        /* Buttons */
-        .btn-premium {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        /* Matte Buttons */
+        .btn-action {
+            background-color: var(--primary);
             color: #ffffff;
             font-weight: 800;
-            transition: all 0.3s var(--ease);
-            box-shadow: 0 6px 18px -4px rgba(230, 57, 70, 0.45);
+            transition: background-color 0.25s ease, transform 0.2s ease;
         }
-        .btn-premium:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px -4px rgba(230, 57, 70, 0.6);
-        }
-        .btn-premium:active { transform: translateY(0); }
+        .btn-action:hover { background-color: var(--primary-hover); }
+        .btn-action:active { transform: scale(0.98); }
 
-        /* Theme & Lang Controls */
+        /* Controls */
         .control-pill {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(8px);
-            transition: all 0.3s var(--ease);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            transition: all 0.25s ease;
         }
         body.light-mode #nav-bar.scrolled .control-pill {
-            background: rgba(15, 23, 42, 0.05);
-            border-color: rgba(15, 23, 42, 0.12);
+            background: var(--bg-elevated);
+            border-color: var(--border-subtle);
         }
-        .control-pill:hover { border-color: var(--gold); }
 
         /* Lightbox */
         .img-fullscreen {
             position: fixed;
             inset: 0;
             z-index: 100000;
-            background: rgba(0, 0, 0, 0.94);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.92);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: zoom-out;
             padding: 20px;
-            animation: fadeIn 0.25s ease;
         }
         .img-fullscreen img {
-            max-width: 95%;
-            max-height: 88vh;
-            border-radius: 16px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            max-width: 94%;
+            max-height: 86vh;
+            border-radius: 12px;
         }
 
-        /* Inputs */
+        /* Clean Inputs */
         .clean-input {
             background: var(--bg-elevated);
             border: 1px solid var(--border-subtle);
             color: var(--text-main);
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color 0.25s ease;
         }
         .clean-input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.4s var(--ease) forwards; }
-        @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .live-dot { animation: pulseDot 2s infinite; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.35s var(--ease) forwards; }
     </style>
 </head>
-<body>
+<body class="pb-16 md:pb-0">
 
 <!-- Fullscreen Image Preview -->
 <div id="image-overlay" class="img-fullscreen hidden" onclick="this.classList.add('hidden')">
@@ -259,165 +232,225 @@
 </div>
 
 <!-- Backdrop Overlay -->
-<div id="master-overlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-[4500] transition-opacity" onclick="closePanels()"></div>
+<div id="master-overlay" class="fixed inset-0 bg-black/65 hidden z-[4500]" onclick="closePanels()"></div>
 
 <!-- Custom 12-Pack Box Modal -->
-<div id="box-modal" class="fixed inset-0 z-[6000] bg-black/80 hidden items-center justify-center p-4 backdrop-blur-md">
-    <div style="background: var(--bg-surface); border-color: var(--border-subtle);" class="w-full max-w-xl rounded-3xl p-7 md:p-9 border max-h-[90vh] overflow-y-auto shadow-2xl fade-in">
-        <div class="flex justify-between items-center mb-6 pb-4 border-b" style="border-color: var(--border-subtle);">
+<div id="box-modal" class="fixed inset-0 z-[6000] bg-black/75 hidden items-center justify-center p-4">
+    <div style="background: var(--bg-surface); border-color: var(--border-subtle);" class="w-full max-w-lg rounded-3xl p-6 md:p-8 border max-h-[90vh] overflow-y-auto fade-in">
+        <div class="flex justify-between items-center mb-5 pb-4 border-b" style="border-color: var(--border-subtle);">
             <div>
-                <h2 class="text-2xl md:text-3xl font-black text-[#e63946]" data-ar="صمم بوكس الـ 12" data-en="Design your 12-Pack">صمم بوكس الـ 12</h2>
-                <p style="color: var(--text-muted);" class="text-sm mt-1" data-ar="اختر التشكيلة اللي تناسبك" data-en="Choose your custom mix">اختر التشكيلة اللي تناسبك</p>
+                <h2 class="text-xl md:text-2xl font-black text-[#d93843]" data-ar="صمم بوكس الـ 12" data-en="Design your 12-Pack">صمم بوكس الـ 12</h2>
+                <p style="color: var(--text-muted);" class="text-xs mt-1" data-ar="اختر التشكيلة اللي تناسبك (وفر 30 درهم)" data-en="Choose your custom mix (Save 30 AED)">اختر التشكيلة اللي تناسبك (وفر 30 درهم)</p>
             </div>
-            <div class="bg-[#e63946]/15 px-4 py-2 rounded-2xl border border-[#e63946]/30 text-center">
-                <span class="block text-[11px] font-bold opacity-75" data-ar="المتبقي" data-en="Left">المتبقي</span>
-                <span id="box-counter" class="text-2xl font-black text-[#e63946]">12</span>
+            <div style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="px-4 py-2 rounded-xl border text-center">
+                <span class="block text-[10px] font-bold opacity-70" data-ar="المتبقي" data-en="Left">المتبقي</span>
+                <span id="box-counter" class="text-xl font-black text-[#d93843]">12</span>
             </div>
         </div>
-        <div id="box-options-list" class="space-y-3 mb-7"></div>
+        <div id="box-options-list" class="space-y-2.5 mb-6"></div>
         <div class="flex gap-3">
-            <button onclick="confirmBoxSelection()" id="confirm-box-btn" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-2xl font-black text-base opacity-40 cursor-not-allowed transition-all" data-ar="إضافة للسلة" data-en="Add to Cart">إضافة للسلة</button>
-            <button onclick="closeBoxModal()" style="background: var(--bg-elevated);" class="px-7 py-4 rounded-2xl font-bold text-sm hover:opacity-80 transition" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+            <button onclick="confirmBoxSelection()" id="confirm-box-btn" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl font-extrabold text-sm opacity-40 cursor-not-allowed transition" data-ar="إضافة للسلة" data-en="Add to Cart">إضافة للسلة</button>
+            <button onclick="closeBoxModal()" style="background: var(--bg-elevated);" class="px-6 py-3.5 rounded-xl font-bold text-sm hover:opacity-80 transition" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
         </div>
     </div>
 </div>
 
 <!-- Navigation -->
 <nav class="fixed top-0 w-full z-[4000]" id="nav-bar">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <div class="flex items-center gap-6">
-            <button onclick="openSidebar()" class="nav-element text-2xl hover:text-[#e63946] transition" aria-label="Menu">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-5">
+            <button onclick="openSidebar()" class="nav-element text-xl hover:text-[#d93843] transition" aria-label="Menu">
                 <i class="fas fa-bars-staggered"></i>
             </button>
-            <div class="hidden md:flex gap-6 text-sm font-bold tracking-wide nav-element opacity-85">
-                <span onclick="navigate('store')" class="hover:text-[#e63946] cursor-pointer transition" data-ar="المتجر" data-en="Store">المتجر</span>
-                <span onclick="navigate('reviews')" class="hover:text-[#e63946] cursor-pointer transition" data-ar="الآراء" data-en="Reviews">الآراء</span>
+            <div class="hidden md:flex gap-5 text-sm font-bold nav-element opacity-85">
+                <span onclick="navigate('store')" class="hover:text-[#d93843] cursor-pointer transition" data-ar="المتجر" data-en="Store">المتجر</span>
+                <span onclick="navigate('box-banner')" class="hover:text-[#d93843] cursor-pointer transition" data-ar="بوكس التوفير" data-en="Savings Box">بوكس التوفير</span>
+                <span onclick="navigate('reviews')" class="hover:text-[#d93843] cursor-pointer transition" data-ar="الآراء" data-en="Reviews">الآراء</span>
             </div>
         </div>
 
-        <a href="#hero" class="nav-element text-2xl md:text-3xl font-black font-['Montserrat'] tracking-tight">
-            RAPID BH <span class="text-[#e63946]">PRO</span>
+        <a href="#hero" class="nav-element text-xl md:text-2xl font-black font-['Montserrat'] tracking-tight">
+            RAPID BH <span class="text-[#d93843]">PRO</span>
         </a>
 
-        <div class="flex items-center gap-3 md:gap-4">
-            <button onclick="toggleTheme()" id="theme-toggle" class="control-pill nav-element w-10 h-10 rounded-xl flex items-center justify-center text-sm" title="تبديل المظهر">
-                <i id="theme-icon" class="fas fa-moon text-[#c5a028]"></i>
+        <div class="flex items-center gap-2.5 md:gap-3">
+            <button onclick="toggleTheme()" id="theme-toggle" class="control-pill nav-element w-9 h-9 rounded-lg flex items-center justify-center text-xs" title="تبديل المظهر">
+                <i id="theme-icon" class="fas fa-moon text-[#bfa036]"></i>
             </button>
-            <button onclick="toggleLang()" class="control-pill nav-element px-3.5 h-10 rounded-xl text-xs font-black tracking-wider" id="lang-switcher">EN</button>
-            <button onclick="openCart()" class="nav-element relative p-2 hover:text-[#e63946] transition" aria-label="Cart">
-                <span id="cart-dot" class="absolute -top-0.5 -right-0.5 bg-[#e63946] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black shadow-md">0</span>
-                <i class="fas fa-shopping-bag text-2xl"></i>
+            <button onclick="toggleLang()" class="control-pill nav-element px-3 h-9 rounded-lg text-xs font-black" id="lang-switcher">EN</button>
+            <button onclick="openCart()" class="nav-element relative p-2 hover:text-[#d93843] transition" aria-label="Cart">
+                <span id="cart-dot" class="absolute -top-0.5 -right-0.5 bg-[#d93843] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black">0</span>
+                <i class="fas fa-shopping-bag text-xl"></i>
             </button>
         </div>
     </div>
 </nav>
 
 <!-- Sidebar Menu -->
-<aside id="sidebar" class="side-panel p-8 md:p-10 flex flex-col justify-between">
+<aside id="sidebar" class="side-panel p-7 flex flex-col justify-between">
     <div>
-        <div class="flex justify-between items-center mb-12 pb-5 border-b" style="border-color: var(--border-subtle);">
-            <span class="text-[#c5a028] font-black tracking-widest uppercase text-sm" data-ar="القائمة" data-en="Menu">القائمة</span>
-            <button onclick="closePanels()" class="text-3xl leading-none hover:text-[#e63946] transition">&times;</button>
+        <div class="flex justify-between items-center mb-10 pb-4 border-b" style="border-color: var(--border-subtle);">
+            <span class="text-[#bfa036] font-black tracking-widest uppercase text-xs" data-ar="القائمة" data-en="Menu">القائمة</span>
+            <button onclick="closePanels()" class="text-2xl leading-none hover:text-[#d93843] transition">&times;</button>
         </div>
-        <div class="flex flex-col gap-7 text-3xl font-black">
-            <a onclick="navigate('hero')" class="hover:text-[#e63946] transition cursor-pointer" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
-            <a onclick="navigate('store')" class="hover:text-[#e63946] transition cursor-pointer" data-ar="المتجر" data-en="Store">المتجر</a>
-            <a onclick="navigate('reviews')" class="hover:text-[#e63946] transition cursor-pointer" data-ar="الآراء" data-en="Reviews">الآراء</a>
-            <a onclick="openWA()" class="text-[#e63946] flex items-center gap-3 cursor-pointer pt-4 border-t" style="border-color: var(--border-subtle);">
+        <div class="flex flex-col gap-6 text-2xl font-black">
+            <a onclick="navigate('hero')" class="hover:text-[#d93843] transition cursor-pointer" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a onclick="navigate('store')" class="hover:text-[#d93843] transition cursor-pointer" data-ar="المتجر" data-en="Store">المتجر</a>
+            <a onclick="navigate('box-banner')" class="hover:text-[#d93843] transition cursor-pointer" data-ar="بوكس التوفير" data-en="Savings Box">بوكس التوفير</a>
+            <a onclick="navigate('reviews')" class="hover:text-[#d93843] transition cursor-pointer" data-ar="الآراء" data-en="Reviews">الآراء</a>
+            <a onclick="openWA()" class="text-[#d93843] flex items-center gap-3 cursor-pointer pt-4 border-t text-xl" style="border-color: var(--border-subtle);">
                 <span data-ar="تواصل معنا" data-en="Contact">تواصل معنا</span>
-                <i class="fab fa-whatsapp text-2xl"></i>
+                <i class="fab fa-whatsapp"></i>
             </a>
         </div>
     </div>
-    <div style="color: var(--text-muted);" class="text-xs font-bold">
-        RAPID BH PRO &copy; 2026
-    </div>
+    <div style="color: var(--text-muted);" class="text-xs font-bold">RAPID BH PRO &copy; 2026</div>
 </aside>
 
 <!-- Cart Panel -->
 <aside id="cart-panel" class="side-panel flex flex-col">
-    <div class="p-7 border-b flex justify-between items-center" style="border-color: var(--border-subtle);">
-        <h2 class="text-2xl font-black" data-ar="سلة التسوق" data-en="Shopping Cart">سلة التسوق</h2>
-        <button onclick="closePanels()" class="text-3xl leading-none hover:text-[#e63946] transition">&times;</button>
+    <div class="p-6 border-b flex justify-between items-center" style="border-color: var(--border-subtle);">
+        <h2 class="text-xl font-black" data-ar="سلة التسوق" data-en="Shopping Cart">سلة التسوق</h2>
+        <button onclick="closePanels()" class="text-2xl leading-none hover:text-[#d93843] transition">&times;</button>
     </div>
-    <div id="cart-content" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
-    <div class="p-7 border-t" style="background: var(--bg-elevated); border-color: var(--border-subtle);">
-        <div class="flex justify-between items-center text-xl font-black mb-5">
+    <div id="cart-content" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+    <div class="p-6 border-t" style="background: var(--bg-elevated); border-color: var(--border-subtle);">
+        <div class="flex justify-between items-center text-lg font-black mb-4">
             <span data-ar="المجموع:" data-en="Total:">المجموع:</span>
-            <span id="cart-total" class="text-[#c5a028] text-2xl">0 AED</span>
+            <span id="cart-total" class="text-[#bfa036] text-xl">0 AED</span>
         </div>
-        <button onclick="showCheckout()" class="w-full btn-premium py-4 rounded-2xl text-lg" data-ar="إتمام الطلب" data-en="Checkout Now">إتمام الطلب</button>
+        <button onclick="showCheckout()" class="w-full btn-action py-3.5 rounded-xl text-base" data-ar="إتمام الطلب" data-en="Checkout Now">إتمام الطلب</button>
     </div>
 </aside>
 
 <!-- Hero Section -->
 <section id="hero" class="hero-section">
     <div class="hero-bg"></div>
-    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <span class="inline-block text-[#c5a028] font-extrabold tracking-[6px] uppercase mb-5 text-xs md:text-sm bg-black/40 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/10">
+    <div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
+        <span class="inline-block text-[#bfa036] font-extrabold tracking-[4px] uppercase mb-4 text-xs bg-black/50 px-3.5 py-1 rounded-full border border-white/10">
             Premium Quality
         </span>
-        <h1 class="text-6xl sm:text-7xl md:text-9xl font-black font-['Montserrat'] text-white leading-none mb-8 tracking-tight drop-shadow-2xl">
-            RAPID <span class="text-[#e63946]">BH</span>
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-black font-['Montserrat'] text-white leading-tight mb-4 tracking-tight">
+            RAPID <span class="text-[#d93843]">BH</span> PRO
         </h1>
-        <button onclick="navigate('store')" class="btn-premium px-10 py-4 md:px-12 md:py-5 rounded-full text-lg md:text-xl" data-ar="اكتشف المجموعة" data-en="Explore Collection">
-            اكتشف المجموعة
-        </button>
+        <p class="text-gray-200 text-base md:text-lg max-w-xl mx-auto mb-8 font-medium" data-ar="معطرات منزلية فاخرة ومنظفات عالية التركيز لنتائج فورية تدوم طويلاً" data-en="Luxury home fragrances and high-concentration cleaners for instant, lasting results">
+            معطرات منزلية فاخرة ومنظفات عالية التركيز لنتائج فورية تدوم طويلاً
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+            <button onclick="navigate('store')" class="btn-action px-8 py-3.5 rounded-xl text-base" data-ar="تصفح المنتجات" data-en="Browse Products">
+                تصفح المنتجات
+            </button>
+            <button onclick="openBoxWizard()" class="bg-white/10 hover:bg-white/15 text-white border border-white/20 px-7 py-3.5 rounded-xl text-base font-bold transition" data-ar="صمم بوكس التوفير" data-en="Build Savings Box">
+                صمم بوكس التوفير
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Trust Strip -->
+<section class="border-y py-5 px-5" style="background: var(--bg-surface); border-color: var(--border-subtle);">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-xs md:text-sm font-bold" style="color: var(--text-muted);">
+        <div class="flex items-center justify-center gap-2.5">
+            <i class="fas fa-truck text-[#bfa036]"></i>
+            <span data-ar="توصيل سريع لجميع إمارات الدولة" data-en="Fast delivery across all UAE Emirates">توصيل سريع لجميع إمارات الدولة</span>
+        </div>
+        <div class="flex items-center justify-center gap-2.5">
+            <i class="fas fa-hand-holding-usd text-[#bfa036]"></i>
+            <span data-ar="الدفع نقداً عند الاستلام" data-en="Cash on delivery available">الدفع نقداً عند الاستلام</span>
+        </div>
+        <div class="flex items-center justify-center gap-2.5">
+            <i class="fas fa-sparkles text-[#bfa036]"></i>
+            <span data-ar="تركيبات مركزة وثبات عالي" data-en="Concentrated formulas & high longevity">تركيبات مركزة وثبات عالي</span>
+        </div>
     </div>
 </section>
 
 <!-- Store Section -->
-<section id="store" class="py-24 px-5 md:px-8 relative">
-    <div class="max-w-7xl mx-auto">
-        <header class="text-center mb-14">
-            <h2 class="text-4xl md:text-6xl font-black mb-4" data-ar="المتجر" data-en="Our Store">المتجر</h2>
-            <div class="w-20 h-1.5 bg-[#e63946] mx-auto rounded-full mb-8"></div>
-            
-            <div class="inline-flex p-1.5 rounded-2xl border" style="background: var(--bg-surface); border-color: var(--border-subtle);">
-                <button id="btn-grid-1" onclick="switchGrid(1)" class="w-11 h-10 rounded-xl transition flex items-center justify-center bg-[#e63946] text-white" aria-label="Single Column">
-                    <i class="fas fa-square"></i>
-                </button>
-                <button id="btn-grid-2" onclick="switchGrid(2)" class="w-11 h-10 rounded-xl transition flex items-center justify-center opacity-60 hover:opacity-100" aria-label="Two Columns">
-                    <i class="fas fa-th-large"></i>
-                </button>
+<section id="store" class="py-16 md:py-20 px-4 md:px-8">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-black mb-2" data-ar="المتجر" data-en="Our Store">المتجر</h2>
+                <p style="color: var(--text-muted);" class="text-sm" data-ar="اختر من تشكيلتنا المختارة بعناية" data-en="Choose from our carefully selected range">اختر من تشكيلتنا المختارة بعناية</p>
             </div>
-        </header>
 
-        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-9"></div>
+            <!-- Filter Tabs & Grid Switcher -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex gap-1.5 p-1 rounded-xl border" style="background: var(--bg-surface); border-color: var(--border-subtle);">
+                    <button onclick="filterCategory('all')" id="cat-all" class="cat-btn px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-[#d93843] text-white transition" data-ar="الكل" data-en="All">الكل</button>
+                    <button onclick="filterCategory('freshener')" id="cat-freshener" class="cat-btn px-3.5 py-1.5 rounded-lg text-xs font-extrabold opacity-70 hover:opacity-100 transition" data-ar="المعطرات" data-en="Fresheners">المعطرات</button>
+                    <button onclick="filterCategory('cleaner')" id="cat-cleaner" class="cat-btn px-3.5 py-1.5 rounded-lg text-xs font-extrabold opacity-70 hover:opacity-100 transition" data-ar="المنظفات" data-en="Cleaners">المنظفات</button>
+                </div>
+
+                <div class="inline-flex p-1 rounded-xl border" style="background: var(--bg-surface); border-color: var(--border-subtle);">
+                    <button id="btn-grid-1" onclick="switchGrid(1)" class="w-9 h-8 rounded-lg transition flex items-center justify-center bg-[#d93843] text-white text-xs" aria-label="Single Column">
+                        <i class="fas fa-square"></i>
+                    </button>
+                    <button id="btn-grid-2" onclick="switchGrid(2)" class="w-9 h-8 rounded-lg transition flex items-center justify-center opacity-60 hover:opacity-100 text-xs" aria-label="Two Columns">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7"></div>
+
+        <!-- Featured Savings Box Banner -->
+        <div id="box-banner" class="mt-14 rounded-3xl p-7 md:p-10 border flex flex-col md:flex-row items-center justify-between gap-6" style="background: var(--bg-surface); border-color: rgba(191, 160, 54, 0.3);">
+            <div class="flex items-center gap-5 text-center md:text-start flex-col md:flex-row">
+                <div class="w-16 h-16 rounded-2xl bg-[#bfa036]/15 border border-[#bfa036]/30 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-box-open text-3xl text-[#bfa036]"></i>
+                </div>
+                <div>
+                    <span class="inline-block text-[11px] font-black uppercase tracking-wider text-[#bfa036] mb-1" data-ar="عرض التوفير" data-en="Value Bundle">عرض التوفير</span>
+                    <h3 class="text-2xl md:text-3xl font-black mb-1" data-ar="بوكس التوفير (12 عبوة)" data-en="Mega Savings (12 Pack)">بوكس التوفير (12 عبوة)</h3>
+                    <p style="color: var(--text-muted);" class="text-sm" data-ar="صمم بوكسك الخاص من أي معطرات أو منظفات ووفر 30 درهم — بـ 150 درهم فقط بدلاً من 180 درهم" data-en="Custom build your pack from any fresheners or cleaners & save 30 AED — Only 150 AED">
+                        صمم بوكسك الخاص من أي معطرات أو منظفات ووفر 30 درهم — بـ 150 درهم فقط بدلاً من 180 درهم
+                    </p>
+                </div>
+            </div>
+            <button onclick="openBoxWizard()" class="btn-action px-7 py-4 rounded-xl text-sm whitespace-nowrap flex items-center gap-2.5 flex-shrink-0">
+                <i class="fas fa-sliders-h"></i>
+                <span data-ar="تخصيص البوكس الآن" data-en="Customize Box Now">تخصيص البوكس الآن</span>
+            </button>
+        </div>
     </div>
 </section>
 
 <!-- Reviews Section -->
-<section id="reviews" class="py-24 px-5 md:px-8 border-t" style="border-color: var(--border-subtle);">
+<section id="reviews" class="py-16 md:py-20 px-4 md:px-8 border-t" style="border-color: var(--border-subtle);">
     <div class="max-w-3xl mx-auto">
-        <h3 class="text-3xl md:text-5xl font-black mb-12 text-center" data-ar="ماذا يقول زبائننا" data-en="Customer Voices">ماذا يقول زبائننا</h3>
+        <div class="text-center mb-10">
+            <h3 class="text-2xl md:text-4xl font-black mb-2" data-ar="ماذا يقول زبائننا" data-en="Customer Voices">ماذا يقول زبائننا</h3>
+            <p style="color: var(--text-muted);" class="text-sm" data-ar="آراء حقيقية من عملائنا في الإمارات" data-en="Real feedback from our customers in the UAE">آراء حقيقية من عملائنا في الإمارات</p>
+        </div>
         
-        <div class="p-6 md:p-9 rounded-3xl border" style="background: var(--bg-surface); border-color: var(--border-subtle); box-shadow: var(--shadow-card);">
-            <div class="flex justify-between items-center mb-6 pb-4 border-b" style="border-color: var(--border-subtle);">
-                <span class="font-bold text-sm" style="color: var(--text-muted);" data-ar="التعليقات" data-en="Comments">التعليقات</span>
-                <span class="text-[#e63946] font-bold text-xs flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-[#e63946] live-dot"></span>
+        <div class="p-5 md:p-8 rounded-2xl border" style="background: var(--bg-surface); border-color: var(--border-subtle);">
+            <div class="flex justify-between items-center mb-5 pb-3 border-b" style="border-color: var(--border-subtle);">
+                <span class="font-bold text-xs" style="color: var(--text-muted);" data-ar="التعليقات" data-en="Comments">التعليقات</span>
+                <span class="text-emerald-500 font-bold text-xs flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     <span data-ar="مباشر" data-en="Live">مباشر</span>
                 </span>
             </div>
 
-            <div class="flex gap-3.5 mb-8 p-4 rounded-2xl" style="background: var(--bg-elevated);">
-                <div class="w-10 h-10 rounded-full bg-[#e63946]/15 text-[#e63946] flex items-center justify-center font-black text-base flex-shrink-0">
+            <div class="flex gap-3 mb-7 p-4 rounded-xl" style="background: var(--bg-elevated);">
+                <div class="w-9 h-9 rounded-full bg-[#d93843]/15 text-[#d93843] flex items-center justify-center font-black text-sm flex-shrink-0">
                     <i class="fas fa-user"></i>
                 </div>
-                <div class="flex-1 space-y-3">
-                    <input type="text" id="reviewer-name" placeholder="اسمك الكريم" data-ar-placeholder="اسمك الكريم" data-en-placeholder="Your Name" class="clean-input w-full px-4 py-3 rounded-xl text-sm">
-                    <textarea id="reviewer-text" placeholder="اكتب رأيك بصراحة..." data-ar-placeholder="اكتب رأيك بصراحة..." data-en-placeholder="Write your review..." rows="2" class="clean-input w-full px-4 py-3 rounded-xl text-sm resize-none"></textarea>
+                <div class="flex-1 space-y-2.5">
+                    <input type="text" id="reviewer-name" maxlength="40" placeholder="اسمك الكريم" data-ar-placeholder="اسمك الكريم" data-en-placeholder="Your Name" class="clean-input w-full px-3.5 py-2.5 rounded-lg text-sm">
+                    <textarea id="reviewer-text" maxlength="300" placeholder="اكتب رأيك بصراحة..." data-ar-placeholder="اكتب رأيك بصراحة..." data-en-placeholder="Write your review..." rows="2" class="clean-input w-full px-3.5 py-2.5 rounded-lg text-sm resize-none"></textarea>
                     <div class="flex justify-end">
-                        <button onclick="postComment()" class="btn-premium px-7 py-2.5 rounded-xl text-sm" data-ar="نشر" data-en="Post">نشر</button>
+                        <button onclick="postComment()" class="btn-action px-6 py-2 rounded-lg text-xs" data-ar="نشر" data-en="Post">نشر</button>
                     </div>
                 </div>
             </div>
 
-            <div id="fb-comment-list" class="space-y-5"></div>
+            <div id="fb-comment-list" class="space-y-4"></div>
 
-            <div id="show-more-container" class="mt-8 text-center hidden">
-                <button onclick="showMoreComments()" style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="border px-8 py-3 rounded-full text-sm font-bold hover:border-[#e63946] transition">
+            <div id="show-more-container" class="mt-6 text-center hidden">
+                <button onclick="showMoreComments()" style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="border px-6 py-2.5 rounded-xl text-xs font-bold hover:border-[#d93843] transition">
                     <span data-ar="إظهار المزيد" data-en="Show More">إظهار المزيد</span>
                 </button>
             </div>
@@ -426,45 +459,62 @@
 </section>
 
 <!-- Footer -->
-<footer class="py-16 px-6 text-center border-t" style="background: var(--bg-surface); border-color: var(--border-subtle);">
-    <div class="text-2xl font-black font-['Montserrat'] mb-6">RAPID BH <span class="text-[#e63946]">PRO</span></div>
+<footer class="py-12 px-5 text-center border-t" style="background: var(--bg-surface); border-color: var(--border-subtle);">
+    <div class="text-xl font-black font-['Montserrat'] mb-4">RAPID BH <span class="text-[#d93843]">PRO</span></div>
     
-    <div class="flex flex-wrap justify-center gap-6 mb-8 text-sm font-bold" style="color: var(--text-muted);">
-        <a href="tel:+971508851549" class="flex items-center gap-2 hover:text-[#e63946] transition">
-            <i class="fas fa-phone-alt text-[#e63946]"></i>
+    <div class="flex flex-wrap justify-center gap-5 mb-6 text-xs md:text-sm font-bold" style="color: var(--text-muted);">
+        <a href="tel:+971508851549" class="flex items-center gap-2 hover:text-[#d93843] transition">
+            <i class="fas fa-phone-alt text-[#d93843]"></i>
             <span dir="ltr">+971 50 885 1549</span>
         </a>
-        <a href="mailto:info@rapidbhpro.com" class="flex items-center gap-2 hover:text-[#e63946] transition">
-            <i class="fas fa-envelope text-[#e63946]"></i>
+        <a href="mailto:info@rapidbhpro.com" class="flex items-center gap-2 hover:text-[#d93843] transition">
+            <i class="fas fa-envelope text-[#d93843]"></i>
             <span>info@rapidbhpro.com</span>
         </a>
     </div>
 
-    <p style="color: var(--text-muted);" class="text-xs font-bold tracking-wider opacity-75">
+    <p style="color: var(--text-muted);" class="text-[11px] font-bold opacity-70">
         © 2026 - ALL RIGHTS RESERVED | ABU DHABI +تم انشاء الموقع كاملاً بواسطه 971505590203, UAE
     </p>
 </footer>
 
+<!-- Mobile Floating Cart Bar -->
+<div id="mobile-cart-bar" class="fixed bottom-0 inset-x-0 z-[3500] p-3 border-t md:hidden hidden" style="background: var(--glass); backdrop-filter: blur(16px); border-color: var(--border-subtle);">
+    <button onclick="openCart()" class="w-full btn-action py-3 px-5 rounded-xl flex items-center justify-between text-sm">
+        <span class="flex items-center gap-2">
+            <i class="fas fa-shopping-bag"></i>
+            <span id="mobile-bar-count">0</span>
+            <span data-ar="منتجات في السلة" data-en="items in cart">منتجات في السلة</span>
+        </span>
+        <span id="mobile-bar-total" class="font-black">0 AED</span>
+    </button>
+</div>
+
 <!-- Checkout Modal -->
-<div id="checkout-modal" class="fixed inset-0 z-[20000] bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
-    <div style="background: var(--bg-surface); border-color: var(--border-subtle);" class="w-full max-w-lg rounded-3xl p-7 md:p-9 border relative shadow-2xl fade-in">
-        <button onclick="closeCheckout()" class="absolute top-6 left-6 text-3xl leading-none hover:text-[#e63946] transition">&times;</button>
-        <h2 class="text-2xl md:text-3xl font-black mb-6 text-[#e63946]" data-ar="تأكيد الطلب" data-en="Confirm Order">تأكيد الطلب</h2>
+<div id="checkout-modal" class="fixed inset-0 z-[20000] bg-black/75 hidden items-center justify-center p-4">
+    <div style="background: var(--bg-surface); border-color: var(--border-subtle);" class="w-full max-w-md rounded-3xl p-6 md:p-8 border relative fade-in max-h-[92vh] overflow-y-auto">
+        <button onclick="closeCheckout()" class="absolute top-5 left-5 text-2xl leading-none hover:text-[#d93843] transition">&times;</button>
+        <h2 class="text-xl md:text-2xl font-black mb-5 text-[#d93843]" data-ar="تأكيد الطلب" data-en="Confirm Order">تأكيد الطلب</h2>
         
-        <form onsubmit="handleFinalSubmit(event)" class="space-y-4">
-            <input type="text" id="c-name" placeholder="الاسم الكامل" data-ar-placeholder="الاسم الكامل" data-en-placeholder="Full Name" class="clean-input w-full p-4 rounded-2xl text-sm" required>
-            <input type="tel" id="c-phone" placeholder="رقم الهاتف" data-ar-placeholder="رقم الهاتف" data-en-placeholder="Phone Number" class="clean-input w-full p-4 rounded-2xl text-sm" required>
-            <select id="c-city" class="clean-input w-full p-4 rounded-2xl text-sm font-bold">
-                <option value="أبوظبي / Abu Dhabi" data-ar="أبوظبي" data-en="Abu Dhabi">أبوظبي</option>
-                <option value="دبي / Dubai" data-ar="دبي" data-en="Dubai">دبي</option>
-                <option value="الشارقة / Sharjah" data-ar="الشارقة" data-en="Sharjah">الشارقة</option>
+        <form onsubmit="handleFinalSubmit(event)" class="space-y-3.5">
+            <input type="text" id="c-name" placeholder="الاسم الكامل" data-ar-placeholder="الاسم الكامل" data-en-placeholder="Full Name" class="clean-input w-full p-3.5 rounded-xl text-sm" required>
+            <input type="tel" id="c-phone" placeholder="رقم الهاتف (05xxxxxxxx)" data-ar-placeholder="رقم الهاتف (05xxxxxxxx)" data-en-placeholder="Phone Number" class="clean-input w-full p-3.5 rounded-xl text-sm" required>
+            <select id="c-city" class="clean-input w-full p-3.5 rounded-xl text-sm font-bold">
+                <option value="أبوظبي / Abu Dhabi">أبوظبي - Abu Dhabi</option>
+                <option value="دبي / Dubai">دبي - Dubai</option>
+                <option value="الشارقة / Sharjah">الشارقة - Sharjah</option>
+                <option value="عجمان / Ajman">عجمان - Ajman</option>
+                <option value="رأس الخيمة / Ras Al Khaimah">رأس الخيمة - Ras Al Khaimah</option>
+                <option value="الفجيرة / Fujairah">الفجيرة - Fujairah</option>
+                <option value="أم القيوين / Umm Al Quwain">أم القيوين - Umm Al Quwain</option>
             </select>
+            <input type="text" id="c-address" placeholder="المنطقة / العنوان (اختياري)" data-ar-placeholder="المنطقة / العنوان (اختياري)" data-en-placeholder="Area / Address (Optional)" class="clean-input w-full p-3.5 rounded-xl text-sm">
             
-            <div id="summary-final" style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="p-4 rounded-2xl border space-y-2 text-xs"></div>
+            <div id="summary-final" style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="p-3.5 rounded-xl border space-y-1.5 text-xs"></div>
             
-            <button type="submit" class="w-full btn-premium py-4 rounded-2xl font-black text-lg flex items-center justify-center gap-2">
-                <i class="fab fa-whatsapp text-xl"></i>
-                <span data-ar="إرسال للواتساب" data-en="Send to WhatsApp">إرسال للواتساب</span>
+            <button type="submit" class="w-full btn-action py-3.5 rounded-xl font-black text-base flex items-center justify-center gap-2">
+                <i class="fab fa-whatsapp text-lg"></i>
+                <span data-ar="إرسال الطلب للواتساب" data-en="Send Order to WhatsApp">إرسال الطلب للواتساب</span>
             </button>
         </form>
     </div>
@@ -476,27 +526,27 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const PRODUCTS = [
-        { id: 1, name: "معطر عود ملكي", nameEn: "Royal Oud", price: 15, img: "https://i.ibb.co/RpDbgyxG/IMG-8091.jpg", info: "معطر جنات من Rapid BH Pro هو الخيار الأمثل لمنزل ينبض بالحياة والانتعاش. بتركيبته الفريدة، يضمن لك رائحة زكية تدوم لساعات طويلة.", infoEn: "Jannat Air Freshener by Rapid BH Pro is the perfect choice for a vibrant and refreshing home. With its unique formula, it guarantees a delightful scent that lasts for hours." },
-        { id: 2, name: "معطر برائحة العطور العربية", nameEn: "Jannat Al Fawwah Air Freshener", price: 15, img: "https://i.ibb.co/Z6mHdqLT/jannat-al-fawah-marketing-2.png", info: "معطر جنات الفواح يقدم تجربة عطرية استثنائية من Rapid BH Pro. مصمم خصيصاً ليمنحك رائحة قوية ومنعشة تنتشر بسرعة وتدوم طويلاً.", infoEn: "Jannat Al Fawwah Air Freshener offers an exceptional aromatic experience from Rapid BH Pro. Specially designed to provide a strong and refreshing scent that quickly spreads and lasts for a long time." },
-        { id: 3, name: "معطر زهور بيضاء", nameEn: "White Flowers", price: 15, img: "https://i.ibb.co/kgkwB3Zs/marketing-perfume.png", info: "انتعاش الزهور الطبيعية مناسب للارضيات والستائر.", infoEn: "Pure and calm floral essence." },
-        { id: 4, name: "معطر فواكه إستوائيه", nameEn: "Fresh Fruits", price: 15, img: "https://i.ibb.co/4RCssDs7/marketing-perfume-strong.png", info: "مزيج فواكه صيفيه منعشة رائحة قويه مناسبه للارضيات.", infoEn: "Dynamic summer fruit blend." },
-        { id: 5, name: "مزيل البقع الصعبة", nameEn: "Rapid Stain Remover", price: 15, 
+        { id: 1, category: 'freshener', name: "معطر عود ملكي", nameEn: "Royal Oud", price: 15, img: "https://i.ibb.co/RpDbgyxG/IMG-8091.jpg", info: "معطر جنات من Rapid BH Pro هو الخيار الأمثل لمنزل ينبض بالحياة والانتعاش. بتركيبته الفريدة، يضمن لك رائحة زكية تدوم لساعات طويلة.", infoEn: "Jannat Air Freshener by Rapid BH Pro is the perfect choice for a vibrant and refreshing home. With its unique formula, it guarantees a delightful scent that lasts for hours." },
+        { id: 2, category: 'freshener', name: "معطر برائحة العطور العربية", nameEn: "Jannat Al Fawwah Air Freshener", price: 15, img: "https://i.ibb.co/Z6mHdqLT/jannat-al-fawah-marketing-2.png", info: "معطر جنات الفواح يقدم تجربة عطرية استثنائية من Rapid BH Pro. مصمم خصيصاً ليمنحك رائحة قوية ومنعشة تنتشر بسرعة وتدوم طويلاً.", infoEn: "Jannat Al Fawwah Air Freshener offers an exceptional aromatic experience from Rapid BH Pro. Specially designed to provide a strong and refreshing scent that quickly spreads and lasts for a long time." },
+        { id: 3, category: 'freshener', name: "معطر زهور بيضاء", nameEn: "White Flowers", price: 15, img: "https://i.ibb.co/kgkwB3Zs/marketing-perfume.png", info: "انتعاش الزهور الطبيعية مناسب للارضيات والستائر.", infoEn: "Pure and calm floral essence." },
+        { id: 4, category: 'freshener', name: "معطر فواكه إستوائيه", nameEn: "Fresh Fruits", price: 15, img: "https://i.ibb.co/4RCssDs7/marketing-perfume-strong.png", info: "مزيج فواكه صيفيه منعشة رائحة قويه مناسبه للارضيات.", infoEn: "Dynamic summer fruit blend." },
+        { id: 5, category: 'cleaner', name: "مزيل البقع الصعبة", nameEn: "Rapid Stain Remover", price: 15, 
           images: [
             "https://i.ibb.co/3mcb1trt/IMG-7284.jpg",
             "https://i.ibb.co/Z63wqhgf/fabric-before-after-bh-pro-99.png"
           ], 
           info: "مزيل بقع رابيد من Rapid BH Pro هو بطل التنظيف الذي تحتاجه لمواجهة أصعب البقع. فعال على الأقمشة والأسطح المختلفة.", infoEn: "Rapid Stain Remover from Rapid BH Pro is the cleaning hero you need to tackle the toughest stains. Effective on various fabrics and surfaces." },
-        { id: 6, name: "مزيل الشحوم والزيوت المحروقة", nameEn: "Rapid Grease Remover", price: 15, 
+        { id: 6, category: 'cleaner', name: "مزيل الشحوم والزيوت المحروقة", nameEn: "Rapid Grease Remover", price: 15, 
           images: [
             "https://i.ibb.co/BV2GT9b5/marketing-bh-pro.png",
             "https://i.ibb.co/tMSwz7yn/before-after-bh-pro.png"
           ], 
-          info: "مزيل شحوم رابيد من Rapid BH Pro هو الحل الأمثل لجميع مشاكل الشحوم العنيدة في مطبخك. قوة مضاعفة لإزالة الشحوم والدهون.", infoEn: "Rapid Grease Remover from Rapid BH Pro is the ultimate solution for all stubborn grease problems in your kitchen. Industrial power grease dissolver." },
-        { id: 7, name: "بوكس التوفير (12 عبوة)", nameEn: "Mega Savings (12 Pack)", price: 150, isBox: true, info: "صمم بوكسك الخاص ووفر 30 درهم.", infoEn: "Custom build your pack & save 30 AED." }
+          info: "مزيل شحوم رابيد من Rapid BH Pro هو الحل الأمثل لجميع مشاكل الشحوم العنيدة في مطبخك. قوة مضاعفة لإزالة الشحوم والدهون.", infoEn: "Rapid Grease Remover from Rapid BH Pro is the ultimate solution for all stubborn grease problems in your kitchen. Industrial power grease dissolver." }
     ];
 
     let state = {
         lang: 'ar',
+        category: 'all',
         cart: JSON.parse(localStorage.getItem('rapid_pro_cart')) || [],
         boxSelection: {},
         comments: [],
@@ -521,6 +571,20 @@
         setupNavScroll();
     }
 
+    function filterCategory(cat) {
+        state.category = cat;
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.classList.remove('bg-[#d93843]', 'text-white');
+            btn.classList.add('opacity-70');
+        });
+        const activeBtn = document.getElementById(`cat-${cat}`);
+        if (activeBtn) {
+            activeBtn.classList.add('bg-[#d93843]', 'text-white');
+            activeBtn.classList.remove('opacity-70');
+        }
+        renderProducts();
+    }
+
     function switchGrid(num) {
         state.gridView = num;
         const grid = document.getElementById('products-grid');
@@ -530,16 +594,16 @@
         if (num === 2) {
             grid.classList.remove('grid-cols-1');
             grid.classList.add('grid-cols-2', 'grid-2');
-            btn2.classList.add('bg-[#e63946]', 'text-white');
+            btn2.classList.add('bg-[#d93843]', 'text-white');
             btn2.classList.remove('opacity-60');
-            btn1.classList.remove('bg-[#e63946]', 'text-white');
+            btn1.classList.remove('bg-[#d93843]', 'text-white');
             btn1.classList.add('opacity-60');
         } else {
             grid.classList.remove('grid-cols-2', 'grid-2');
             grid.classList.add('grid-cols-1');
-            btn1.classList.add('bg-[#e63946]', 'text-white');
+            btn1.classList.add('bg-[#d93843]', 'text-white');
             btn1.classList.remove('opacity-60');
-            btn2.classList.remove('bg-[#e63946]', 'text-white');
+            btn2.classList.remove('bg-[#d93843]', 'text-white');
             btn2.classList.add('opacity-60');
         }
     }
@@ -550,6 +614,11 @@
     }
 
     async function postComment() {
+        const lastPost = Number(localStorage.getItem('rapid_last_comment') || 0);
+        if (Date.now() - lastPost < 60000) {
+            toast(state.lang === 'ar' ? 'يرجى الانتظار دقيقة قبل إضافة تعليق آخر' : 'Please wait a minute before posting again');
+            return;
+        }
         const nameInput = document.getElementById('reviewer-name');
         const textInput = document.getElementById('reviewer-text');
         if (!nameInput.value.trim() || !textInput.value.trim()) {
@@ -558,6 +627,7 @@
         }
         const { error } = await supabaseClient.from('comments').insert([{ name: nameInput.value.trim(), text: textInput.value.trim() }]);
         if (!error) {
+            localStorage.setItem('rapid_last_comment', String(Date.now()));
             nameInput.value = '';
             textInput.value = '';
             fetchComments();
@@ -571,14 +641,18 @@
         list.innerHTML = sliced.map(c => {
             const safeName = escapeHTML(c.name);
             const safeText = escapeHTML(c.text);
+            const dateStr = c.created_at ? new Date(c.created_at).toLocaleDateString(state.lang === 'ar' ? 'ar-AE' : 'en-US', { month: 'short', day: 'numeric' }) : '';
             return `
-            <div class="flex gap-3.5 items-start fade-in">
-                <div class="w-10 h-10 rounded-full bg-[#e63946] flex items-center justify-center font-black text-base text-white flex-shrink-0 shadow">
+            <div class="flex gap-3 items-start fade-in">
+                <div class="w-9 h-9 rounded-full bg-[#d93843] flex items-center justify-center font-black text-sm text-white flex-shrink-0">
                     ${safeName.charAt(0).toUpperCase()}
                 </div>
                 <div class="flex-1 min-w-0">
-                    <div style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="px-4 py-3 rounded-2xl border inline-block max-w-full">
-                        <div class="font-extrabold text-xs text-[#e63946] mb-1">${safeName}</div>
+                    <div style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="px-4 py-2.5 rounded-2xl border inline-block max-w-full">
+                        <div class="flex items-center gap-2 mb-0.5">
+                            <span class="font-extrabold text-xs text-[#d93843]">${safeName}</span>
+                            ${dateStr ? `<span style="color: var(--text-muted);" class="text-[10px]">• ${dateStr}</span>` : ''}
+                        </div>
                         <div class="text-sm leading-relaxed break-words">${safeText}</div>
                     </div>
                 </div>
@@ -594,17 +668,13 @@
 
     function renderProducts() {
         const grid = document.getElementById('products-grid');
-        grid.innerHTML = PRODUCTS.map(p => {
+        const filtered = state.category === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === state.category);
+        
+        grid.innerHTML = filtered.map(p => {
+            const cartItem = state.cart.find(i => i.id === p.id && !i.isBox);
             let mediaHTML = '';
-            if (p.isBox) {
-                mediaHTML = `
-                <div class="image-box cursor-pointer" onclick="openBoxWizard()">
-                    <div class="h-full flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-black">
-                        <i class="fas fa-box-open text-6xl mb-3 text-[#c5a028]"></i>
-                        <span class="font-black tracking-widest text-sm text-[#c5a028]">12 PCS</span>
-                    </div>
-                </div>`;
-            } else if (p.images) {
+            
+            if (p.images) {
                 mediaHTML = `
                 <div class="image-box">
                     <div class="slider-container" id="slider-${p.id}" onmousedown="startDrag(event, ${p.id})" ontouchstart="startDrag(event, ${p.id})">
@@ -623,22 +693,31 @@
                 </div>`;
             }
 
+            const actionControl = cartItem ? `
+                <div style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="w-full py-2 px-3 rounded-xl border flex items-center justify-between">
+                    <button onclick="changeProductQty(${p.id}, -1)" class="w-8 h-8 rounded-lg bg-[#d93843] text-white font-black text-sm flex items-center justify-center">-</button>
+                    <span class="font-black text-sm">${cartItem.qty} <span class="text-xs font-normal opacity-75">${state.lang === 'ar' ? 'في السلة' : 'in cart'}</span></span>
+                    <button onclick="changeProductQty(${p.id}, 1)" class="w-8 h-8 rounded-lg bg-emerald-600 text-white font-black text-sm flex items-center justify-center">+</button>
+                </div>
+            ` : `
+                <button onclick="addToCart(${p.id})" class="w-full btn-action py-3 rounded-xl text-xs md:text-sm flex items-center justify-center gap-2">
+                    <i class="fas fa-cart-plus"></i>
+                    <span>${state.lang === 'ar' ? 'إضافة للسلة' : 'Add to Cart'}</span>
+                </button>
+            `;
+
             return `
             <div class="product-card fade-in">
                 ${mediaHTML}
-                <div class="price-badge absolute top-6 left-6 z-20 bg-black/75 text-[#c5a028] backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/10 font-black text-sm">
+                <div class="price-badge absolute top-5 left-5 z-20 bg-black/75 text-[#bfa036] px-3 py-1 rounded-lg border border-white/10 font-black text-xs">
                     ${p.price} AED
                 </div>
-                <div class="card-body p-6 md:p-7 flex-1 flex flex-col justify-between">
+                <div class="card-body p-5 md:p-6 flex-1 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-xl md:text-2xl font-black mb-2.5">${state.lang === 'ar' ? p.name : p.nameEn}</h3>
-                        <p style="color: var(--text-muted);" class="mb-6 text-xs md:text-sm leading-relaxed">${state.lang === 'ar' ? p.info : p.infoEn}</p>
+                        <h3 class="text-lg md:text-xl font-black mb-2">${state.lang === 'ar' ? p.name : p.nameEn}</h3>
+                        <p style="color: var(--text-muted);" class="mb-5 text-xs md:text-sm leading-relaxed">${state.lang === 'ar' ? p.info : p.infoEn}</p>
                     </div>
-                    <button onclick="${p.isBox ? 'openBoxWizard()' : `addToCart(${p.id})`}" class="w-full btn-premium py-3.5 rounded-2xl text-sm flex items-center justify-center gap-2.5">
-                        ${p.isBox 
-                            ? `<i class="fas fa-sliders-h"></i> <span>${state.lang === 'ar' ? 'تخصيص البوكس' : 'Customize Box'}</span>` 
-                            : `<i class="fas fa-cart-plus"></i> <span>${state.lang === 'ar' ? 'إضافة للسلة' : 'Add to Cart'}</span>`}
-                    </button>
+                    ${actionControl}
                 </div>
             </div>`;
         }).join('');
@@ -649,6 +728,7 @@
         Object.values(state.sliderTimers).forEach(clearInterval);
         state.sliderTimers = {};
         PRODUCTS.filter(p => p.images).forEach(p => {
+            if (!document.getElementById(`track-${p.id}`)) return;
             state.sliders[p.id] = { index: 0, count: p.images.length, startX: 0, isDragging: false };
             state.sliderTimers[p.id] = setInterval(() => moveSlider(p.id, 1), 4500);
         });
@@ -695,8 +775,8 @@
         if (state.cart.length === 0) {
             container.innerHTML = `
             <div style="color: var(--text-muted);" class="h-full flex flex-col items-center justify-center opacity-50">
-                <i class="fas fa-shopping-bag text-6xl mb-3"></i>
-                <p class="font-bold text-sm" data-ar="السلة فارغة" data-en="Your cart is empty">${state.lang === 'ar' ? 'السلة فارغة' : 'Your cart is empty'}</p>
+                <i class="fas fa-shopping-bag text-5xl mb-3"></i>
+                <p class="font-bold text-sm">${state.lang === 'ar' ? 'السلة فارغة' : 'Your cart is empty'}</p>
             </div>`;
             document.getElementById('cart-total').innerText = `0 AED`;
             return;
@@ -706,21 +786,21 @@
             total += (item.price * item.qty);
             const thumb = item.images ? item.images[0] : item.img;
             return `
-            <div style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="p-4 rounded-2xl border flex gap-4 items-center">
-                <div class="w-16 h-16 bg-zinc-900 rounded-xl overflow-hidden flex-shrink-0">
+            <div style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="p-3.5 rounded-xl border flex gap-3.5 items-center">
+                <div class="w-14 h-14 bg-zinc-900 rounded-lg overflow-hidden flex-shrink-0">
                     ${item.isBox 
-                        ? '<div class="h-full flex items-center justify-center"><i class="fas fa-box text-[#c5a028] text-xl"></i></div>' 
+                        ? '<div class="h-full flex items-center justify-center"><i class="fas fa-box text-[#bfa036] text-lg"></i></div>' 
                         : `<img src="${thumb}" class="w-full h-full object-cover">`}
                 </div>
                 <div class="flex-1 min-w-0">
-                    <h4 class="font-bold text-sm mb-2 truncate">${state.lang === 'ar' ? item.name : (item.nameEn || item.name)}</h4>
+                    <h4 class="font-bold text-xs md:text-sm mb-2 truncate">${state.lang === 'ar' ? item.name : (item.nameEn || item.name)}</h4>
                     <div class="flex justify-between items-center">
-                        <div style="background: var(--bg-surface);" class="flex items-center gap-3 px-2.5 py-1 rounded-lg border" style="border-color: var(--border-subtle);">
-                            <button onclick="updateQty(${index}, -1)" class="text-[#e63946] font-black text-sm px-1">-</button>
+                        <div style="background: var(--bg-surface); border-color: var(--border-subtle);" class="flex items-center gap-2.5 px-2 py-0.5 rounded-lg border">
+                            <button onclick="updateQty(${index}, -1)" class="text-[#d93843] font-black text-sm px-1">-</button>
                             <span class="font-black text-xs">${item.qty}</span>
                             <button onclick="updateQty(${index}, 1)" class="text-emerald-500 font-black text-sm px-1">+</button>
                         </div>
-                        <span class="text-[#c5a028] font-black text-sm">${item.price * item.qty} AED</span>
+                        <span class="text-[#bfa036] font-black text-xs md:text-sm">${item.price * item.qty} AED</span>
                     </div>
                 </div>
             </div>`;
@@ -755,6 +835,12 @@
         toast(state.lang === 'ar' ? 'تمت الإضافة للسلة' : 'Added to Cart');
     }
 
+    function changeProductQty(id, delta) {
+        const index = state.cart.findIndex(i => i.id === id && !i.isBox);
+        if (index === -1) return;
+        updateQty(index, delta);
+    }
+
     function updateQty(index, delta) {
         state.cart[index].qty += delta;
         if (state.cart[index].qty <= 0) state.cart.splice(index, 1);
@@ -763,7 +849,7 @@
 
     function openBoxWizard() {
         state.boxSelection = {};
-        PRODUCTS.slice(0, 6).forEach(p => state.boxSelection[p.name] = 0);
+        PRODUCTS.forEach(p => state.boxSelection[p.name] = 0);
         renderBoxOptions();
         const modal = document.getElementById('box-modal');
         modal.classList.remove('hidden');
@@ -774,13 +860,13 @@
         const list = document.getElementById('box-options-list');
         let total = Object.values(state.boxSelection).reduce((a, b) => a + b, 0);
         document.getElementById('box-counter').innerText = 12 - total;
-        list.innerHTML = PRODUCTS.slice(0, 6).map(p => `
-            <div style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="flex items-center justify-between p-4 rounded-2xl border">
-                <span class="font-bold text-sm">${state.lang === 'ar' ? p.name : p.nameEn}</span>
-                <div class="flex items-center gap-4">
-                    <button onclick="updateBoxItem('${p.name}', -1)" style="background: var(--bg-surface);" class="w-9 h-9 rounded-xl hover:bg-[#e63946] hover:text-white transition text-[#e63946] font-black">-</button>
-                    <span class="text-base font-black w-5 text-center">${state.boxSelection[p.name]}</span>
-                    <button onclick="updateBoxItem('${p.name}', 1)" style="background: var(--bg-surface);" class="w-9 h-9 rounded-xl hover:bg-emerald-600 hover:text-white transition text-emerald-500 font-black">+</button>
+        list.innerHTML = PRODUCTS.map(p => `
+            <div style="background: var(--bg-elevated); border-color: var(--border-subtle);" class="flex items-center justify-between p-3.5 rounded-xl border">
+                <span class="font-bold text-xs md:text-sm">${state.lang === 'ar' ? p.name : p.nameEn}</span>
+                <div class="flex items-center gap-3">
+                    <button onclick="updateBoxItem('${p.name}', -1)" style="background: var(--bg-surface);" class="w-8 h-8 rounded-lg hover:bg-[#d93843] hover:text-white transition text-[#d93843] font-black">-</button>
+                    <span class="text-sm font-black w-5 text-center">${state.boxSelection[p.name]}</span>
+                    <button onclick="updateBoxItem('${p.name}', 1)" style="background: var(--bg-surface);" class="w-8 h-8 rounded-lg hover:bg-emerald-600 hover:text-white transition text-emerald-500 font-black">+</button>
                 </div>
             </div>`).join('');
         const btn = document.getElementById('confirm-box-btn');
@@ -806,6 +892,12 @@
 
     function showCheckout() {
         if (state.cart.length === 0) return;
+        const savedCustomer = JSON.parse(localStorage.getItem('rapid_customer_info') || '{}');
+        if (savedCustomer.name) document.getElementById('c-name').value = savedCustomer.name;
+        if (savedCustomer.phone) document.getElementById('c-phone').value = savedCustomer.phone;
+        if (savedCustomer.city) document.getElementById('c-city').value = savedCustomer.city;
+        if (savedCustomer.address) document.getElementById('c-address').value = savedCustomer.address;
+
         const summaryEl = document.getElementById('summary-final');
         const total = state.cart.reduce((a, b) => a + (b.price * b.qty), 0);
         summaryEl.innerHTML = state.cart.map(i => `
@@ -814,7 +906,7 @@
                 <span class="font-bold">${i.price * i.qty} AED</span>
             </div>
         `).join('') + `
-            <div class="pt-2 mt-2 border-t flex justify-between font-black text-sm text-[#c5a028]" style="border-color: var(--border-subtle);">
+            <div class="pt-2 mt-2 border-t flex justify-between font-black text-sm text-[#bfa036]" style="border-color: var(--border-subtle);">
                 <span>${state.lang === 'ar' ? 'الإجمالي الكلي' : 'Grand Total'}</span>
                 <span>${total} AED</span>
             </div>`;
@@ -831,11 +923,20 @@
     
     function handleFinalSubmit(e) {
         e.preventDefault();
-        const total = state.cart.reduce((a, b) => a + (b.price * b.qty), 0);
+        const name = document.getElementById('c-name').value.trim();
+        const phone = document.getElementById('c-phone').value.trim();
         const city = document.getElementById('c-city').value;
-        let msg = `طلب جديد من المتجر:\nالاسم: ${document.getElementById('c-name').value}\nالهاتف: ${document.getElementById('c-phone').value}\nالإمارة: ${city}\n\n🛒 الطلبات:\n`;
+        const address = document.getElementById('c-address').value.trim();
+
+        localStorage.setItem('rapid_customer_info', JSON.stringify({ name, phone, city, address }));
+
+        const total = state.cart.reduce((a, b) => a + (b.price * b.qty), 0);
+        let msg = `طلب جديد من المتجر:\nالاسم: ${name}\nالهاتف: ${phone}\nالإمارة: ${city}\n`;
+        if (address) msg += `العنوان: ${address}\n`;
+        msg += `\n🛒 الطلبات:\n`;
         state.cart.forEach(i => msg += `• ${i.name} x${i.qty} = ${i.price * i.qty} AED\n`);
         msg += `\n💰 الإجمالي: ${total} AED`;
+        
         window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`, '_blank');
         state.cart = [];
         saveAndSync();
@@ -847,10 +948,22 @@
         localStorage.setItem('rapid_pro_cart', JSON.stringify(state.cart));
         updateUI();
         renderCart();
+        renderProducts();
     }
 
     function updateUI() {
-        document.getElementById('cart-dot').innerText = state.cart.reduce((a, b) => a + b.qty, 0);
+        const count = state.cart.reduce((a, b) => a + b.qty, 0);
+        const total = state.cart.reduce((a, b) => a + (b.price * b.qty), 0);
+        document.getElementById('cart-dot').innerText = count;
+
+        const mobileBar = document.getElementById('mobile-cart-bar');
+        if (count > 0) {
+            mobileBar.classList.remove('hidden');
+            document.getElementById('mobile-bar-count').innerText = count;
+            document.getElementById('mobile-bar-total').innerText = `${total} AED`;
+        } else {
+            mobileBar.classList.add('hidden');
+        }
     }
 
     function openSidebar() {
@@ -897,15 +1010,15 @@
         if (existing) existing.remove();
         const t = document.createElement('div');
         t.id = 'rapid-toast';
-        t.className = "fixed bottom-8 left-1/2 -translate-x-1/2 bg-[#e63946] text-white px-6 py-3 rounded-2xl font-bold text-sm z-[50000] shadow-2xl fade-in flex items-center gap-2";
-        t.innerHTML = `<i class="fas fa-check-circle"></i> <span>${txt}</span>`;
+        t.className = "fixed bottom-16 md:bottom-8 left-1/2 -translate-x-1/2 bg-zinc-900 text-white border border-white/15 px-5 py-2.5 rounded-xl font-bold text-xs z-[50000] shadow-xl fade-in flex items-center gap-2";
+        t.innerHTML = `<i class="fas fa-check-circle text-emerald-400"></i> <span>${txt}</span>`;
         document.body.appendChild(t);
-        setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 2300);
+        setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.25s'; setTimeout(() => t.remove(), 250); }, 2000);
     }
 
     function updateThemeIcon(isLight) {
         const icon = document.getElementById('theme-icon');
-        icon.className = isLight ? 'fas fa-sun text-amber-500' : 'fas fa-moon text-[#c5a028]';
+        icon.className = isLight ? 'fas fa-sun text-amber-500' : 'fas fa-moon text-[#bfa036]';
     }
 
     function toggleTheme() {
